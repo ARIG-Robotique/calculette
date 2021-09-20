@@ -1,11 +1,11 @@
 <template>
-    <md-switch v-model="value">{{label}}</md-switch>
+    <md-switch v-model="internalValue" @change="update">{{label}}</md-switch>
 </template>
 
 <script>
     export default {
-        name : 'InputCheckbox',
-        props: {
+        name   : 'InputCheckbox',
+        props  : {
             value: {
                 type: Boolean,
             },
@@ -14,9 +14,12 @@
                 required: true,
             },
         },
+        data   : () => ({
+            internalValue: false,
+        }),
         methods: {
             update() {
-                this.$emit('input', this.value);
+                this.$emit('input', this.internalValue);
             },
         }
     };

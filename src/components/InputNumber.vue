@@ -2,12 +2,12 @@
     <div style="display: flex; align-items: baseline">
         <md-field>
             <label>{{label}}</label>
-            <md-input type="number" min="0" v-model="value" @input="update"></md-input>
+            <md-input type="number" min="0" v-model="internalValue" @input="update"></md-input>
         </md-field>
-        <md-button class="md-icon-button md-raised" @click="minus" v-if="buttons">
+        <md-button v-if="buttons" class="md-icon-button md-raised" @click="minus" tabindex="-1">
             <md-icon>remove_circle</md-icon>
         </md-button>
-        <md-button class="md-icon-button md-raised" @click="plus" v-if="buttons">
+        <md-button v-if="buttons" class="md-icon-button md-raised" @click="plus" tabindex="-1">
             <md-icon>add_circle</md-icon>
         </md-button>
         <slot></slot>
@@ -30,19 +30,22 @@
                 default: true,
             }
         },
+        data   : () => ({
+            internalValue: 0,
+        }),
         methods: {
             plus() {
-                this.value++;
+                this.internalValue++;
                 this.update();
             },
             minus() {
-                if (this.value > 0) {
-                    this.value--;
+                if (this.internalValue > 0) {
+                    this.internalValue--;
                     this.update();
                 }
             },
             update() {
-                this.$emit('input', this.value);
+                this.$emit('input', +this.internalValue);
             },
         }
     };

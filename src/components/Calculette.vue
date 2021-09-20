@@ -21,7 +21,7 @@
         <md-divider></md-divider>
 
         <InputNumber label="Estimation de score" v-model="form.estimation" :buttons="false">
-            <md-button class="md-icon-button md-raised" @click="setEstimation">
+            <md-button class="md-icon-button md-raised" @click="setEstimation"  tabindex="-1">
                 <md-icon>input</md-icon>
             </md-button>
         </InputNumber>
