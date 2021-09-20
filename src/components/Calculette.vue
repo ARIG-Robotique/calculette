@@ -1,79 +1,47 @@
 <template>
     <form>
-        <div>
-            <label>Carrés de fouille</label>
-            <input type="number" min="0" v-model="form.carresFouille">
-        </div>
-        <div>
-            <label>Echantillons enlevés (distrib.)</label>
-            <input type="number" min="0" v-model="form.echantillonsPris">
-        </div>
-        <div>
-            <label>Echantillons au campement</label>
-            <input type="number" min="0" v-model="form.echantillonsCampement">
-        </div>
-        <div>
-            <label>Echantillons valides au campement</label>
-            <input type="number" min="0" v-model="form.echantillonsCampementValides">
-        </div>
-        <div>
-            <label>Echantillons dans la galerie</label>
-            <input type="number" min="0" v-model="form.echantillonsGalerie">
-        </div>
-        <div>
-            <label>Echantillons valides dans la galerie</label>
-            <input type="number" min="0" v-model="form.echantillonsGalerieValides">
-        </div>
-        <div>
-            <label>Echantillons dans l'abri</label>
-            <input type="number" min="0" v-model="form.echantillonsAbri">
-        </div>
-        <div>
-            <label>Tous les robots revenus</label>
-            <input type="checkbox" v-model="form.retourRobots">
-        </div>
-        <div>
-            <label>Statuette présente</label>
-            <input type="checkbox" v-model="form.statuettePresente">
-        </div>
-        <div>
-            <label>Statuette prise</label>
-            <input type="checkbox" v-model="form.statuettePrise">
-        </div>
-        <div>
-            <label>Statuette posée dans la vitrine</label>
-            <input type="checkbox" v-model="form.statuettePosee">
-        </div>
-        <div>
-            <label>Statuette posée</label>
-            <input type="checkbox" v-model="form.repliquePosee">
-        </div>
-        <div>
-            <label>Vitrine présente</label>
-            <input type="checkbox" v-model="form.vitrinePresente">
-        </div>
-        <div>
-            <label>Vitrine activée</label>
-            <input type="checkbox" v-model="form.vitrineActivee">
-        </div>
+        <InputNumber label="Carrés de fouille" v-model="form.carresFouille"></InputNumber>
+        <InputNumber label="Echantillons enlevés (distrib.)" v-model="form.echantillonsPris"></InputNumber>
+        <InputNumber label="Echantillons dans l'abri" v-model="form.echantillonsAbri"></InputNumber>
+        <InputNumber label="Echantillons au campement" v-model="form.echantillonsCampement"></InputNumber>
+        <InputNumber label="Echantillons valides au campement"
+                     v-model="form.echantillonsCampementValides"></InputNumber>
+        <InputNumber label="Echantillons dans la galerie" v-model="form.echantillonsGalerie"></InputNumber>
+        <InputNumber label="Echantillons valides dans la galerie"
+                     v-model="form.echantillonsGalerieValides"></InputNumber>
+        <InputCheckbox label="Tous les robots revenus" v-model="form.retourRobots"></InputCheckbox>
+        <InputCheckbox label="Statuette présente" v-model="form.statuettePresente"></InputCheckbox>
+        <InputCheckbox label="Statuette prise" v-model="form.statuettePrise"></InputCheckbox>
+        <InputCheckbox label="Statuette posée dans la vitrine" v-model="form.statuettePosee"></InputCheckbox>
+        <InputCheckbox label="Réplique posée" v-model="form.repliquePosee"></InputCheckbox>
+        <InputCheckbox label="Vitrine activée" v-model="form.vitrineActivee"></InputCheckbox>
 
-        <h5>sous-total : {{subtotal}}</h5>
-        <div>
-            <label>Estimation de score</label>
-            <input type="number" min="0" v-model="form.estimation">
-        </div>
-        <div>
-            <label>Points bonus</label>
-            <strong>1</strong>
-        </div>
-        <h5>total : {{total}}</h5>
+        <md-content class="md-primary">Total actions : {{subtotal}}</md-content>
+
+        <md-divider></md-divider>
+
+        <InputNumber label="Estimation de score" v-model="form.estimation" :buttons="false">
+            <md-button class="md-icon-button md-raised" @click="setEstimation">
+                <md-icon>input</md-icon>
+            </md-button>
+        </InputNumber>
+
+        <md-content>Points bonus : 1</md-content>
+        <md-content class="md-primary">Total : {{total}}</md-content>
     </form>
 </template>
 
 <script>
+    import InputNumber from './InputNumber.vue';
+    import InputCheckbox from './InputCheckbox.vue';
+
     export default {
-        name   : 'Calculette',
-        data   : () => ({
+        name      : 'Calculette',
+        components: {
+            InputNumber,
+            InputCheckbox,
+        },
+        data      : () => ({
             subtotal: 0,
             total   : 0,
             form    : {
@@ -92,17 +60,20 @@
                 vitrinePresente             : false,
                 vitrineActivee              : false,
                 estimation                  : 0,
-            }
+            },
         }),
-        watch  : {
+        watch     : {
             form: {
                 deep: true,
                 handler() {
                     this.compute();
-                }
-            }
+                },
+            },
         },
-        methods: {
+        mounted() {
+            this.compute();
+        },
+        methods   : {
             compute() {
                 this.subtotal = 0;
                 this.subtotal += this.form.carresFouille * 5 + (this.form.carresFouille > 0 ? 5 : 0);
@@ -123,9 +94,13 @@
                 this.total = this.subtotal;
                 this.total += Math.max(0, Math.round(0.3 * this.subtotal - Math.abs(this.form.estimation - this.subtotal)));
                 this.total += 1;
+            },
+            setEstimation() {
+                this.compute();
+                this.form.estimation = this.subtotal;
             }
-        }
-    }
+        },
+    };
 </script>
 
 <style scoped>

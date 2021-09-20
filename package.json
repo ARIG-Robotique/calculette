@@ -2,17 +2,15 @@
   "name": "calculette",
   "version": "1.0.0",
   "private": true,
-  "description": "",
-  "author": "",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "vue": "^2.6.11",
+    "vue-material": "^1.0.0-beta-15"
   },
   "devDependencies": {
     "@vue/cli": "^4.5.13",
@@ -20,10 +18,10 @@
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/cli-service-global": "^4.5.13",
-    "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,
@@ -31,7 +29,7 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/vue3-essential",
+      "plugin:vue/essential",
       "eslint:recommended"
     ],
     "parserOptions": {
@@ -44,5 +42,7 @@
     "last 2 versions",
     "not dead"
   ],
-  "license": "MIT"
+  "_id": "calculette@1.0.0",
+  "license": "MIT",
+  "readme": "ERROR: No README data found!"
 }

@@ -1,25 +1,29 @@
 <template>
-  <Calculette/>
+    <md-app id="app">
+        <md-app-toolbar>
+            <span class="md-title">Age of Bots</span>
+        </md-app-toolbar>
+        <md-app-content>
+            <Calculette/>
+        </md-app-content>
+    </md-app>
 </template>
 
 <script>
-import Calculette from './components/Calculette.vue'
+    import Calculette from './components/Calculette.vue';
 
-export default {
-  name: 'App',
-  components: {
-    Calculette
-  }
-}
+    export default {
+        name      : 'App',
+        components: {
+            Calculette,
+        },
+    };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    #app {
+        height: 100vh;
+        max-width: 800px;
+        margin: 0 auto;
+    }
 </style>
