@@ -9,11 +9,11 @@
             <md-input type="number" min="0" :max="max"
                       v-model="internalValue" @input="update" @change="check"></md-input>
         </md-field>
-        <md-button v-if="buttons" class="md-icon-button md-raised md-accent md-dense" @click="minus" tabindex="-1">
-            <md-icon>remove_circle</md-icon>
+        <md-button v-if="buttons" class="md-icon-button md-dense" @click="minus" tabindex="-1">
+            <md-icon class="md-accent">remove_circle</md-icon>
         </md-button>
-        <md-button v-if="buttons" class="md-icon-button md-raised md-accent md-dense" @click="plus" tabindex="-1">
-            <md-icon>add_circle</md-icon>
+        <md-button v-if="buttons" class="md-icon-button md-dense" @click="plus" tabindex="-1">
+            <md-icon class="md-accent">add_circle</md-icon>
         </md-button>
 
         <slot></slot>

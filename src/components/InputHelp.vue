@@ -27,7 +27,7 @@
 <style scoped>
     .arig-input-help {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         margin-left: -12px;
     }
 
