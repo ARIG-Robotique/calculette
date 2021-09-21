@@ -1,24 +1,24 @@
 <template>
-    <div style="display: flex; align-items: baseline">
-        <md-button class="md-icon-button" v-if="$slots.help" @click="showHelp = true">
-            <md-icon>info</md-icon>
-        </md-button>
-        <md-switch v-model="internalValue" @change="update">{{label}}</md-switch>
-        <slot></slot>
+    <InputHelp>
+        <template v-slot:help v-if="$slots.help">
+            <slot name="help"></slot>
+        </template>
 
-        <md-snackbar md-position="center" :md-duration="Infinity" :md-active.sync="showHelp" md-persistent>
-            <span><slot name="help"></slot></span>
-            <md-button class="md-icon-button md-primary" @click="showHelp = false">
-                <md-icon>cancel</md-icon>
-            </md-button>
-        </md-snackbar>
-    </div>
+        <md-switch v-model="internalValue" @change="update">{{label}}</md-switch>
+
+        <slot></slot>
+    </InputHelp>
 </template>
 
 <script>
+    import InputHelp from './InputHelp';
+
     export default {
-        name   : 'InputCheckbox',
-        props  : {
+        name      : 'InputCheckbox',
+        components: {
+            InputHelp,
+        },
+        props     : {
             value: {
                 type: Boolean,
             },
@@ -27,11 +27,10 @@
                 required: true,
             },
         },
-        data   : () => ({
+        data      : () => ({
             internalValue: false,
-            showHelp: false,
         }),
-        watch: {
+        watch     : {
             value(newValue) {
                 this.internalValue = newValue;
             },
@@ -39,7 +38,7 @@
         mounted() {
             this.internalValue = this.value;
         },
-        methods: {
+        methods   : {
             update() {
                 this.$emit('input', this.internalValue);
             },
@@ -48,7 +47,8 @@
 </script>
 
 <style scoped>
-.md-icon-button {
-    z-index: 0;
-}
+    .md-switch {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
 </style>
