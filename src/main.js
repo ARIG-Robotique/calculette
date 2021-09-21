@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import VueMaterial from 'vue-material';
-import App from './App.vue';
-import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
+import 'vue-material/dist/vue-material.min.css'
+import App from './App.vue';
+import './registerServiceWorker'
 
 Vue.config.productionTip = false;
 
