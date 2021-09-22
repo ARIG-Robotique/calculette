@@ -6,9 +6,10 @@
                 <span class="md-title">Calculette CDR : Age of Bots</span>
             </div>
             <div class="md-toolbar-row">
-                Total actions :&nbsp;<md-chip>{{values.subtotal}}</md-chip>&nbsp;/ Total :&nbsp;<md-chip>{{values.total}}</md-chip>
+                Total actions :&nbsp;<md-chip>{{value.subtotal}}</md-chip>&nbsp;/ Total :&nbsp;<md-chip>{{value.total}}</md-chip>
 
                 <div class="md-toolbar-section-end">
+                    <ShareButton :value="value"></ShareButton>
                     <md-button class="md-icon-button" @click="showFavorites = true">
                         <md-icon>star</md-icon>
                     </md-button>
@@ -27,38 +28,21 @@
                 </div>
             </md-toolbar>
 
-            <md-list class="md-double-line">
-                <md-list-item v-for="favorite in favorites" :key="favorite.name" @click="applyFavorite(favorite)">
-                    <div class="md-list-item-text">
-                        <span>{{favorite.name}}</span>
-                        <span>({{favorite.total}} pts)</span>
-                    </div>
-                    <md-button class="md-icon-button md-list-action" @click.stop="deleteFavorite(favorite)">
-                        <md-icon>delete</md-icon>
-                    </md-button>
-                </md-list-item>
-            </md-list>
-
-            <p class="md-caption" v-if="favorites.length === 0">
-                Aucune configuration
-            </p>
+            <Favorites :value="value" @apply="applyFavorite"></Favorites>
         </md-app-drawer>
 
         <md-app-content>
-            <Calculette ref="calculette" @change="values = $event"/>
+            <Calculette v-model="value"/>
 
-            <md-button class="md-accent md-raised" style="margin-top: 1rem" @click="showDialog = true">
-                Sauvegarder cette configuration
-            </md-button>
-
-            <md-dialog-prompt :md-active.sync="showDialog"
-                              v-model="favoriteName"
-                              @md-confirm="saveFavorite"
-                              md-title="Nom de la configuration"
-                              md-input-placeholder=""
-                              md-cancel-text="Annuler"
-                              md-confirm-text="Valider">
-            </md-dialog-prompt>
+            <md-snackbar md-position="center" :md-duration="Infinity" :md-active.sync="updateExists" md-persistent>
+                <span>Une nouvelle version est disponible.</span>
+                <md-button class="md-primary" @click="updateApp">
+                    Mettre à jour
+                </md-button>
+                <md-button class="md-icon-button md-accent" @click="showHelp = false">
+                    <md-icon>cancel</md-icon>
+                </md-button>
+            </md-snackbar>
 
             <md-content class="md-primary arig-footer">
                 Fait avec amour par <a href="https://arig-robotique.github.io/" class="md-accent">ARIG Robotique</a>.<br>
@@ -71,60 +55,64 @@
 
 <script>
     import Calculette from './components/Calculette.vue';
-
-    const LS_KEY = 'favorites';
+    import Favorites from './components/Favorites';
+    import ShareButton from './components/ShareButton.vue';
+    import { defaultForm, parseForm } from './utils/form.utils';
 
     export default {
         name      : 'App',
         components: {
             Calculette,
+            ShareButton,
+            Favorites,
         },
         data      : () => ({
-            showFavorites: false,
-            showDialog   : false,
-            favoriteName : '',
-            favorites    : [],
-            values       : {
+            value: {
                 subtotal: 0,
                 total   : 0,
+                form    : defaultForm(),
             },
+
+            showFavorites: false,
+
+            registration: null,
+            updateExists: false,
+            refreshing  : false,
         }),
         methods   : {
-            saveFavorite() {
-                if (this.favoriteName) {
-                    const favorite = {
-                        name : this.favoriteName,
-                        data : this.$refs.calculette.getData(),
-                        total: this.values.total,
-                    };
-                    const idx = this.favorites.findIndex(item => item.name === favorite.name);
-                    if (idx === -1) {
-                        this.favorites.push(favorite);
-                    }
-                    else {
-                        this.favorites.splice(idx, 1, favorite);
-                    }
-                    this.persistFavorites();
-                    setTimeout(() => this.favoriteName = ''); // impossible de vider en synchrone
+            applyFavorite(favorite) {
+                this.value = favorite;
+                this.showFavorites = false;
+            },
+            updateAvailable(event) {
+                this.registration = event.detail;
+                this.updateExists = true;
+            },
+            updateApp() {
+                this.updateExists = false;
+                if (this.registration && this.registration.waiting) {
+                    this.registration.waiting.postMessage({ type: 'SKIP_WAITING' });
                 }
             },
-            deleteFavorite(favorite) {
-                const idx = this.favorites.indexOf(favorite);
-                this.favorites.splice(idx, 1);
-                this.persistFavorites();
-            },
-            applyFavorite(favorite) {
-                this.showFavorites = false;
-                this.favoriteName = favorite.name;
-                this.$refs.calculette.setData(favorite.data);
-            },
-            persistFavorites() {
-                localStorage[LS_KEY] = JSON.stringify(this.favorites);
-            },
+        },
+        created() {
+            document.addEventListener('swUpdated', this.updateAvailable, { once: true });
+
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!this.refreshing) {
+                    this.refreshing = true;
+                    window.location.reload();
+                }
+            });
         },
         mounted() {
-            if (localStorage[LS_KEY]) {
-                this.favorites = JSON.parse(localStorage[LS_KEY]);
+            const params = new URLSearchParams(window.location.search);
+            const c = params.get('c');
+
+            if (c) {
+                this.value = {
+                    form: parseForm(c),
+                };
             }
         },
     };
@@ -135,8 +123,8 @@
         height: 100vh;
     }
 
-    .md-app-container {
-        overflow-x: hidden;
+    .md-app-content {
+        padding: 20px; // fix buggy layout gutter
     }
 
     .md-app-toolbar .md-chip {
@@ -145,7 +133,7 @@
     }
 
     .arig-footer {
-        margin: 2rem -16px -16px -16px;
+        margin: 2rem -20px -20px -20px;
         padding: 16px;
         text-align: center;
     }

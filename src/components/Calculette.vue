@@ -131,6 +131,7 @@
 </template>
 
 <script>
+    import { defaultForm } from '../utils/form.utils';
     import InputNumber from './InputNumber.vue';
     import InputCheckbox from './InputCheckbox.vue';
 
@@ -140,30 +141,18 @@
             InputNumber,
             InputCheckbox,
         },
+        props: {
+            value: {},
+        },
         data      : () => ({
             subtotal: 0,
             total   : 0,
-            form    : {
-                carresFouille               : 0,
-                carresFouilleOk             : true,
-                echantillonsPris            : 0,
-                echantillonsCampement       : 0,
-                echantillonsCampementValides: 0,
-                echantillonsGalerie         : 0,
-                echantillonsGalerieValides  : 0,
-                echantillonsAbri            : 0,
-                retourRobots                : false,
-                statuettePresente           : false,
-                statuettePrise              : false,
-                statuettePosee              : false,
-                repliquePosee               : false,
-                vitrinePresente             : false,
-                vitrineActivee              : false,
-                estimation                  : 0,
-                nonForfait                  : true,
-            },
+            form    : defaultForm(),
         }),
         watch     : {
+            value(newValue) {
+                Object.assign(this.form, newValue.form);
+            },
             form: {
                 deep: true,
                 handler() {
@@ -172,10 +161,14 @@
             },
         },
         mounted() {
-            this.compute();
+            if (this.value) {
+                Object.assign(this.form, this.value.form);
+            } else {
+                this.compute();
+            }
         },
         methods   : {
-            compute() {
+            compute(emit = true) {
                 this.subtotal = 0;
                 if (this.form.carresFouilleOk && this.form.carresFouille > 0) {
                     this.subtotal += 5 + this.form.carresFouille * 5;
@@ -202,18 +195,18 @@
                     this.total = 0;
                 }
 
-                this.$emit('change', { subtotal: this.subtotal, total: this.total });
+                if (emit) {
+                    this.$emit('input', { 
+                        subtotal: this.subtotal, 
+                        total   : this.total,
+                        form    : { ...this.form },
+                    });
+                }
             },
             setEstimation() {
-                this.compute();
+                this.compute(false);
                 this.form.estimation = this.subtotal;
             },
-            getData() {
-                return { ...this.form };
-            },
-            setData(data) {
-                Object.assign(this.form, data);
-            }
         },
     };
 </script>
