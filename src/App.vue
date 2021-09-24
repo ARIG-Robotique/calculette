@@ -69,7 +69,7 @@
         data      : () => ({
             value: {
                 subtotal: 0,
-                total   : 0,
+                total   : 1,
                 form    : defaultForm(),
             },
 

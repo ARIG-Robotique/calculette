@@ -126,6 +126,13 @@
                     1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait".
                 </template>
             </InputCheckbox>
+
+            <div style="display: flex; justify-content: flex-end">
+                <md-button class="md-accent" @click="reset">
+                    <md-icon>backspace</md-icon>
+                    Reset
+                </md-button>
+            </div>
         </div>
     </form>
 </template>
@@ -146,7 +153,7 @@
         },
         data      : () => ({
             subtotal: 0,
-            total   : 0,
+            total   : 1,
             form    : defaultForm(),
         }),
         watch     : {
@@ -207,6 +214,9 @@
                 this.compute(false);
                 this.form.estimation = this.subtotal;
             },
+            reset() {
+                this.form = defaultForm();
+            }
         },
     };
 </script>

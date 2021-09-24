@@ -26,7 +26,9 @@
             </md-list-item>
         </md-list>
 
-        <md-empty-state md-label="Aucune configuration"></md-empty-state>
+        <md-empty-state v-if="favorites.length === 0"
+                        md-label="Aucune configuration">
+        </md-empty-state>
     </div>
 </template>
 

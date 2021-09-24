@@ -5,7 +5,7 @@
         <md-dialog :md-active.sync="showDialog" :md-fullscreen="false">
             <md-dialog-content>{{url}}</md-dialog-content>
             <md-dialog-actions>
-                <md-button class="md-accent" @click="copy()">Copier</md-button>
+                <md-button class="md-primary md-raised" @click="copy()">Copier</md-button>
                 <md-button class="md-primary" @click="close()">Annuler</md-button>
             </md-dialog-actions>
         </md-dialog>
