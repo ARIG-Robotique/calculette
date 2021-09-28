@@ -15,16 +15,16 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'InputHelp',
-        data   : () => ({
-            showHelp     : false,
-        }),
-    };
+<script lang="ts">
+    import { Component, Vue } from 'vue-property-decorator';
+
+    @Component({})
+    export default class InputHelp extends Vue {
+        showHelp = false;
+    }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .arig-input-help {
         display: flex;
         align-items: center;

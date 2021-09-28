@@ -1,12 +1,14 @@
-function fromBool(val) {
+import { FormAgeOfBots } from "../models/FormAgeOfBots";
+
+function fromBool(val: boolean): string {
     return val ? '1' : '0';
 }
 
-function toBool(val) {
+function toBool(val: string): boolean {
     return val === '1';
 }
 
-export function defaultForm() {
+export function defaultForm(): FormAgeOfBots {
     return {
         carresFouille               : 0,
         carresFouilleOk             : true,
@@ -28,7 +30,7 @@ export function defaultForm() {
     };
 }
 
-export function serializeForm(form) {
+export function serializeForm(form: FormAgeOfBots) {
     return [
         form.carresFouille,
         fromBool(form.carresFouilleOk),
@@ -50,7 +52,7 @@ export function serializeForm(form) {
     ].join('|');
 }
 
-export function parseForm(c) {
+export function parseForm(c: string): FormAgeOfBots {
     const vals = c.split('|');
 
     return {

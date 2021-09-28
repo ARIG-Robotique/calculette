@@ -20,72 +20,65 @@
     </InputHelp>
 </template>
 
-<script>
-    import InputHelp from './InputHelp';
+<script lang="ts">
+    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+    import InputHelp from './InputHelp.vue';
 
-    export default {
-        name      : 'InputNumber',
+    @Component({
         components: {
             InputHelp,
         },
-        props     : {
-            value  : {
-                type: Number,
-            },
-            label  : {
-                type    : String,
-                required: true,
-            },
-            buttons: {
-                type   : Boolean,
-                default: true,
-            },
-            max    : {
-                type: Number,
-            },
-        },
-        data      : () => ({
-            internalValue: 0,
-        }),
-        watch     : {
-            value(newValue) {
-                this.internalValue = newValue;
-            },
-        },
+    })
+    export default class InputNumber extends Vue {
+
+        @Prop(Number) value: number;
+        @Prop({ type: String, required: true }) label: string;
+        @Prop({ type: Boolean, default: true }) buttons: boolean;
+        @Prop(Number) max: number;
+
+        internalValue = 0;
+
+        @Watch('value')
+        onValueChange(newValue: number) {
+            this.internalValue = newValue;
+        }
+
         mounted() {
             this.internalValue = this.value;
-        },
-        methods   : {
-            plus() {
-                if (!this.max || this.internalValue < this.max) {
-                    this.internalValue++;
-                    this.update();
-                }
-            },
-            minus() {
-                if (this.internalValue > 0) {
-                    this.internalValue--;
-                    this.update();
-                }
-            },
-            update() {
-                this.$emit('input', +this.internalValue);
-            },
-            check() {
-                if (this.internalValue < 0) {
-                    this.internalValue = 0;
-                    this.update();
-                }
-                if (this.max && this.internalValue > this.max) {
-                    this.internalValue = this.max;
-                    this.update();
-                }
+        }
+
+        plus() {
+            if (!this.max || this.internalValue < this.max) {
+                this.internalValue++;
+                this.update();
             }
         }
-    };
+
+        minus() {
+            if (this.internalValue > 0) {
+                this.internalValue--;
+                this.update();
+            }
+        }
+
+        update() {
+            this.$emit('input', +this.internalValue);
+        }
+
+        check() {
+            if (this.internalValue < 0) {
+                this.internalValue = 0;
+                this.update();
+            }
+            if (this.max && this.internalValue > this.max) {
+                this.internalValue = this.max;
+                this.update();
+            }
+        }
+    }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .md-field {
         margin-bottom: 8px;
     }

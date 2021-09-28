@@ -32,58 +32,62 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Favorite } from '../models/Favorite';
+
     const LS_KEY = 'favorites';
 
-    export default {
-        name   : 'Favorites',
-        props  : {
-            value: {},
-        },
-        data   : () => ({
-            showDialog  : false,
-            favoriteName: '',
-            favorites   : [],
-        }),
-        methods: {
-            saveFavorite() {
-                if (this.favoriteName) {
-                    const favorite = {
-                        name: this.favoriteName,
-                        ...this.value,
-                    };
-                    const idx = this.favorites.findIndex(item => item.name === favorite.name);
-                    if (idx === -1) {
-                        this.favorites.push(favorite);
-                    }
-                    else {
-                        this.favorites.splice(idx, 1, favorite);
-                    }
-                    this.persistFavorites();
-                    setTimeout(() => this.favoriteName = ''); // impossible de vider en synchrone
-                }
-            },
-            deleteFavorite(favorite) {
-                const idx = this.favorites.indexOf(favorite);
-                this.favorites.splice(idx, 1);
-                this.persistFavorites();
-            },
-            applyFavorite(favorite) {
-                this.favoriteName = favorite.name;
+    @Component({})
+    export default class Favorites extends Vue {
 
-                this.$emit('apply', {
-                    ...favorite,
-                    name: undefined,
-                });
-            },
-            persistFavorites() {
-                localStorage[LS_KEY] = JSON.stringify(this.favorites);
-            },
-        },
+        @Prop(Object) value: Favorite;
+
+        showDialog = false;
+        favoriteName = '';
+        favorites: Favorite[] = [];
+
         mounted() {
             if (localStorage[LS_KEY]) {
                 this.favorites = JSON.parse(localStorage[LS_KEY]);
             }
         }
-    };
+
+        saveFavorite() {
+            if (this.favoriteName) {
+                const favorite = {
+                    name: this.favoriteName,
+                    ...this.value,
+                };
+                const idx = this.favorites.findIndex(item => item.name === favorite.name);
+                if (idx === -1) {
+                    this.favorites.push(favorite);
+                }
+                else {
+                    this.favorites.splice(idx, 1, favorite);
+                }
+                this.persistFavorites();
+                setTimeout(() => this.favoriteName = ''); // impossible de vider en synchrone
+            }
+        }
+
+        deleteFavorite(favorite: Favorite) {
+            const idx = this.favorites.indexOf(favorite);
+            this.favorites.splice(idx, 1);
+            this.persistFavorites();
+        }
+
+        applyFavorite(favorite: Favorite) {
+            this.favoriteName = favorite.name;
+
+            this.$emit('apply', {
+                ...favorite,
+                name: undefined,
+            });
+        }
+
+        persistFavorites() {
+            localStorage[LS_KEY] = JSON.stringify(this.favorites);
+        }
+    }
 </script>

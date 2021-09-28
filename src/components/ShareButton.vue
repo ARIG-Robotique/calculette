@@ -12,44 +12,46 @@
     </md-button>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Favorite } from '../models/Favorite';
     import { serializeForm } from '../utils/form.utils';
 
-    export default {
-        name   : 'ShareButton',
-        props  : {
-            value: {},
-        },
-        data   : () => ({
-            showDialog: false,
-            url       : '',
-        }),
-        methods: {
-            share() {
-                this.url = `//${window.location.host}?c=${serializeForm(this.value.form)}`;
+    @Component({})
+    export default class ShareButton extends Vue {
 
-                if (window.navigator.share) {
-                    window.navigator.share({
-                        title: 'Calculette CDR',
-                        url  : this.url,
-                    });
-                }
-                else {
-                    this.showDialog = true;
-                }
-            },
-            close() {
-                this.showDialog = false;
-            },
-            copy() {
-                if (window.navigator.clipboard) {
-                    window.navigator.clipboard.writeText(this.url);
-                }
-                else {
-                    alert('Clipboard is not available');
-                }
-                this.showDialog = false;
-            },
-        },
-    };
+        @Prop() value: Favorite;
+
+
+        showDialog = false;
+        url = '';
+
+        share() {
+            this.url = `//${window.location.host}?c=${serializeForm(this.value.form)}`;
+
+            if (window.navigator.share) {
+                window.navigator.share({
+                    title: 'Calculette CDR',
+                    url  : this.url,
+                });
+            }
+            else {
+                this.showDialog = true;
+            }
+        }
+
+        close() {
+            this.showDialog = false;
+        }
+
+        copy() {
+            if (window.navigator.clipboard) {
+                window.navigator.clipboard.writeText(this.url);
+            }
+            else {
+                alert('Clipboard is not available');
+            }
+            this.showDialog = false;
+        }
+    }
 </script>

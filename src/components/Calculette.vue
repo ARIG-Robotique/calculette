@@ -137,90 +137,88 @@
     </form>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
     import { defaultForm } from '../utils/form.utils';
     import InputNumber from './InputNumber.vue';
     import InputCheckbox from './InputCheckbox.vue';
+    import { Favorite } from '../models/Favorite';
+    import { FormAgeOfBots } from '../models/FormAgeOfBots';
 
-    export default {
-        name      : 'Calculette',
+    @Component({
         components: {
             InputNumber,
             InputCheckbox,
         },
-        props: {
-            value: {},
-        },
-        data      : () => ({
-            subtotal: 0,
-            total   : 1,
-            form    : defaultForm(),
-        }),
-        watch     : {
-            value(newValue) {
-                Object.assign(this.form, newValue.form);
-            },
-            form: {
-                deep: true,
-                handler() {
-                    this.compute();
-                },
-            },
-        },
+    })
+    export default class Calculette extends Vue {
+        @Prop(Object) value: Favorite;
+
+        subtotal = 0;
+        total = 1;
+        form: FormAgeOfBots = defaultForm();
+        
+        @Watch('value')
+        onValueChange(newValue: Favorite) {
+            Object.assign(this.form, newValue.form);
+        }
+
+        @Watch('form', { deep: true })
+        onFormChange() {
+            this.compute();
+        }
+
         mounted() {
             if (this.value) {
                 Object.assign(this.form, this.value.form);
             } else {
                 this.compute();
             }
-        },
-        methods   : {
-            compute(emit = true) {
-                this.subtotal = 0;
-                if (this.form.carresFouilleOk && this.form.carresFouille > 0) {
-                    this.subtotal += 5 + this.form.carresFouille * 5;
-                }
-                this.subtotal += this.form.echantillonsPris;
-                this.subtotal += this.form.echantillonsCampement;
-                this.subtotal += this.form.echantillonsCampementValides;
-                this.subtotal += this.form.echantillonsGalerie * 3;
-                this.subtotal += this.form.echantillonsGalerieValides * 3;
-                this.subtotal += this.form.echantillonsAbri * 5;
-                this.subtotal += this.form.retourRobots ? 20 : 0;
-                this.subtotal += this.form.statuettePresente ? 2 : 0;
-                this.subtotal += this.form.statuettePrise ? 5 : 0;
-                this.subtotal += this.form.statuettePosee ? 15 : 0;
-                this.subtotal += this.form.repliquePosee ? 10 : 0;
-                this.subtotal += this.form.vitrinePresente ? 2 : 0;
-                this.subtotal += this.form.vitrineActivee ? 5 : 0;
+        }
 
-                this.total = this.subtotal;
-                this.total += Math.max(0, Math.round(0.3 * this.subtotal - Math.abs(this.form.estimation - this.subtotal)));
-                this.total += 1;
-
-                if (!this.form.nonForfait) {
-                    this.total = 0;
-                }
-
-                if (emit) {
-                    this.$emit('input', { 
-                        subtotal: this.subtotal, 
-                        total   : this.total,
-                        form    : { ...this.form },
-                    });
-                }
-            },
-            setEstimation() {
-                this.compute(false);
-                this.form.estimation = this.subtotal;
-            },
-            reset() {
-                this.form = defaultForm();
+        compute(emit = true) {
+            this.subtotal = 0;
+            if (this.form.carresFouilleOk && this.form.carresFouille > 0) {
+                this.subtotal += 5 + this.form.carresFouille * 5;
             }
-        },
-    };
+            this.subtotal += this.form.echantillonsPris;
+            this.subtotal += this.form.echantillonsCampement;
+            this.subtotal += this.form.echantillonsCampementValides;
+            this.subtotal += this.form.echantillonsGalerie * 3;
+            this.subtotal += this.form.echantillonsGalerieValides * 3;
+            this.subtotal += this.form.echantillonsAbri * 5;
+            this.subtotal += this.form.retourRobots ? 20 : 0;
+            this.subtotal += this.form.statuettePresente ? 2 : 0;
+            this.subtotal += this.form.statuettePrise ? 5 : 0;
+            this.subtotal += this.form.statuettePosee ? 15 : 0;
+            this.subtotal += this.form.repliquePosee ? 10 : 0;
+            this.subtotal += this.form.vitrinePresente ? 2 : 0;
+            this.subtotal += this.form.vitrineActivee ? 5 : 0;
+
+            this.total = this.subtotal;
+            this.total += Math.max(0, Math.round(0.3 * this.subtotal - Math.abs(this.form.estimation - this.subtotal)));
+            this.total += 1;
+
+            if (!this.form.nonForfait) {
+                this.total = 0;
+            }
+
+            if (emit) {
+                this.$emit('input', { 
+                    subtotal: this.subtotal, 
+                    total   : this.total,
+                    form    : { ...this.form },
+                });
+            }
+        }
+
+        setEstimation() {
+            this.compute(false);
+            this.form.estimation = this.subtotal;
+        }
+
+        reset() {
+            this.form = defaultForm();
+        }
+    }
 </script>
-
-<style scoped>
-
-</style>

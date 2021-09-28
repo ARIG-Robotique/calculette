@@ -53,50 +53,36 @@
     </md-app>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Vue } from 'vue-property-decorator';
     import Calculette from './components/Calculette.vue';
-    import Favorites from './components/Favorites';
+    import Favorites from './components/Favorites.vue';
     import ShareButton from './components/ShareButton.vue';
     import { defaultForm, parseForm } from './utils/form.utils';
+    import { Favorite } from './models/Favorite';
 
-    export default {
-        name      : 'App',
+    @Component({
         components: {
             Calculette,
             ShareButton,
             Favorites,
         },
-        data      : () => ({
-            value: {
-                subtotal: 0,
-                total   : 1,
-                form    : defaultForm(),
-            },
+    })
+    export default class App extends Vue {
+        value = {
+            subtotal: 0,
+            total   : 1,
+            form    : defaultForm(),
+        };
 
-            showFavorites: false,
+        showFavorites = false;
 
-            registration: null,
-            updateExists: false,
-            refreshing  : false,
-        }),
-        methods   : {
-            applyFavorite(favorite) {
-                this.value = favorite;
-                this.showFavorites = false;
-            },
-            updateAvailable(event) {
-                this.registration = event.detail;
-                this.updateExists = true;
-            },
-            updateApp() {
-                this.updateExists = false;
-                if (this.registration && this.registration.waiting) {
-                    this.registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-                }
-            },
-        },
+        private registration: ServiceWorkerRegistration = null;
+        updateExists = false;
+        refreshing = false;
+
         created() {
-            document.addEventListener('swUpdated', this.updateAvailable, { once: true });
+            document.addEventListener('swUpdated', this.updateAvailable as any, { once: true });
 
             navigator.serviceWorker.addEventListener('controllerchange', () => {
                 if (!this.refreshing) {
@@ -104,18 +90,38 @@
                     window.location.reload();
                 }
             });
-        },
+        }
+
         mounted() {
             const params = new URLSearchParams(window.location.search);
             const c = params.get('c');
 
             if (c) {
                 this.value = {
-                    form: parseForm(c),
+                    subtotal: 0,
+                    total   : 0,
+                    form    : parseForm(c),
                 };
             }
-        },
-    };
+        }
+
+        applyFavorite(favorite: Favorite) {
+            this.value = favorite;
+            this.showFavorites = false;
+        }
+
+        updateAvailable(event: CustomEvent) {
+            this.registration = event.detail;
+            this.updateExists = true;
+        }
+
+        updateApp() {
+            this.updateExists = false;
+            if (this.registration && this.registration.waiting) {
+                this.registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+            }
+        }
+    }
 </script>
 
 <style scoped lang="scss">

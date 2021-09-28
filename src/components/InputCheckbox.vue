@@ -10,43 +10,38 @@
     </InputHelp>
 </template>
 
-<script>
-    import InputHelp from './InputHelp';
+<script lang="ts">
+    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+    import InputHelp from './InputHelp.vue';
 
-    export default {
-        name      : 'InputCheckbox',
+    @Component({
         components: {
             InputHelp,
         },
-        props     : {
-            value: {
-                type: Boolean,
-            },
-            label: {
-                type    : String,
-                required: true,
-            },
-        },
-        data      : () => ({
-            internalValue: false,
-        }),
-        watch     : {
-            value(newValue) {
-                this.internalValue = newValue;
-            },
-        },
+    })
+    export default class InputCheckbox extends Vue {
+
+        @Prop(Boolean) value: boolean;
+        @Prop({ type: String, required: true }) label: string;
+
+        internalValue = false;
+
+        @Watch('value')
+        onValueChange(newValue: boolean) {
+            this.internalValue = newValue;
+        }
+
         mounted() {
             this.internalValue = this.value;
-        },
-        methods   : {
-            update() {
-                this.$emit('input', this.internalValue);
-            },
         }
-    };
+        
+        update() {
+            this.$emit('input', this.internalValue);
+        }
+    }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .md-switch {
         margin-top: 8px;
         margin-bottom: 8px;
