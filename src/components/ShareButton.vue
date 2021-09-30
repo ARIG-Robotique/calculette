@@ -1,12 +1,12 @@
 <template>
-    <md-button class="md-icon-button md-accent md-raised" @click="share()">
+    <md-button class="md-icon-button" @click="share()">
         <md-icon>share</md-icon>
 
         <md-dialog :md-active.sync="showDialog" :md-fullscreen="false">
             <md-dialog-content>{{url}}</md-dialog-content>
             <md-dialog-actions>
+                <md-button class="md-primary" @click="showDialog = false">Annuler</md-button>
                 <md-button class="md-primary md-raised" @click="copy()">Copier</md-button>
-                <md-button class="md-primary" @click="close()">Annuler</md-button>
             </md-dialog-actions>
         </md-dialog>
     </md-button>
@@ -14,20 +14,18 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import { Favorite } from '../models/Favorite';
-    import { serializeForm } from '../utils/form.utils';
 
     @Component({})
     export default class ShareButton extends Vue {
 
-        @Prop() value: Favorite;
-
+        @Prop(String) year: string;
+        @Prop(String) value: string;
 
         showDialog = false;
         url = '';
 
         share() {
-            this.url = `//${window.location.host}?c=${serializeForm(this.value.form)}`;
+            this.url = `${window.location.protocol}//${window.location.host}/#/${this.year}?c=${this.value}`;
 
             if (window.navigator.share) {
                 window.navigator.share({
@@ -38,10 +36,6 @@
             else {
                 this.showDialog = true;
             }
-        }
-
-        close() {
-            this.showDialog = false;
         }
 
         copy() {

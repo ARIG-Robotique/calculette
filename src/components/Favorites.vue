@@ -1,34 +1,57 @@
 <template>
     <div>
-        <md-button class="md-accent md-raised" @click="showDialog = true">
-            <md-icon>save</md-icon>
-            Sauvegarder cette config
+        <md-button class="md-icon-button" @click="showDrawer = true">
+            <md-icon>star</md-icon>
         </md-button>
 
-        <md-dialog-prompt :md-active.sync="showDialog"
-                          v-model="favoriteName"
-                          @md-confirm="saveFavorite"
-                          md-title="Nom de la configuration"
-                          md-input-placeholder=""
-                          md-cancel-text="Annuler"
-                          md-confirm-text="Valider">
-        </md-dialog-prompt>
+        <md-drawer class="md-right arig-inner-drawer" :md-active.sync="showDrawer">
+            <md-toolbar class="md-accent md-dense">
+                <span class="md-title">Configs. sauvegardées</span>
 
-        <md-list class="md-double-line">
-            <md-list-item v-for="favorite in favorites" :key="favorite.name" @click="applyFavorite(favorite)">
-                <div class="md-list-item-text">
-                    <span>{{favorite.name}}</span>
-                    <span>({{favorite.total}} pts)</span>
+                <div class="md-toolbar-section-end">
+                    <md-button class="md-icon-button" @click="showDrawer = false">
+                        <md-icon>cancel</md-icon>
+                    </md-button>
                 </div>
-                <md-button class="md-icon-button md-list-action" @click.stop="deleteFavorite(favorite)">
-                    <md-icon>delete</md-icon>
-                </md-button>
-            </md-list-item>
-        </md-list>
+            </md-toolbar>
 
-        <md-empty-state v-if="favorites.length === 0"
-                        md-label="Aucune configuration">
-        </md-empty-state>
+            <md-button class="md-accent md-raised" @click="showDialog = true">
+                <md-icon>save</md-icon>
+                Sauvegarder cette config
+            </md-button>
+
+            <md-dialog-prompt :md-active.sync="showDialog"
+                            v-model="favoriteName"
+                            @md-confirm="saveFavorite"
+                            md-title="Nom de la configuration"
+                            md-input-placeholder=""
+                            md-cancel-text="Annuler"
+                            md-confirm-text="Valider">
+            </md-dialog-prompt>
+
+            <md-list class="md-double-line">
+                <md-list-item v-for="favorite in favorites" :key="favorite.name" @click="applyFavorite(favorite)">
+                    <div class="md-list-item-text">
+                        <span>{{favorite.name}}</span>
+                        <span>({{favorite.total}} pts)</span>
+                    </div>
+                    <md-button class="md-icon-button md-list-action" @click.stop="deleteFavorite(favorite)">
+                        <md-icon>delete</md-icon>
+                    </md-button>
+                </md-list-item>
+            </md-list>
+
+            <md-empty-state v-if="favorites.length === 0"
+                            md-label="Aucune configuration">
+            </md-empty-state>
+        </md-drawer>
+
+        <md-snackbar md-position="center" :md-duration="2000" :md-active.sync="showSnackbar" md-persistent>
+            <span>Configuration sauvegardée.</span>
+            <md-button class="md-icon-button md-primary" @click="showSnackbar = false">
+                <md-icon>cancel</md-icon>
+            </md-button>
+        </md-snackbar>
     </div>
 </template>
 
@@ -36,20 +59,25 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import { Favorite } from '../models/Favorite';
 
-    const LS_KEY = 'favorites';
-
     @Component({})
     export default class Favorites extends Vue {
 
+        @Prop(String) year: string;
         @Prop(Object) value: Favorite;
 
+        showDrawer = false;
         showDialog = false;
+        showSnackbar = false;
         favoriteName = '';
         favorites: Favorite[] = [];
 
+        get lsKey() {
+            return `favorites_${this.year}`;
+        }
+
         mounted() {
-            if (localStorage[LS_KEY]) {
-                this.favorites = JSON.parse(localStorage[LS_KEY]);
+            if (localStorage[this.lsKey]) {
+                this.favorites = JSON.parse(localStorage[this.lsKey]);
             }
         }
 
@@ -68,6 +96,8 @@
                 }
                 this.persistFavorites();
                 setTimeout(() => this.favoriteName = ''); // impossible de vider en synchrone
+                this.showDrawer = false;
+                this.showSnackbar = true;
             }
         }
 
@@ -84,10 +114,22 @@
                 ...favorite,
                 name: undefined,
             });
+
+            this.showDrawer = false;
         }
 
         persistFavorites() {
-            localStorage[LS_KEY] = JSON.stringify(this.favorites);
+            localStorage[this.lsKey] = JSON.stringify(this.favorites);
         }
     }
 </script>
+
+<style lang="scss">
+.arig-inner-drawer {
+    height: 100vh;
+
+    & + .md-overlay {
+        height: 100vh;
+    }
+}
+</style>

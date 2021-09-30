@@ -1,8 +1,29 @@
 @import "~vue-material/dist/theme/engine"; // Import the theme engine
 
-@include md-register-theme("default", (
+@include md-register-theme("2022", (
         primary: md-get-palette-color(yellow, 800), // The primary color of your application
         accent: md-get-palette-color(green, 900) // The accent or secondary color
 ));
 
+@include md-register-theme("2021", (
+        primary: md-get-palette-color(lightblue, 700), // The primary color of your application
+        accent: md-get-palette-color(bluegrey, 400) // The accent or secondary color
+));
+
 @import "~vue-material/dist/theme/all"; // Apply the theme
+
+.arig-page-toolbar {
+    position: sticky;
+    top: 0;
+    margin: -20px -20px 20px -20px;
+    width: auto;
+    z-index: 2;
+
+    .md-chip {
+        font-weight: bold;
+    }
+}
+
+.md-ripple {
+    z-index: unset;
+}

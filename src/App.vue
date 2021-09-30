@@ -1,45 +1,31 @@
 <template>
-    <md-app id="app" md-mode="fixed-last">
+    <md-app id="app" :md-theme="contest.year">
         <md-app-toolbar class="md-primary">
-            <div class="md-toolbar-row">
-                <img src="./assets/logo.png" style="height: 3em;">
-                <span class="md-title">Calculette CDR : Age of Bots</span>
-            </div>
-            <div class="md-toolbar-row">
-                Total actions :&nbsp;<md-chip>{{value.subtotal}}</md-chip>&nbsp;/ Total :&nbsp;<md-chip>{{value.total}}</md-chip>
-
-                <div class="md-toolbar-section-end">
-                    <ShareButton :value="value"></ShareButton>
-                    <md-button class="md-icon-button" @click="showFavorites = true">
-                        <md-icon>star</md-icon>
-                    </md-button>
-                </div>
-            </div>
+            <md-button class="md-icon-button" @click="showMenu = !showMenu">
+                <md-icon>menu</md-icon>
+            </md-button>
+            <img :src="'./img/logos/' + contest.year + '.png'" style="height: 40px">
+            <span class="md-title">{{contest.year}} : {{contest.name}}</span>
         </md-app-toolbar>
 
-        <md-app-drawer class="md-right" :md-active.sync="showFavorites">
-            <md-toolbar class="md-accent">
-                <span class="md-title">Configs. sauvegardées</span>
-
-                <div class="md-toolbar-section-end">
-                    <md-button class="md-icon-button" @click="showFavorites = false">
-                        <md-icon>cancel</md-icon>
-                    </md-button>
-                </div>
-            </md-toolbar>
-
-            <Favorites :value="value" @apply="applyFavorite"></Favorites>
+        <md-app-drawer class="md-left" :md-active.sync="showMenu">
+            <md-list>
+                <md-list-item v-for="c in CONTESTS" :key="c.year" @click="changeYear(c.year)">
+                    <md-avatar><img :src="'./img/logos/' + c.year + '.png'"></md-avatar>
+                    <span class="md-list-item-text">{{c.year}} : {{c.name}}</span>
+                </md-list-item>
+            </md-list>
         </md-app-drawer>
 
         <md-app-content>
-            <Calculette v-model="value"/>
+            <router-view></router-view>
 
             <md-snackbar md-position="center" :md-duration="Infinity" :md-active.sync="updateExists" md-persistent>
                 <span>Une nouvelle version est disponible.</span>
-                <md-button class="md-primary" @click="updateApp">
+                <md-button class="md-accent" @click="updateApp">
                     Mettre à jour
                 </md-button>
-                <md-button class="md-icon-button md-accent" @click="showHelp = false">
+                <md-button class="md-icon-button md-primary" @click="showHelp = false">
                     <md-icon>cancel</md-icon>
                 </md-button>
             </md-snackbar>
@@ -54,28 +40,16 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
-    import Calculette from './components/Calculette.vue';
-    import Favorites from './components/Favorites.vue';
-    import ShareButton from './components/ShareButton.vue';
-    import { defaultForm, parseForm } from './utils/form.utils';
-    import { Favorite } from './models/Favorite';
+    import { Component, Vue, Watch } from 'vue-property-decorator';
+    import { Contest, CONTESTS } from './constants/contests';
 
-    @Component({
-        components: {
-            Calculette,
-            ShareButton,
-            Favorites,
-        },
-    })
+    @Component({})
     export default class App extends Vue {
-        value = {
-            subtotal: 0,
-            total   : 1,
-            form    : defaultForm(),
-        };
+        
+        readonly CONTESTS = Object.values(CONTESTS).sort((a, b) => b.year - a.year);
 
-        showFavorites = false;
+        contest: Contest = this.CONTESTS[0];
+        showMenu = false;
 
         private registration: ServiceWorkerRegistration = null;
         updateExists = false;
@@ -90,24 +64,21 @@
                     window.location.reload();
                 }
             });
-        }
 
-        mounted() {
-            const params = new URLSearchParams(window.location.search);
-            const c = params.get('c');
-
-            if (c) {
-                this.value = {
-                    subtotal: 0,
-                    total   : 0,
-                    form    : parseForm(c),
-                };
+            // migration anciens favories
+            if (localStorage['favorites']) {
+                localStorage['favorites_2022'] = localStorage['favorites'];
+                localStorage.removeItem('favorites');
             }
         }
 
-        applyFavorite(favorite: Favorite) {
-            this.value = favorite;
-            this.showFavorites = false;
+        @Watch('$route')
+        onRouteChange() {
+            this.updateYear();
+        }
+
+        mounted() {
+            this.updateYear();
         }
 
         updateAvailable(event: CustomEvent) {
@@ -121,21 +92,30 @@
                 this.registration.waiting.postMessage({ type: 'SKIP_WAITING' });
             }
         }
+
+        changeYear(year: number) {
+            this.$router.push({path: `/${year}`, query: { c: undefined }});
+            this.showMenu = false;
+        }
+
+        updateYear() {
+            const year = this.$route.path.substring(1);
+            this.contest = CONTESTS[year];
+        }
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
     #app {
         height: 100vh;
     }
 
-    .md-app-content {
-        padding: 20px; // fix buggy layout gutter
+    .md-app-container {
+        overflow-x: hidden;
     }
 
-    .md-app-toolbar .md-chip {
-        background: white;
-        font-weight: bold;
+    .md-app-content {
+        padding: 20px; // fix buggy layout gutter
     }
 
     .arig-footer {
