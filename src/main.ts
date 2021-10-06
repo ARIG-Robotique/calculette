@@ -6,6 +6,7 @@ import App from './App.vue';
 import { CONTESTS } from './constants/contests';
 import './registerServiceWorker';
 import './style.scss';
+import Page2019 from './views/Page2019.vue';
 import Page2021 from './views/Page2021.vue';
 import Page2022 from './views/Page2022.vue';
 
@@ -20,6 +21,7 @@ Vue.material.ripple = false;
 const pages: { [K in keyof typeof CONTESTS]: any } = {
     2022: Page2022,
     2021: Page2021,
+    2019: Page2019,
 };
 
 const router = new VueRouter({

@@ -12,4 +12,8 @@ export const CONTESTS: Record<string, Contest> = {
         year: 2021,
         name: 'Sail the World 2',
     },
+    2019: {
+        year: 2019,
+        name: 'Atom Factory',
+    },
 };

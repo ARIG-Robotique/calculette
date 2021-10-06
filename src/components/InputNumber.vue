@@ -48,7 +48,7 @@
         }
 
         plus() {
-            if (!this.max || this.internalValue < this.max) {
+            if (this.max === undefined || this.internalValue < this.max) {
                 this.internalValue++;
                 this.update();
             }

@@ -118,6 +118,10 @@
         padding: 20px; // fix buggy layout gutter
     }
 
+    .md-avatar {
+        border-radius: none;
+    }
+
     .arig-footer {
         margin: 2rem -20px -20px -20px;
         padding: 16px;
