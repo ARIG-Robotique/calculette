@@ -6,6 +6,8 @@ import App from './App.vue';
 import { CONTESTS } from './constants/contests';
 import './registerServiceWorker';
 import './style.scss';
+import Page2017 from './views/Page2017.vue';
+import Page2018 from './views/Page2018.vue';
 import Page2019 from './views/Page2019.vue';
 import Page2021 from './views/Page2021.vue';
 import Page2022 from './views/Page2022.vue';
@@ -22,6 +24,8 @@ const pages: { [K in keyof typeof CONTESTS]: any } = {
     2022: Page2022,
     2021: Page2021,
     2019: Page2019,
+    2018: Page2018,
+    2017: Page2017,
 };
 
 const router = new VueRouter({

@@ -1,7 +1,7 @@
 <template>
     <div>
         <md-toolbar class="md-primary md-dense arig-page-toolbar">
-            Total actions :&nbsp;<md-chip>{{subtotal}}</md-chip>&nbsp;/ Total :&nbsp;<md-chip>{{total}}</md-chip>
+            Total actions :&nbsp;<md-chip class="md-accent">{{subtotal}}</md-chip>&nbsp;/ Total :&nbsp;<md-chip class="md-accent">{{total}}</md-chip>
 
             <div class="md-toolbar-section-end">
                 <ShareButton :year="year" :value="serializedForm"></ShareButton>
@@ -255,7 +255,7 @@ dans la balance.
             this.subtotal = 0;
             this.subtotal += this.form.atomesTableau;
             this.subtotal += this.form.atomesTableauClasses * 5;
-            this.subtotal += this.form.goldeniumTableau ? 6 : 0
+            this.subtotal += this.form.goldeniumTableau ? 6 : 0;
 
             const balance: ('r' | 'g' | 'b' | 'gold')[] = [];
             for (let i = 0; i < this.form.rediumBalance; i++) balance.push('r');
