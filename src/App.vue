@@ -101,6 +101,9 @@
         updateYear() {
             const year = this.$route.path.substring(1);
             this.contest = CONTESTS[year];
+
+            // Apply PWA theme
+            document.querySelector('meta[name="theme-color"]').setAttribute("content", this.contest.themeColor);
         }
     }
 </script>
