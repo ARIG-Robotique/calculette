@@ -283,7 +283,7 @@
             this.subtotal += this.form.vitrineActivee ? 5 : 0;
 
             this.total = this.subtotal;
-            this.total += Math.max(0, Math.round(0.3 * this.subtotal - Math.abs(this.form.estimation - this.subtotal)));
+            this.total += Math.max(0, Math.ceil(0.3 * this.subtotal - Math.abs(this.form.estimation - this.subtotal)));
             this.total += 1;
 
             if (!this.form.nonForfait) {
