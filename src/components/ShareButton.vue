@@ -3,7 +3,10 @@
         <md-icon>share</md-icon>
 
         <md-dialog :md-active.sync="showDialog" :md-fullscreen="false">
+            <md-dialog-title>Lien de partage</md-dialog-title>
+
             <md-dialog-content>{{url}}</md-dialog-content>
+
             <md-dialog-actions>
                 <md-button class="md-primary" @click="showDialog = false">Annuler</md-button>
                 <md-button class="md-primary md-raised" @click="copy()">Copier</md-button>

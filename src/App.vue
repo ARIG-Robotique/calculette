@@ -9,6 +9,10 @@
         </md-app-toolbar>
 
         <md-app-drawer class="md-left" :md-active.sync="showMenu">
+            <md-toolbar class="md-primary" md-elevation="0">
+                <h3 class="md-title">Règlements</h3>
+            </md-toolbar>
+
             <md-list>
                 <md-list-item v-for="c in CONTESTS" :key="c.year" @click="changeYear(c.year)">
                     <md-avatar><img :src="'./img/logos/' + c.year + '.png'"></md-avatar>
@@ -18,7 +22,9 @@
         </md-app-drawer>
 
         <md-app-content>
-            <router-view></router-view>
+            <div class="arig-page">
+                <router-view></router-view>
+            </div>
 
             <md-snackbar md-position="center" :md-duration="Infinity" :md-active.sync="updateExists" md-persistent>
                 <span>Une nouvelle version est disponible.</span>
@@ -119,10 +125,16 @@
 
     .md-app-content {
         padding: 20px; // fix buggy layout gutter
+        display: flex;
+        flex-direction: column;
     }
 
     .md-avatar {
         border-radius: none;
+    }
+
+    .arig-page {
+        flex: 1;
     }
 
     .arig-footer {

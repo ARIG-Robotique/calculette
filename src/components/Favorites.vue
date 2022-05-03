@@ -4,47 +4,44 @@
             <md-icon>star</md-icon>
         </md-button>
 
-        <md-drawer class="md-right arig-inner-drawer" :md-active.sync="showDrawer">
-            <md-toolbar class="md-accent md-dense">
-                <span class="md-title">Configs. sauvegardées</span>
+        <md-dialog :md-active.sync="showDrawer">
+            <md-dialog-title>Configs. sauvegardées</md-dialog-title>
 
-                <div class="md-toolbar-section-end">
-                    <md-button class="md-icon-button" @click="showDrawer = false">
-                        <md-icon>cancel</md-icon>
-                    </md-button>
-                </div>
-            </md-toolbar>
+            <md-dialog-content>
+                <md-list class="md-double-line">
+                    <md-list-item v-for="favorite in favorites" :key="favorite.name" @click="applyFavorite(favorite)">
+                        <div class="md-list-item-text">
+                            <span>{{favorite.name}}</span>
+                            <span>({{favorite.total}} pts)</span>
+                        </div>
+                        <md-button class="md-icon-button md-list-action" @click.stop="deleteFavorite(favorite)">
+                            <md-icon>delete</md-icon>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
 
-            <md-button class="md-accent md-raised" @click="showDialog = true">
-                <md-icon>save</md-icon>
-                Sauvegarder cette config
-            </md-button>
+                <md-empty-state v-if="favorites.length === 0"
+                                md-label="Aucune configuration">
+                </md-empty-state>
+            </md-dialog-content>
 
-            <md-dialog-prompt :md-active.sync="showDialog"
+            <md-dialog-actions>
+                <md-button class="md-primary" @click="showDrawer = false">Annuler</md-button>
+                <md-button class="md-primary md-raised" @click="showDialog = true">
+                    <md-icon>save</md-icon>
+                    Sauvegarder cette config
+                </md-button>
+            </md-dialog-actions>
+        </md-dialog>
+
+        <md-dialog-prompt :md-active.sync="showDialog"
                             v-model="favoriteName"
                             @md-confirm="saveFavorite"
                             md-title="Nom de la configuration"
                             md-input-placeholder=""
                             md-cancel-text="Annuler"
                             md-confirm-text="Valider">
-            </md-dialog-prompt>
-
-            <md-list class="md-double-line">
-                <md-list-item v-for="favorite in favorites" :key="favorite.name" @click="applyFavorite(favorite)">
-                    <div class="md-list-item-text">
-                        <span>{{favorite.name}}</span>
-                        <span>({{favorite.total}} pts)</span>
-                    </div>
-                    <md-button class="md-icon-button md-list-action" @click.stop="deleteFavorite(favorite)">
-                        <md-icon>delete</md-icon>
-                    </md-button>
-                </md-list-item>
-            </md-list>
-
-            <md-empty-state v-if="favorites.length === 0"
-                            md-label="Aucune configuration">
-            </md-empty-state>
-        </md-drawer>
+        </md-dialog-prompt>
 
         <md-snackbar md-position="center" :md-duration="2000" :md-active.sync="showSnackbar" md-persistent>
             <span>Configuration sauvegardée.</span>
