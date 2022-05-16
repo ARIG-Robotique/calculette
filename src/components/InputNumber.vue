@@ -32,7 +32,7 @@
     export default class InputNumber extends Vue {
 
         @Prop(Number) value: number;
-        @Prop({ type: String, required: true }) label: string;
+        @Prop({ type: String, default: '' }) label: string;
         @Prop({ type: Boolean, default: true }) buttons: boolean;
         @Prop(Number) max: number;
 
@@ -81,5 +81,8 @@
 <style scoped lang="scss">
     .md-field {
         margin-bottom: 8px;
+        &, & input {
+            min-width: 0px;
+        }
     }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="arig-input-help">
+    <div class="arig-input-help" v-bind:class="{'has-content':$slots.help}">
         <md-button class="md-icon-button md-dense" v-if="$slots.help" @click="showHelp = true">
             <md-icon>info</md-icon>
         </md-button>
@@ -27,8 +27,11 @@
 <style scoped lang="scss">
     .arig-input-help {
         display: flex;
+        min-width: 0;
         align-items: center;
-        margin-left: -12px;
+        &.has-content {
+            margin-left: -12px;
+        }
     }
 
     .md-icon-button {

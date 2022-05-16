@@ -11,6 +11,7 @@ import Page2018 from './views/Page2018.vue';
 import Page2019 from './views/Page2019.vue';
 import Page2021 from './views/Page2021.vue';
 import Page2022 from './views/Page2022.vue';
+import Page2022Match from './views/Page2022Match.vue';
 
 Vue.config.productionTip = false;
 
@@ -28,9 +29,14 @@ const pages: { [K in keyof typeof CONTESTS]: any } = {
     2017: Page2017,
 };
 
+const pagesMatch: { [K in keyof typeof CONTESTS]: any } = {
+    2022: Page2022Match,
+};
+
 const router = new VueRouter({
     routes: [
         ...Object.entries(pages).map(([year, component]) => ({ path: `/${year}`, component })),
+        ...Object.entries(pagesMatch).map(([year, component]) => ({ path: `/${year}/match`, component })),
         { path: '*', redirect: `/${Math.max(...Object.keys(pages).map(y => +y))}` },
     ],
 });

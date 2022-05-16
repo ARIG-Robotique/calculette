@@ -22,7 +22,7 @@
     export default class InputCheckbox extends Vue {
 
         @Prop(Boolean) value: boolean;
-        @Prop({ type: String, required: true }) label: string;
+        @Prop({ type: String, default: '' }) label: string;
 
         internalValue = false;
 

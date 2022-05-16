@@ -6,6 +6,11 @@
             </md-button>
             <img :src="'./img/logos/' + contest.year + '.png'" style="height: 40px">
             <span class="md-title">{{contest.year}} : {{contest.name}}</span>
+            <div class="md-toolbar-section-end" v-if="contest.match">
+                <md-button class="md-icon-button" @click="switchMatch()">
+                    <md-icon>sports_score</md-icon>
+                </md-button>
+            </div>
         </md-app-toolbar>
 
         <md-app-drawer class="md-left" :md-active.sync="showMenu">
@@ -104,12 +109,21 @@
             this.showMenu = false;
         }
 
+        switchMatch() {
+            const isMatch = this.$route.path.substring(1).split('/')[1] === 'match';
+            if (isMatch) {
+                this.$router.push({path: `/${this.contest.year}`});
+            } else {
+                this.$router.push({path: `/${this.contest.year}/match`, query: { c: undefined }});
+            }
+        }
+
         updateYear() {
-            const year = this.$route.path.substring(1);
+            const year = this.$route.path.substring(1).split('/')[0];
             this.contest = CONTESTS[year];
 
             // Apply PWA theme
-            document.querySelector('meta[name="theme-color"]').setAttribute("content", this.contest.themeColor);
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', this.contest.themeColor);
         }
     }
 </script>
@@ -138,7 +152,7 @@
     }
 
     .arig-footer {
-        margin: 2rem -20px -20px -20px;
+        margin: 0 -20px -20px -20px;
         padding: 16px;
         text-align: center;
     }
