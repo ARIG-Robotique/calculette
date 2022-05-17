@@ -309,11 +309,14 @@
 
 <style scoped lang="scss">
     .page-dual-2022 {
+        border-style: solid;
+        border-width: 0 20px;
         border-image-source: url('../assets/page2022dual.png');
         border-image-slice: 40;
         border-image-width: 0 20px;
         border-image-repeat: round;
-        border-image-outset: 25px;
+        border-image-outset: 5px;
+        margin: 0 -20px;
     }
 
     .arig-page-toolbar {
