@@ -11,6 +11,7 @@ import Page2018 from './views/Page2018.vue';
 import Page2019 from './views/Page2019.vue';
 import Page2021 from './views/Page2021.vue';
 import Page2022 from './views/Page2022.vue';
+import Page2023 from './views/Page2023.vue';
 import Page2022Match from './views/Page2022Match.vue';
 
 Vue.config.productionTip = false;
@@ -22,6 +23,7 @@ Vue.use(VueMaterial);
 Vue.material.ripple = false;
 
 const pages: { [K in keyof typeof CONTESTS]: any } = {
+    2023: Page2023,
     2022: Page2022,
     2021: Page2021,
     2019: Page2019,

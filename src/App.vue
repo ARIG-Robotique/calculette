@@ -75,12 +75,6 @@
                     window.location.reload();
                 }
             });
-
-            // migration anciens favories
-            if (localStorage['favorites']) {
-                localStorage['favorites_2022'] = localStorage['favorites'];
-                localStorage.removeItem('favorites');
-            }
         }
 
         @Watch('$route')
