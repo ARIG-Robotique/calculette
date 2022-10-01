@@ -8,7 +8,7 @@ export interface Contest {
 export const CONTESTS: Record<string, Contest> = {
     2023: {
         year: 2023,
-        name: 'The Cherry on the Cake',
+        name: 'Cherry on the Cake',
         themeColor: '#c62828',
         match: false,
     },

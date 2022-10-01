@@ -137,6 +137,10 @@
         flex-direction: column;
     }
 
+    .md-toolbar {
+        flex-wrap: nowrap;
+    }
+
     .md-avatar {
         border-radius: none;
     }
