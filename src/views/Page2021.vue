@@ -123,24 +123,8 @@ composée d’une bouée verte et d’une bouée rouge.
     import InputNumber from '../components/InputNumber.vue';
     import InputToggle from '../components/InputToggle.vue';
     import ShareButton from '../components/ShareButton.vue';
-    import { fromBool, toBool } from '../utils/form.utils';
     import { AbstractPage } from './AbstractPage';
-
-    export interface Form2021 {
-        boueesPort   : number,
-        boueesChenaux: number,
-        boueesPaires : number,
-        manchesAir   : number,
-        nbRobots     : number,
-        bonPort      : number,
-        mauvaisPort  : number,
-        pharePresent : boolean,
-        phareActive  : boolean,
-        phareDeploye : boolean,
-        pavillonHisse: boolean,
-        estimation   : number,
-        nonForfait   : boolean,
-    }
+    import { Form2021, Data2021 } from '../data/Data2021';
 
     @Component({
         components: {
@@ -154,95 +138,7 @@ composée d’une bouée verte et d’une bouée rouge.
     export default class Page2021 extends AbstractPage<Form2021> {
 
         readonly year = '2021';
-        subtotal = 0;
-        total = 0;
-        form = this.defaultForm();
-
-        defaultForm(): Form2021 {
-            return {
-                boueesPort   : 0,
-                boueesChenaux: 0,
-                boueesPaires : 0,
-                manchesAir   : 0,
-                nbRobots     : 2,
-                bonPort      : 0,
-                mauvaisPort  : 0,
-                pharePresent : false,
-                phareActive  : false,
-                phareDeploye : false,
-                pavillonHisse: false,
-                estimation   : 0,
-                nonForfait   : true,
-            };
-        }
-
-        parseForm(c: string): Form2021 {
-            const vals = c.split(',');
-            if (vals.length !== 13) {
-                return null;
-            }
-
-            return {
-                boueesPort   : parseInt(vals[0]),
-                boueesChenaux: parseInt(vals[1]),
-                boueesPaires : parseInt(vals[2]),
-                manchesAir   : parseInt(vals[3]),
-                nbRobots     : parseInt(vals[4]),
-                bonPort      : parseInt(vals[5]),
-                mauvaisPort  : parseInt(vals[6]),
-                pharePresent : toBool(vals[7]),
-                phareActive  : toBool(vals[8]),
-                phareDeploye : toBool(vals[9]),
-                pavillonHisse: toBool(vals[10]),
-                estimation   : parseInt(vals[11]),
-                nonForfait   : toBool(vals[12]),
-            };
-        }
-
-        serializeForm(form: Form2021): string {
-            return [
-                form.boueesPort,
-                form.boueesChenaux,
-                form.boueesPaires,
-                form.manchesAir,
-                form.nbRobots,
-                form.bonPort,
-                form.mauvaisPort,
-                fromBool(form.pharePresent),
-                fromBool(form.phareActive),
-                fromBool(form.phareDeploye),
-                fromBool(form.pavillonHisse),
-                form.estimation,
-                fromBool(form.nonForfait),
-            ].join(',');
-        }
-
-        compute() {
-            this.subtotal = 0;
-            this.subtotal += this.form.boueesPort;
-            this.subtotal += this.form.boueesChenaux;
-            this.subtotal += this.form.boueesPaires * 2;
-            this.subtotal += this.form.manchesAir === 2 ? 15 : this.form.manchesAir === 1 ? 5 : 0;
-            if (this.form.nbRobots === 2) {
-                this.subtotal += this.form.bonPort * 10;
-                this.subtotal += this.form.mauvaisPort * 3;
-            } else {
-                this.subtotal += this.form.bonPort * 20;
-                this.subtotal += this.form.mauvaisPort * 6;
-            }
-            this.subtotal += this.form.pharePresent ? 2 : 0;
-            this.subtotal += this.form.phareActive ? 3 : 0;
-            this.subtotal += this.form.phareDeploye ? 10 : 0;
-            this.subtotal += this.form.pavillonHisse ? 10 : 0;
-
-            this.total = this.subtotal;
-            this.total += Math.max(0, Math.round(0.3 * this.subtotal - Math.abs(this.form.estimation - this.subtotal)));
-            this.total += 5;
-
-            if (!this.form.nonForfait) {
-                this.total = 0;
-            }
-        }
+        readonly data = Data2021;
 
         setEstimation() {
             this.compute();
@@ -251,16 +147,20 @@ composée d’une bouée verte et d’une bouée rouge.
 
         // FIXME methods are not "seen" if not re-declared
 
+        created() {
+            super.created();
+        }
+
+        mounted() {
+            super.mounted();
+        }
+
         reset() {
             super.reset();
         }
 
         applyFavorite(favorite: Favorite) {
             super.applyFavorite(favorite);
-        }
-
-        mounted() {
-            super.mounted();
         }
     }
 </script>

@@ -10,7 +10,7 @@ export const CONTESTS: Record<string, Contest> = {
         year: 2023,
         name: 'Cherry on the Cake',
         themeColor: '#c62828',
-        match: false,
+        match: true,
     },
     2022: {
         year: 2022,

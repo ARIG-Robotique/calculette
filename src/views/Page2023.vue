@@ -102,21 +102,8 @@
     import InputCheckbox from '../components/InputCheckbox.vue';
     import InputNumber from '../components/InputNumber.vue';
     import ShareButton from '../components/ShareButton.vue';
-    import { fromBool, toBool } from '../utils/form.utils';
     import { AbstractPage } from './AbstractPage';
-
-    export interface Form2023 {
-        etagesGateaux  : number,
-        gateauxComplets: number,
-        cerisesGateaux : number,
-        panierPresent  : boolean,
-        cerisesPanier  : number,
-        panierOk       : boolean,
-        retourOk       : boolean,
-        funnyAction    : boolean,
-        estimation     : number,
-        nonForfait     : boolean,
-    }
+    import { Form2023, Data2023 } from '../data/Data2023';
 
     @Component({
         components: {
@@ -129,79 +116,7 @@
     export default class Page2023 extends AbstractPage<Form2023> {
 
         readonly year = '2023';
-        subtotal = 0;
-        total = 0;
-        form = this.defaultForm();
-
-        defaultForm(): Form2023 {
-            return {
-                etagesGateaux  : 0,
-                gateauxComplets: 0,
-                cerisesGateaux : 0,
-                panierPresent  : false,
-                cerisesPanier  : 0,
-                panierOk       : false,
-                retourOk       : false,
-                funnyAction    : false,
-                estimation     : 0,
-                nonForfait     : true,
-            };
-        }
-
-        parseForm(c: string): Form2023 {
-            const vals = c.split(',');
-            if (vals.length !== 17) {
-                return null;
-            }
-
-            return {
-                etagesGateaux  : parseInt(vals[0]),
-                gateauxComplets: parseInt(vals[1]),
-                cerisesGateaux : parseInt(vals[2]),
-                panierPresent  : toBool(vals[3]),
-                cerisesPanier  : parseInt(vals[4]),
-                panierOk       : toBool(vals[5]),
-                retourOk       : toBool(vals[6]),
-                funnyAction    : toBool(vals[7]),
-                estimation     : parseInt(vals[8]),
-                nonForfait     : toBool(vals[9]),
-            };
-        }
-
-        serializeForm(form: Form2023): string {
-            return [
-                form.etagesGateaux,
-                form.gateauxComplets,
-                form.cerisesGateaux,
-                fromBool(form.panierPresent),
-                form.cerisesPanier,
-                fromBool(form.panierOk),
-                fromBool(form.retourOk),
-                fromBool(form.funnyAction),
-                form.estimation,
-                fromBool(form.nonForfait),
-            ].join(',');
-        }
-
-        compute() {
-            this.subtotal = 0;
-            this.subtotal += this.form.etagesGateaux;
-            this.subtotal += this.form.gateauxComplets * 3;
-            this.subtotal += this.form.cerisesGateaux * 4;
-            this.subtotal += this.form.panierPresent ? 5 : 0;
-            this.subtotal += this.form.cerisesPanier;
-            this.subtotal += this.form.panierOk ? 5 : 0;
-            this.subtotal += this.form.retourOk ? 15 : 0;
-            this.subtotal += this.form.funnyAction ? 5 : 0;
-
-            this.total = this.subtotal;
-            this.total += Math.max(0, Math.ceil(20 - Math.abs(this.form.estimation - this.subtotal)));
-            this.total += 1;
-
-            if (!this.form.nonForfait) {
-                this.total = 0;
-            }
-        }
+        readonly data = Data2023;
 
         setEstimation() {
             this.compute();
@@ -210,16 +125,20 @@
 
         // FIXME methods are not "seen" if not re-declared
 
+        created() {
+            super.created();
+        }
+
+        mounted() {
+            super.mounted();
+        }
+
         reset() {
             super.reset();
         }
 
         applyFavorite(favorite: Favorite) {
             super.applyFavorite(favorite);
-        }
-
-        mounted() {
-            super.mounted();
         }
     }
 </script>

@@ -1,26 +1,27 @@
 import { Vue, Watch } from 'vue-property-decorator';
 import { Favorite } from "../models/Favorite";
+import { PageData } from '../models/PageData';
 
 export abstract class AbstractPage<T> extends Vue {
 
     abstract readonly year: string;
-    abstract form: T;
+    abstract readonly data: PageData<T>;
+    
+    form: T = {} as T;
+    total = 0;
+    subtotal = 0;
 
     get serializedForm(): string {
-        return this.serializeForm(this.form);
+        return this.data.serializeForm(this.form);
     }
-
-    abstract defaultForm(): T;
-
-    abstract parseForm(c: string): T;
-
-    abstract serializeForm(form: T): string;
-
-    abstract compute(): void;
 
     @Watch('form', { deep: true })
     onFormChange() {
         this.compute();
+    }
+
+    created() {
+        this.reset();
     }
 
     mounted() {
@@ -28,18 +29,20 @@ export abstract class AbstractPage<T> extends Vue {
         const c =  new URLSearchParams(params).get('c');
 
         if (c) {
-            this.form = this.parseForm(c) ?? this.defaultForm();
+            this.form = this.data.parseForm(c) ?? this.data.defaultForm();
         }
-
-        this.compute();
     }
 
     reset() {
-        this.form = this.defaultForm();
+        this.form = this.data.defaultForm();
     }
 
     applyFavorite(favorite: Favorite) {
         this.form = favorite.form as any;
+    }
+
+    compute() {
+        ({ subtotal: this.subtotal, total: this.total } = this.data.compute(this.form));
     }
 
 }

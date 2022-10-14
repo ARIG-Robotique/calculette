@@ -52,7 +52,7 @@
 
 <script lang="ts">
     import { Component, Vue, Watch } from 'vue-property-decorator';
-    import { Contest, CONTESTS } from './constants/contests';
+    import { Contest, CONTESTS } from './data/contests';
 
     @Component({})
     export default class App extends Vue {

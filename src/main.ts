@@ -3,7 +3,7 @@ import VueMaterial from 'vue-material';
 import 'vue-material/dist/vue-material.min.css';
 import VueRouter from 'vue-router';
 import App from './App.vue';
-import { CONTESTS } from './constants/contests';
+import { CONTESTS } from './data/contests';
 import './registerServiceWorker';
 import './style.scss';
 import Page2017 from './views/Page2017.vue';
@@ -13,6 +13,7 @@ import Page2021 from './views/Page2021.vue';
 import Page2022 from './views/Page2022.vue';
 import Page2023 from './views/Page2023.vue';
 import Page2022Match from './views/Page2022Match.vue';
+import Page2023Match from './views/Page2023Match.vue';
 
 Vue.config.productionTip = false;
 
@@ -33,6 +34,7 @@ const pages: { [K in keyof typeof CONTESTS]: any } = {
 
 const pagesMatch: { [K in keyof typeof CONTESTS]: any } = {
     2022: Page2022Match,
+    2023: Page2023Match,
 };
 
 const router = new VueRouter({

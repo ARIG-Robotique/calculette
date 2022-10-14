@@ -195,26 +195,7 @@
     import { AbstractPageMatch } from './AbstractPageMatch';
     import DualInput from '../components/DualInput.vue';
     import DualCheckbox from '../components/DualCheckbox.vue';
-
-    export interface Form2022 {
-        carresFouille               : number,
-        carresFouilleOk             : boolean,
-        echantillonsPris            : number,
-        echantillonsCampement       : number,
-        echantillonsCampementValides: number,
-        echantillonsGalerie         : number,
-        echantillonsGalerieValides  : number,
-        echantillonsAbri            : number,
-        retourRobots                : boolean,
-        statuettePresente           : boolean,
-        statuettePrise              : boolean,
-        statuettePosee              : boolean,
-        repliquePosee               : boolean,
-        vitrinePresente             : boolean,
-        vitrineActivee              : boolean,
-        estimation                  : number,
-        nonForfait                  : boolean,
-    }
+    import { Form2022, Data2022 } from '../data/Data2022';
 
     @Component({
         components: {
@@ -229,58 +210,7 @@
     export default class Page2022Match extends AbstractPageMatch<Form2022> {
 
         readonly year = '2022';
-
-        defaultForm(): Form2022 {
-            return {
-                carresFouille               : 0,
-                carresFouilleOk             : true,
-                echantillonsPris            : 0,
-                echantillonsCampement       : 0,
-                echantillonsCampementValides: 0,
-                echantillonsGalerie         : 0,
-                echantillonsGalerieValides  : 0,
-                echantillonsAbri            : 0,
-                retourRobots                : false,
-                statuettePresente           : false,
-                statuettePrise              : false,
-                statuettePosee              : false,
-                repliquePosee               : false,
-                vitrinePresente             : false,
-                vitrineActivee              : false,
-                estimation                  : 0,
-                nonForfait                  : true,
-            };
-        }
-
-        compute(form: Form2022) {
-            let subtotal = 0;
-            if (form.carresFouilleOk && form.carresFouille > 0) {
-                subtotal += 5 + form.carresFouille * 5;
-            }
-            subtotal += form.echantillonsPris;
-            subtotal += form.echantillonsCampement;
-            subtotal += form.echantillonsCampementValides;
-            subtotal += form.echantillonsGalerie * 3;
-            subtotal += form.echantillonsGalerieValides * 3;
-            subtotal += form.echantillonsAbri * 5;
-            subtotal += form.retourRobots ? 20 : 0;
-            subtotal += form.statuettePresente ? 2 : 0;
-            subtotal += form.statuettePrise ? 5 : 0;
-            subtotal += form.statuettePosee ? 15 : 0;
-            subtotal += form.repliquePosee ? 10 : 0;
-            subtotal += form.vitrinePresente ? 2 : 0;
-            subtotal += form.vitrineActivee ? 5 : 0;
-
-            let total = subtotal;
-            total += Math.max(0, Math.ceil(0.3 * subtotal - Math.abs(form.estimation - subtotal)));
-            total += 1;
-
-            if (!form.nonForfait) {
-                total = 0;
-            }
-
-            return { subtotal, total };
-        }
+        readonly data = Data2022;
 
         setEstimation(team: 'A' | 'B') {
             switch (team) {
@@ -297,12 +227,16 @@
 
         // FIXME methods are not "seen" if not re-declared
 
-        reset() {
-            super.reset();
+        created() {
+            super.created();
         }
 
         mounted() {
             super.mounted();
+        }
+
+        reset() {
+            super.reset();
         }
     }
 </script>

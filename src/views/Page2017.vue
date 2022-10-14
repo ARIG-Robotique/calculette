@@ -72,17 +72,8 @@
     import InputCheckbox from '../components/InputCheckbox.vue';
     import InputNumber from '../components/InputNumber.vue';
     import ShareButton from '../components/ShareButton.vue';
-    import { fromBool, toBool } from '../utils/form.utils';
     import { AbstractPage } from './AbstractPage';
-
-    export interface Form2017 {
-        modulesDepart: number,
-        mineraiDepart: number,
-        mineraiSoute : number,
-        modulesBase  : number,
-        funnyAction  : boolean,
-        nonForfait   : boolean,
-    }
+    import { Form2017, Data2017 } from '../data/Data2017';
 
     @Component({
         components: {
@@ -95,62 +86,17 @@
     export default class Page2017 extends AbstractPage<Form2017> {
 
         readonly year = '2017';
-        total = 0;
-        form = this.defaultForm();
-
-        defaultForm(): Form2017 {
-            return {
-                modulesDepart: 0,
-                mineraiDepart: 0,
-                mineraiSoute : 0,
-                modulesBase  : 0,
-                funnyAction  : false,
-                nonForfait   : true,
-            };
-        }
-
-        parseForm(c: string): Form2017 {
-            const vals = c.split(',');
-            if (vals.length !== 6) {
-                return null;
-            }
-
-            return {
-                modulesDepart: parseInt(vals[0]),
-                mineraiDepart: parseInt(vals[1]),
-                mineraiSoute : parseInt(vals[2]),
-                modulesBase  : parseInt(vals[3]),
-                funnyAction  : toBool(vals[4]),
-                nonForfait   : toBool(vals[5]),
-            };
-        }
-
-        serializeForm(form: Form2017): string {
-            return [
-                form.modulesDepart,
-                form.mineraiDepart,
-                form.mineraiSoute,
-                form.modulesBase,
-                fromBool(form.funnyAction),
-                fromBool(form.nonForfait),
-            ].join(',');
-        }
-
-        compute() {
-            this.total = 0;
-            this.total += this.form.modulesDepart * 2;
-            this.total += this.form.mineraiDepart * 2;
-            this.total += this.form.mineraiSoute * 3;
-            this.total += this.form.modulesBase * 10;
-            this.total += this.form.funnyAction ? 20 : 0;
-            this.total += 15;
-
-            if (!this.form.nonForfait) {
-                this.total = 0;
-            }
-        }
+        readonly data = Data2017;
 
         // FIXME methods are not "seen" if not re-declared
+
+        created() {
+            super.created();
+        }
+
+        mounted() {
+            super.mounted();
+        }
 
         reset() {
             super.reset();
@@ -158,10 +104,6 @@
 
         applyFavorite(favorite: Favorite) {
             super.applyFavorite(favorite);
-        }
-
-        mounted() {
-            super.mounted();
         }
     }
 </script>
