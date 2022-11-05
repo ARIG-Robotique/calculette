@@ -17,17 +17,17 @@
                     </template>
                 </InputNumber>
 
-                <InputNumber label="Gâteaux complets (3 pts)"
+                <InputNumber label="Gâteaux complets (4 pts)"
                             v-model="form.gateauxComplets">
                     <template v-slot:help>
-                        3 points supplémentaires si le gâteau respecte la recette légendaire
+                        4 points supplémentaires si le gâteau respecte la recette légendaire
                     </template>
                 </InputNumber>
 
-                <InputNumber label="Cerises sur les gâteaux (4 pts)"
+                <InputNumber label="Cerises sur les gâteaux (3 pts)"
                             v-model="form.cerisesGateaux">
                     <template v-slot:help>
-                        4 points pour chaque cerise posée sur un gâteau valide
+                        3 points pour chaque cerise posée sur un gâteau valide
                     </template>
                 </InputNumber>
 

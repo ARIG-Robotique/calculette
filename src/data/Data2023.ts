@@ -68,8 +68,8 @@ export const Data2023: PageData<Form2023> = {
     compute(form: Form2023) {
         let subtotal = 0;
         subtotal += form.etagesGateaux;
-        subtotal += form.gateauxComplets * 3;
-        subtotal += form.cerisesGateaux * 4;
+        subtotal += form.gateauxComplets * 4;
+        subtotal += form.cerisesGateaux * 3;
         subtotal += form.panierPresent ? 5 : 0;
         subtotal += form.cerisesPanier;
         subtotal += form.panierOk ? 5 : 0;

@@ -21,7 +21,7 @@
                     </template>
                 </DualInput>
 
-                <DualInput label="Gâteaux complets (3 pts)">
+                <DualInput label="Gâteaux complets (4 pts)">
                     <template v-slot:left>
                         <InputNumber v-model="teamA.gateauxComplets"></InputNumber>
                     </template>
@@ -30,7 +30,7 @@
                     </template>
                 </DualInput>
 
-                <DualInput label="Cerises sur les gâteaux (4 pts)">
+                <DualInput label="Cerises sur les gâteaux (3 pts)">
                     <template v-slot:left>
                         <InputNumber v-model="teamA.cerisesGateaux"></InputNumber>
                     </template>
