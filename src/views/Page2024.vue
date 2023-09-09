@@ -33,7 +33,7 @@
                 <InputNumber label="Zones avec coccinelle (P4)"
                             v-model="form.zonesWCoccinelle">
                     <template v-slot:help>
-                        P4 points par zone de dépose de l'équipe occupée par au moins une coccinelle à la fin du matc
+                        P4 points par zone de dépose de l'équipe occupée par au moins une coccinelle à la fin du match
                     </template>
                 </InputNumber>
                 <InputNumber label="Coccinelles en contact (P5)"
