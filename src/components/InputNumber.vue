@@ -85,4 +85,8 @@
             min-width: 0px;
         }
     }
+
+    .md-icon-button:last-child {
+        margin-right: 0;
+    }
 </style>

@@ -9,7 +9,7 @@
             </div>
         </md-toolbar>
         <form class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-70">
+            <div class="md-layout-item md-small-size-65">
                 <InputNumber label="Plantes valides (P1)"
                             v-model="form.plantes">
                     <template v-slot:help>
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="md-layout-item md-small-size-30">
+            <div class="md-layout-item md-small-size-35">
                 <InputNumber label="P1"
                             v-model="form.p1">
                 </InputNumber>
