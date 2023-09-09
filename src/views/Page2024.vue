@@ -1,6 +1,8 @@
 <template>
     <div>
         <md-toolbar class="md-primary md-dense arig-page-toolbar">
+            Actions :&nbsp;<md-chip class="md-accent">{{subtotal}}</md-chip>&nbsp;/
+            Coccinelles :&nbsp;<md-chip class="md-accent">{{coccinelles}}</md-chip>&nbsp;/
             Total :&nbsp;<md-chip class="md-accent">{{total}}</md-chip>
 
             <div class="md-toolbar-section-end">
@@ -121,6 +123,10 @@
 
         readonly year = '2024';
         readonly data = Data2024;
+
+        get coccinelles() {
+            return this.form.p4 * this.form.zonesWCoccinelle + this.form.p5 * this.form.zonesWContact;
+        }
 
         setEstimation() {
             this.compute();
