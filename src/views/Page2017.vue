@@ -1,7 +1,9 @@
 <template>
     <div>
         <md-toolbar class="md-primary md-dense arig-page-toolbar">
-            Total :&nbsp;<md-chip class="md-accent">{{total}}</md-chip>
+            <div class="md-layout md-gutter">
+                <div class="md-layout-item">Total : <md-chip class="md-accent">{{total}}</md-chip></div>
+            </div>
 
             <div class="md-toolbar-section-end">
                 <ShareButton :year="year" :value="serializedForm"></ShareButton>

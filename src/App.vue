@@ -44,7 +44,7 @@
             <md-content class="md-primary arig-footer">
                 Fait avec amour par <a href="https://arig-robotique.github.io/" class="md-accent">ARIG Robotique</a>.<br>
                 Contribuez sur <a href="https://github.com/ARIG-Robotique/calculette" class="md-accent">GitHub</a>.<br>
-                <img src="./assets/logo-arig.png" style="width: 150px; margin: 1rem auto;">
+                <img src="./assets/logo-arig.png" style="width: 150px; margin: 1rem auto 0 auto;">
             </md-content>
         </md-app-content>
     </md-app>
@@ -149,9 +149,38 @@
         flex: 1;
     }
 
+    .arig-page-toolbar {
+        position: sticky;
+        top: 0;
+        margin: -20px -20px 20px -20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: auto;
+        z-index: 2;
+        white-space: nowrap;
+
+        .md-chip {
+            font-weight: bold;
+        }
+    }
+
     .arig-footer {
         margin: 0 -20px -20px -20px;
-        padding: 16px;
+        padding: 20px;
         text-align: center;
+    }
+
+    @media (max-width: 960px) {
+        .md-app-content {
+            padding: 10px;
+        }
+
+        .arig-page-toolbar {
+            margin: -10px -10px 10px -10px;
+        }
+
+        .arig-footer {
+            margin: 0 -10px -10px -10px;
+        }
     }
 </style>

@@ -84,9 +84,13 @@
         &, & input {
             min-width: 0px;
         }
+
+        label {
+            white-space: nowrap;
+        }
     }
 
-    .md-icon-button:last-child {
+    .md-icon-button {
         margin-right: 0;
     }
 </style>

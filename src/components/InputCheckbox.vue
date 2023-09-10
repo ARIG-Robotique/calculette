@@ -42,6 +42,9 @@
 </script>
 
 <style scoped lang="scss">
+    .arig-input-help {
+        height: 60px;
+    }
     .md-switch {
         margin-top: 8px;
         margin-bottom: 8px;

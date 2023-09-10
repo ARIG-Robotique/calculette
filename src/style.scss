@@ -37,18 +37,6 @@
 
 @import "~vue-material/dist/theme/all"; // Apply the theme
 
-.arig-page-toolbar {
-    position: sticky;
-    top: 0;
-    margin: -20px -20px 20px -20px;
-    width: auto;
-    z-index: 2;
-
-    .md-chip {
-        font-weight: bold;
-    }
-}
-
 .md-ripple {
     z-index: unset;
 }

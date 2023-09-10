@@ -1,9 +1,11 @@
 <template>
     <div>
         <md-toolbar class="md-primary md-dense arig-page-toolbar">
-            Actions :&nbsp;<md-chip class="md-accent">{{subtotal}}</md-chip>&nbsp;/
-            Coccinelles :&nbsp;<md-chip class="md-accent">{{coccinelles}}</md-chip>&nbsp;/
-            Total :&nbsp;<md-chip class="md-accent">{{total}}</md-chip>
+            <div class="md-layout md-gutter">
+                <div class="md-layout-item md-xsmall-size-100">Actions : <md-chip class="md-accent">{{subtotal}}</md-chip></div>
+                <div class="md-layout-item md-xsmall-size-100">Coccinelles : <md-chip class="md-accent">{{coccinelles}}</md-chip></div>
+                <div class="md-layout-item md-xsmall-size-100">Total : <md-chip class="md-accent">{{total}}</md-chip></div>
+            </div>
 
             <div class="md-toolbar-section-end">
                 <ShareButton :year="year" :value="serializedForm"></ShareButton>
@@ -65,13 +67,6 @@
                         1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait".
                     </template>
                 </InputCheckbox>
-
-                <div style="display: flex; justify-content: flex-end;">
-                    <md-button class="md-accent" @click="reset">
-                        <md-icon>backspace</md-icon>
-                        Reset
-                    </md-button>
-                </div>
             </div>
 
             <div class="md-layout-item md-small-size-35">
@@ -96,6 +91,13 @@
                 <InputNumber label="P7"
                             v-model="form.p7">
                 </InputNumber>
+
+                <div style="display: flex; justify-content: flex-end;">
+                    <md-button class="md-accent" @click="reset">
+                        <md-icon>backspace</md-icon>
+                        Reset
+                    </md-button>
+                </div>
             </div>
         </form>
     </div>
