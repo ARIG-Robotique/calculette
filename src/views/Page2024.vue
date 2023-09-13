@@ -27,7 +27,7 @@
                     </template>
                 </InputNumber>
                 <InputNumber label="Panneaux valides (P3)"
-                            v-model="form.panneaux" :max="7">
+                            v-model="form.panneaux" :max="9">
                     <template v-slot:help>
                         P3 points pour chaque panneau valide pour l'équipe
                     </template>
