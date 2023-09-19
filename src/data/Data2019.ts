@@ -112,8 +112,10 @@ export const Data2019: PageData<Form2019> = {
         subtotal += form.experienceActivee ? 15 : 0;
         subtotal += form.electron ? 20 : 0;
 
+        const bonus = Math.max(0, Math.round(0.3 * subtotal - Math.abs(form.estimation - subtotal)));
+
         let total = subtotal;
-        total += Math.max(0, Math.round(0.3 * subtotal - Math.abs(form.estimation - subtotal)));
+        total += bonus;
         total += form.meilleureBalance ? 30 : 0;
         total += 10;
 
@@ -121,6 +123,6 @@ export const Data2019: PageData<Form2019> = {
             total = 0;
         }
 
-        return { subtotal, total };
+        return { subtotal, bonus, total };
     },
 };

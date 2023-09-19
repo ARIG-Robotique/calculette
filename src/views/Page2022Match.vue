@@ -3,10 +3,10 @@
         <md-toolbar class="md-dense arig-page-toolbar">
             <div class="md-layout md-alignment-center" style="width: 100%;">
                 <div class="md-layout-item">
-                    <md-chip class="md-accent">{{subtotalA}}</md-chip>&nbsp;/&nbsp;<md-chip class="md-accent">{{totalA}}</md-chip>
+                    Total : <md-chip class="md-accent">{{totalA}}</md-chip>
                 </div>
                 <div class="md-layout-item" style="text-align: right;">
-                    <md-chip class="md-accent">{{subtotalB}}</md-chip>&nbsp;/&nbsp;<md-chip class="md-accent">{{totalB}}</md-chip>
+                    Total : <md-chip class="md-accent">{{totalB}}</md-chip>
                 </div>
             </div>
         </md-toolbar>

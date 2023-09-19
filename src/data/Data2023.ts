@@ -76,14 +76,16 @@ export const Data2023: PageData<Form2023> = {
         subtotal += form.retourOk ? 15 : 0;
         subtotal += form.funnyAction ? 5 : 0;
 
+        const bonus = Math.max(0, Math.ceil(20 - Math.abs(form.estimation - subtotal)));
+
         let total = subtotal;
-        total += Math.max(0, Math.ceil(20 - Math.abs(form.estimation - subtotal)));
+        total += bonus;
         total += 1;
 
         if (!form.nonForfait) {
             total = 0;
         }
 
-        return { subtotal, total };
+        return { subtotal, bonus, total };
     },
 };

@@ -98,8 +98,10 @@ export const Data2024: PageData<Form2024> = {
         subtotal += form.p3 * form.panneaux;
         subtotal += form.retour ? form.p6 : 0;
 
+        const bonus = Math.max(0, Math.ceil(form.p7 - Math.abs(form.estimation - subtotal)));
+
         let total = subtotal;
-        total += Math.max(0, Math.ceil(form.p7 - Math.abs(form.estimation - subtotal)));
+        total += bonus;
         total += form.p4 * form.zonesWCoccinelle;
         total += form.p5 * form.zonesWContact;
         total += 1;
@@ -108,6 +110,6 @@ export const Data2024: PageData<Form2024> = {
             total = 0;
         }
 
-        return { subtotal, total };
+        return { subtotal, bonus, total };
     },
 };

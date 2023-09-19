@@ -112,14 +112,16 @@ export const Data2022: PageData<Form2022> = {
         subtotal += form.vitrinePresente ? 2 : 0;
         subtotal += form.vitrineActivee ? 5 : 0;
 
+        const bonus = Math.max(0, Math.ceil(0.3 * subtotal - Math.abs(form.estimation - subtotal)));
+
         let total = subtotal;
-        total += Math.max(0, Math.ceil(0.3 * subtotal - Math.abs(form.estimation - subtotal)));
+        total += bonus;
         total += 1;
 
         if (!form.nonForfait) {
             total = 0;
         }
 
-        return { subtotal, total };
+        return { subtotal, bonus, total };
     },
 };

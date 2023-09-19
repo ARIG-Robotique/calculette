@@ -8,8 +8,9 @@ export abstract class AbstractPage<T> extends Vue {
     abstract readonly data: PageData<T>;
     
     form: T = {} as T;
-    total = 0;
     subtotal = 0;
+    bonus = 0;
+    total = 0;
 
     get serializedForm(): string {
         return this.data.serializeForm(this.form);
@@ -42,7 +43,7 @@ export abstract class AbstractPage<T> extends Vue {
     }
 
     compute() {
-        ({ subtotal: this.subtotal, total: this.total } = this.data.compute(this.form));
+        ({ subtotal: this.subtotal, bonus: this.bonus, total: this.total } = this.data.compute(this.form));
     }
 
 }

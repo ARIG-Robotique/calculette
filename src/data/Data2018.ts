@@ -127,7 +127,7 @@ export const Data2018: PageData<Form2018> = {
         subtotal += form.abeillePresente ? 5 : 0;
         subtotal += form.fleurButinee ? 50 : 0;
 
-        let total = subtotal;
+        let bonus = 0;
         if (subtotal > 0) {
             const score = subtotal;
             const ecart = Math.abs(form.estimation - score);
@@ -137,19 +137,22 @@ export const Data2018: PageData<Form2018> = {
                 if (score <= +maxScore) {
                     for (const maxEcart of Object.keys(BONUS[maxScore])) {
                         if (ecart <= +maxEcart) {
-                            total += BONUS[maxScore][maxEcart];
+                            bonus = BONUS[maxScore][maxEcart];
                             break bonus;
                         }
                     }
                 }
             }
         }
+
+        let total = subtotal;
+        total += bonus;
         total += 10;
 
         if (!form.nonForfait) {
             total = 0;
         }
 
-        return { subtotal, total };
+        return { subtotal, bonus, total };
     },
 };

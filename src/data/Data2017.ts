@@ -62,6 +62,6 @@ export const Data2017: PageData<Form2017> = {
             total = 0;
         }
 
-        return { subtotal: 0, total };
+        return { subtotal: 0, bonus: 0, total };
     },
 };

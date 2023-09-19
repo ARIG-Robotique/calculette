@@ -2,9 +2,10 @@
     <div>
         <md-toolbar class="md-primary md-dense arig-page-toolbar">
             <div class="md-layout md-gutter">
-                <div class="md-layout-item md-xsmall-size-100">Actions : <md-chip class="md-accent">{{subtotal}}</md-chip></div>
-                <div class="md-layout-item md-xsmall-size-100">Coccinelles : <md-chip class="md-accent">{{coccinelles}}</md-chip></div>
-                <div class="md-layout-item md-xsmall-size-100">Total : <md-chip class="md-accent">{{total}}</md-chip></div>
+                <div class="md-layout-item md-xsmall-size-50">Actions : <md-chip class="md-accent">{{subtotal}}</md-chip></div>
+                <div class="md-layout-item md-xsmall-size-50">Bonus : <md-chip class="md-accent">{{bonus}}</md-chip></div>
+                <div class="md-layout-item md-xsmall-size-50">Coccinelles : <md-chip class="md-accent">{{coccinelles}}</md-chip></div>
+                <div class="md-layout-item md-xsmall-size-50">Total : <md-chip class="md-accent">{{total}}</md-chip></div>
             </div>
 
             <div class="md-toolbar-section-end">
@@ -15,7 +16,7 @@
         <form class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-65">
                 <InputNumber label="Plantes valides (P1)"
-                            v-model="form.plantes">
+                            v-model="form.plantes" :max="36">
                     <template v-slot:help>
                         P1 points par plante valide dans une zone adaptée
                     </template>
@@ -33,7 +34,7 @@
                     </template>
                 </InputNumber>
                 <InputNumber label="Zones avec coccinelle (P4)"
-                            v-model="form.zonesWCoccinelle">
+                            v-model="form.zonesWCoccinelle" :max="6">
                     <template v-slot:help>
                         P4 points par zone de dépose de l'équipe occupée par au moins une coccinelle à la fin du match
                     </template>

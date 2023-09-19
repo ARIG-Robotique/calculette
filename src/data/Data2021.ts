@@ -95,14 +95,16 @@ export const Data2021: PageData<Form2021> = {
         subtotal += form.phareDeploye ? 10 : 0;
         subtotal += form.pavillonHisse ? 10 : 0;
 
+        const bonus = Math.max(0, Math.round(0.3 * subtotal - Math.abs(form.estimation - subtotal)));
+
         let total = subtotal;
-        total += Math.max(0, Math.round(0.3 * subtotal - Math.abs(form.estimation - subtotal)));
+        total += bonus;
         total += 5;
 
         if (!form.nonForfait) {
             total = 0;
         }
 
-        return { subtotal, total };
+        return { subtotal, bonus, total };
     },
 };
