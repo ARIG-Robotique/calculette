@@ -14,51 +14,57 @@
             </div>
         </md-toolbar>
         <form class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-65">
-                <InputNumber label="Plantes valides (P1)"
+            <div class="md-layout-item md-small-size-100">
+                <InputNumber label="Plantes valides"
                             v-model="form.plantes" :max="36">
                     <template v-slot:help>
-                        P1 points par plante valide dans une zone adaptée
+                        3 points par plante valide dans une zone adaptée
                     </template>
                 </InputNumber>
-                <InputNumber label="Plantes en pots (P2)"
-                            v-model="form.pots" :max="form.plantes">
+                <InputNumber label="Plantes en pots"
+                            v-model="form.plantesPots" :max="form.plantes">
                     <template v-slot:help>
-                        P2 points supplémentaires si la plante valide est dans un pot
+                        1 point supplémentaire si la plante valide est dans un pot
                     </template>
                 </InputNumber>
-                <InputNumber label="Panneaux valides (P3)"
+                <InputNumber label="Plantes dans une jardinière"
+                            v-model="form.plantesJardiniere" :max="form.plantes">
+                    <template v-slot:help>
+                        1 point supplémentaire si la plante valide est dans une jardinière
+                    </template>
+                </InputNumber>
+                <InputNumber label="Panneaux valides"
                             v-model="form.panneaux" :max="9">
                     <template v-slot:help>
-                        P3 points pour chaque panneau valide pour l'équipe
+                        5 points pour chaque panneau valide pour l'équipe
                     </template>
                 </InputNumber>
-                <InputNumber label="Zones avec coccinelle (P4)"
-                            v-model="form.zonesWCoccinelle" :max="6">
+                <InputNumber label="Zones avec coccinelle"
+                            v-model="form.zonesCoccinelle" :max="6">
                     <template v-slot:help>
-                        P4 points par zone de dépose de l'équipe occupée par au moins une coccinelle à la fin du match
+                        5 points par zone de dépose de l'équipe occupée par au moins une coccinelle à la fin du match
                     </template>
                 </InputNumber>
-                <InputNumber label="Coccinelles en contact (P5)"
-                            v-model="form.zonesWContact" :max="form.zonesWCoccinelle">
+                <InputNumber label="Coccinelles en contact"
+                            v-model="form.zonesContact" :max="form.zonesCoccinelle">
                     <template v-slot:help>
-                        P5 points supplémentaires par zone de dépose de l'équipe dans laquelle 
+                        5 points supplémentaires par zone de dépose de l'équipe dans laquelle 
                         au moins une coccinelle est en contact avec une plante ou un pot contenant une plante
                     </template>
                 </InputNumber>
-                <InputCheckbox label="Robot dans l'aire de recharge (P6)"
+                <InputCheckbox label="Robot dans l'aire de recharge"
                             v-model="form.retour">
                     <template v-slot:help>
-                        P6 points si le robot de l'équipe est dans l'aire valide
+                        10 points si le robot de l'équipe est dans l'aire valide
                     </template>
                 </InputCheckbox>
 
-                <InputNumber label="Estimation de score (P7)" v-model="form.estimation" :buttons="false">
+                <InputNumber label="Estimation de score" v-model="form.estimation" :buttons="false">
                     <md-button class="md-icon-button md-raised md-accent md-dense" @click="setEstimation" tabindex="-1">
                         <md-icon>input</md-icon>
                     </md-button>
                     <template v-slot:help>
-                        Bonus = P7 - Abs(Score - Estimation)
+                        Bonus = Min(20 - Écart, Score)
                     </template>
                 </InputNumber>
 
@@ -68,30 +74,6 @@
                         1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait".
                     </template>
                 </InputCheckbox>
-            </div>
-
-            <div class="md-layout-item md-small-size-35">
-                <InputNumber label="P1"
-                            v-model="form.p1">
-                </InputNumber>
-                <InputNumber label="P2"
-                            v-model="form.p2">
-                </InputNumber>
-                <InputNumber label="P3"
-                            v-model="form.p3">
-                </InputNumber>
-                <InputNumber label="P4"
-                            v-model="form.p4">
-                </InputNumber>
-                <InputNumber label="P5"
-                            v-model="form.p5">
-                </InputNumber>
-                <InputNumber label="P6"
-                            v-model="form.p6">
-                </InputNumber>
-                <InputNumber label="P7"
-                            v-model="form.p7">
-                </InputNumber>
 
                 <div style="display: flex; justify-content: flex-end;">
                     <md-button class="md-accent" @click="reset">
@@ -100,6 +82,8 @@
                     </md-button>
                 </div>
             </div>
+
+            <div class="md-layout-item md-small-size-100"></div>
         </form>
     </div>
 </template>
@@ -128,7 +112,7 @@
         readonly data = Data2024;
 
         get coccinelles() {
-            return this.form.p4 * this.form.zonesWCoccinelle + this.form.p5 * this.form.zonesWContact;
+            return 5 * this.form.zonesCoccinelle + 5 * this.form.zonesContact;
         }
 
         setEstimation() {

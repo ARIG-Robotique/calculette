@@ -36,7 +36,7 @@
                 <md-button class="md-accent" @click="updateApp">
                     Mettre à jour
                 </md-button>
-                <md-button class="md-icon-button md-primary" @click="showHelp = false">
+                <md-button class="md-icon-button md-primary" @click="updateExists = false">
                     <md-icon>cancel</md-icon>
                 </md-button>
             </md-snackbar>
