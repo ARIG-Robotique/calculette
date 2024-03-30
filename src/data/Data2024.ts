@@ -72,7 +72,7 @@ export const Data2024: PageData<Form2024> = {
         subtotal += 5 * form.panneaux;
         subtotal += form.retour ? 10 : 0;
 
-        const bonus = Math.max(0, Math.min(20 - Math.abs(form.estimation - subtotal), subtotal));
+        const bonus = Math.max(0, Math.min(Math.ceil(20 - Math.abs(form.estimation - subtotal) / 2), subtotal));
 
         let total = subtotal;
         total += bonus;

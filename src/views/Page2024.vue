@@ -64,7 +64,7 @@
                         <md-icon>input</md-icon>
                     </md-button>
                     <template v-slot:help>
-                        Bonus = Min(20 - Écart, Score)
+                        Bonus = Min(20 - Écart / 2, Score)
                     </template>
                 </InputNumber>
 
