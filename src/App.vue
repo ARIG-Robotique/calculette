@@ -6,8 +6,11 @@
             </md-button>
             <img :src="'./img/logos/' + contest.year + '.png'" style="height: 40px">
             <span class="md-title">{{contest.year}} : {{contest.name}}</span>
-            <div class="md-toolbar-section-end" v-if="contest.match">
-                <md-button class="md-icon-button" @click="switchMatch()">
+            <div class="md-toolbar-section-end">
+                <md-button class="md-icon-button" v-if="contest.pdfUrl" @click="showPdfDialog = true">
+                    <md-icon>description</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" v-if="contest.match" @click="switchMatch()">
                     <md-icon>sports_score</md-icon>
                 </md-button>
             </div>
@@ -41,6 +44,17 @@
                 </md-button>
             </md-snackbar>
 
+            <md-dialog :md-active.sync="showPdfDialog" :md-fullscreen="true">
+                <md-dialog-content class="md-dialog-no-padding">
+                    <embed :src="contest.pdfUrl" type="application/pdf"
+                           style="width: 100%; height: 100%; border: none;">
+                </md-dialog-content>
+
+                <md-dialog-actions>
+                    <md-button class="md-primary" @click="showPdfDialog = false">Fermer</md-button>
+                </md-dialog-actions>
+            </md-dialog>
+
             <md-content class="md-primary arig-footer">
                 Fait avec amour par <a href="https://arig-robotique.github.io/" class="md-accent">ARIG Robotique</a>.<br>
                 Contribuez sur <a href="https://github.com/ARIG-Robotique/calculette" class="md-accent">GitHub</a>.<br>
@@ -61,6 +75,7 @@
 
         contest: Contest = this.CONTESTS[0];
         showMenu = false;
+        showPdfDialog = false;
 
         private registration: ServiceWorkerRegistration = null;
         updateExists = false;
@@ -143,6 +158,10 @@
 
     .md-avatar {
         border-radius: none;
+    }
+
+    .md-dialog-no-padding {
+        padding: 0 !important;
     }
 
     .arig-page {

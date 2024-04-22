@@ -83,7 +83,10 @@
                 </div>
             </div>
 
-            <div class="md-layout-item md-small-size-100"></div>
+            <div class="md-layout-item md-small-hide">
+                <embed :src="pdfUrl + '#view=Fit'" type="application/pdf"
+                       style="width: 100%; aspect-ratio: 1.4; border: none;">
+            </div>
         </form>
     </div>
 </template>
@@ -97,6 +100,7 @@
     import ShareButton from '../components/ShareButton.vue';
     import { AbstractPage } from './AbstractPage';
     import { Form2024, Data2024 } from '../data/Data2024';
+    import { CONTESTS } from '../data/contests';
 
     @Component({
         components: {
@@ -110,6 +114,7 @@
 
         readonly year = '2024';
         readonly data = Data2024;
+        readonly pdfUrl = CONTESTS['2024'].pdfUrl;
 
         get coccinelles() {
             return 5 * this.form.zonesCoccinelle + 5 * this.form.zonesContact;

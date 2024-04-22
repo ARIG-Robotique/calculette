@@ -3,6 +3,7 @@ export interface Contest {
     name: string;
     themeColor: string;
     match: boolean;
+    pdfUrl?: string;
 }
 
 export const CONTESTS: Record<string, Contest> = {
@@ -11,6 +12,7 @@ export const CONTESTS: Record<string, Contest> = {
         name: 'Farming Mars',
         themeColor: '#d32f2f',
         match: false,
+        pdfUrl: 'https://www.coupederobotique.fr/wp-content/uploads/AfficheCDFR2024.pdf',
     },
     2023: {
         year: 2023,
