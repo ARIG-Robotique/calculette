@@ -1,10 +1,10 @@
 <template>
     <div>
         <md-toolbar class="md-primary md-dense arig-page-toolbar">
-            <div class="md-layout md-gutter">
-                <div class="md-layout-item md-xsmall-size-100">Actions : <md-chip class="md-accent">{{subtotal}}</md-chip></div>
-                <div class="md-layout-item md-xsmall-size-100">Bonus : <md-chip class="md-accent">{{bonus}}</md-chip></div>
-                <div class="md-layout-item md-xsmall-size-100">Total : <md-chip class="md-accent">{{total}}</md-chip></div>
+            <div class="md-toolbar-section-start">
+                <md-chip>Actions: {{subtotal}}</md-chip>
+                <md-chip>Bonus: {{bonus}}</md-chip>
+                <md-chip class="md-accent">Total: {{total}}</md-chip>
             </div>
 
             <div class="md-toolbar-section-end">

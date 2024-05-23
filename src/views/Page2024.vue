@@ -1,11 +1,15 @@
 <template>
     <div>
         <md-toolbar class="md-primary md-dense arig-page-toolbar">
-            <div class="md-layout md-gutter">
-                <div class="md-layout-item md-xsmall-size-50">Actions : <md-chip class="md-accent">{{subtotal}}</md-chip></div>
-                <div class="md-layout-item md-xsmall-size-50">Bonus : <md-chip class="md-accent">{{bonus}}</md-chip></div>
-                <div class="md-layout-item md-xsmall-size-50">Coccinelles : <md-chip class="md-accent">{{coccinelles}}</md-chip></div>
-                <div class="md-layout-item md-xsmall-size-50">Total : <md-chip class="md-accent">{{total}}</md-chip></div>
+            <div class="md-layout md-gutter md-alignment-center-left">
+                <div class="md-layout-item md-xsmall-size-100">
+                    <md-chip>Actions: {{subtotal}}</md-chip>
+                    <md-chip>Bonus: {{bonus}}</md-chip>
+                </div>
+                <div class="md-layout-item md-xsmall-size-100">
+                    <md-chip>Coccinelles: {{coccinelles}}</md-chip>
+                    <md-chip class="md-accent">Total: {{total}}</md-chip>
+                </div>
             </div>
 
             <div class="md-toolbar-section-end">
@@ -15,44 +19,44 @@
         </md-toolbar>
         <form class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
-                <InputNumber label="Plantes valides"
+                <InputNumber label="Plantes valides (3 pts)"
                             v-model="form.plantes" :max="36">
                     <template v-slot:help>
                         3 points par plante valide dans une zone adaptée
                     </template>
                 </InputNumber>
-                <InputNumber label="Plantes en pots"
+                <InputNumber label="Plantes en pots (1 pt)"
                             v-model="form.plantesPots" :max="form.plantes">
                     <template v-slot:help>
                         1 point supplémentaire si la plante valide est dans un pot
                     </template>
                 </InputNumber>
-                <InputNumber label="Plantes dans une jardinière"
+                <InputNumber label="Plantes dans une jardinière (1 pt)"
                             v-model="form.plantesJardiniere" :max="form.plantes">
                     <template v-slot:help>
                         1 point supplémentaire si la plante valide est dans une jardinière
                     </template>
                 </InputNumber>
-                <InputNumber label="Panneaux valides"
+                <InputNumber label="Panneaux valides (5 pts)"
                             v-model="form.panneaux" :max="9">
                     <template v-slot:help>
                         5 points pour chaque panneau valide pour l'équipe
                     </template>
                 </InputNumber>
-                <InputNumber label="Zones avec coccinelle"
+                <InputNumber label="Zones avec coccinelle (5 pts)"
                             v-model="form.zonesCoccinelle" :max="6">
                     <template v-slot:help>
                         5 points par zone de dépose de l'équipe occupée par au moins une coccinelle à la fin du match
                     </template>
                 </InputNumber>
-                <InputNumber label="Coccinelles en contact"
+                <InputNumber label="Coccinelles en contact (5 pts)"
                             v-model="form.zonesContact" :max="form.zonesCoccinelle">
                     <template v-slot:help>
                         5 points supplémentaires par zone de dépose de l'équipe dans laquelle 
                         au moins une coccinelle est en contact avec une plante ou un pot contenant une plante
                     </template>
                 </InputNumber>
-                <InputCheckbox label="Robot dans l'aire de recharge"
+                <InputCheckbox label="Robot dans l'aire de recharge (10 pts)"
                             v-model="form.retour">
                     <template v-slot:help>
                         10 points si le robot de l'équipe est dans l'aire valide

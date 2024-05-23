@@ -6,8 +6,8 @@
 ));
 
 @include md-register-theme("2023", (
-        primary: md-get-palette-color(red, 800),
-        accent: md-get-palette-color(amber, 600)
+        primary: md-get-palette-color(amber, 600),
+        accent: md-get-palette-color(red, 800)
 ));
 
 @include md-register-theme("2022", (

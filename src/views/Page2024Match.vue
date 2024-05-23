@@ -10,75 +10,66 @@
         </md-toolbar>
         <form class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
-                <DualInput label="Etages de gâteau (1 pt)">
+                <DualInput label="Plantes valides (3 pts)">
                     <template v-slot:left>
-                        <InputNumber v-model="teamA.etagesGateaux"></InputNumber>
+                        <InputNumber v-model="teamA.plantes" :max="36"></InputNumber>
                     </template>
                     <template v-slot:right>
-                        <InputNumber v-model="teamB.etagesGateaux"></InputNumber>
+                        <InputNumber v-model="teamB.plantes" :max="36"></InputNumber>
                     </template>
                 </DualInput>
 
-                <DualInput label="Gâteaux complets (4 pts)">
+                <DualInput label="Plantes en pots (1 pt)">
                     <template v-slot:left>
-                        <InputNumber v-model="teamA.gateauxComplets"></InputNumber>
+                        <InputNumber v-model="teamA.plantesPots" :max="teamA.plantes"></InputNumber>
                     </template>
                     <template v-slot:right>
-                        <InputNumber v-model="teamB.gateauxComplets"></InputNumber>
+                        <InputNumber v-model="teamB.plantesPots" :max="teamB.plantes"></InputNumber>
                     </template>
                 </DualInput>
 
-                <DualInput label="Cerises sur les gâteaux (3 pts)">
+                <DualInput label="Plantes dans une jardinière (1 pt)">
                     <template v-slot:left>
-                        <InputNumber v-model="teamA.cerisesGateaux"></InputNumber>
+                        <InputNumber v-model="teamA.plantesJardiniere" :max="teamA.plantes"></InputNumber>
                     </template>
                     <template v-slot:right>
-                        <InputNumber v-model="teamB.cerisesGateaux"></InputNumber>
+                        <InputNumber v-model="teamB.plantesJardiniere" :max="teamB.plantes"></InputNumber>
                     </template>
                 </DualInput>
 
-                <DualCheckbox label="Panier présent (5 pts)">
+                <DualInput label="Panneaux valides (5 pts)">
                     <template v-slot:left>
-                        <InputCheckbox v-model="teamA.panierPresent"></InputCheckbox>
+                        <InputNumber v-model="teamA.panneaux" :max="9"></InputNumber>
                     </template>
                     <template v-slot:right>
-                        <InputCheckbox v-model="teamB.panierPresent"></InputCheckbox>
-                    </template>
-                </DualCheckbox>
-
-                <DualInput label="Cerises dans le panier (1 pt)">
-                    <template v-slot:left>
-                        <InputNumber v-model="teamA.cerisesPanier"></InputNumber>
-                    </template>
-                    <template v-slot:right>
-                        <InputNumber v-model="teamB.cerisesPanier"></InputNumber>
+                        <InputNumber v-model="teamB.panneaux" :max="9"></InputNumber>
                     </template>
                 </DualInput>
 
-                <DualCheckbox label="Comptage panier (5 pts)">
+                <DualInput label="Zones avec coccinelle (5 pts)">
                     <template v-slot:left>
-                        <InputCheckbox v-model="teamA.panierOk"></InputCheckbox>
+                        <InputNumber v-model="teamA.zonesCoccinelle" :max="6"></InputNumber>
                     </template>
                     <template v-slot:right>
-                        <InputCheckbox v-model="teamB.panierOk"></InputCheckbox>
+                        <InputNumber v-model="teamB.zonesCoccinelle" :max="6"></InputNumber>
                     </template>
-                </DualCheckbox>
+                </DualInput>
 
-                <DualCheckbox label="Les roues dans le plat (15 pts)">
+                <DualInput label="Coccinelles en contact (5 pts)">
                     <template v-slot:left>
-                        <InputCheckbox v-model="teamA.retourOk"></InputCheckbox>
+                        <InputNumber v-model="teamA.zonesContact" :max="teamA.zonesCoccinelle"></InputNumber>
                     </template>
                     <template v-slot:right>
-                        <InputCheckbox v-model="teamB.retourOk"></InputCheckbox>
+                        <InputNumber v-model="teamB.zonesContact" :max="teamB.zonesCoccinelle"></InputNumber>
                     </template>
-                </DualCheckbox>
+                </DualInput>
 
-                <DualCheckbox label="Funny action (5 pts)">
+                <DualCheckbox label="Robot dans l'aire de recharge (10 pts)">
                     <template v-slot:left>
-                        <InputCheckbox v-model="teamA.funnyAction"></InputCheckbox>
+                        <InputCheckbox v-model="teamA.retour"></InputCheckbox>
                     </template>
                     <template v-slot:right>
-                        <InputCheckbox v-model="teamB.funnyAction"></InputCheckbox>
+                        <InputCheckbox v-model="teamB.retour"></InputCheckbox>
                     </template>
                 </DualCheckbox>
 
@@ -128,7 +119,7 @@
     import { AbstractPageMatch } from './AbstractPageMatch';
     import DualInput from '../components/DualInput.vue';
     import DualCheckbox from '../components/DualCheckbox.vue';
-    import { Form2023, Data2023 } from '../data/Data2023';
+    import { Form2024, Data2024 } from '../data/Data2024';
 
     @Component({
         components: {
@@ -140,10 +131,10 @@
             ShareButton,
         },
     })
-    export default class Page2023Match extends AbstractPageMatch<Form2023> {
+    export default class Page2024Match extends AbstractPageMatch<Form2024> {
 
-        readonly year = '2023';
-        readonly data = Data2023;
+        readonly year = '2024';
+        readonly data = Data2024;
 
         setEstimation(team: 'A' | 'B') {
             switch (team) {
@@ -178,7 +169,7 @@
     .page-dual-2023 {
         border-style: solid;
         border-width: 0 20px;
-        border-image-source: url('../assets/page2023dual.png');
+        border-image-source: url('../assets/page2024dual.png');
         border-image-slice: 40;
         border-image-width: 0 20px;
         border-image-repeat: round;
@@ -187,6 +178,6 @@
     }
 
     .arig-page-toolbar {
-        background: linear-gradient(to right, #005da4 0% 50%, #007b47 50% 100%);
+        background: linear-gradient(to right, #005ca3 0% 50%, #fdc10c 50% 100%);
     }
 </style>

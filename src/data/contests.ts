@@ -11,13 +11,13 @@ export const CONTESTS: Record<string, Contest> = {
         year: 2024,
         name: 'Farming Mars',
         themeColor: '#d32f2f',
-        match: false,
+        match: true,
         pdfUrl: 'https://www.coupederobotique.fr/wp-content/uploads/AfficheCDFR2024.pdf',
     },
     2023: {
         year: 2023,
         name: 'Cherry on the Cake',
-        themeColor: '#c62828',
+        themeColor: '#ffb300',
         match: true,
     },
     2022: {

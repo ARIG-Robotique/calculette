@@ -1,8 +1,8 @@
 <template>
     <div>
         <md-toolbar class="md-primary md-dense arig-page-toolbar">
-            <div class="md-layout md-gutter">
-                <div class="md-layout-item">Total : <md-chip class="md-accent">{{total}}</md-chip></div>
+            <div class="md-toolbar-section-start">
+                <md-chip class="md-accent">Total: {{total}}</md-chip>
             </div>
 
             <div class="md-toolbar-section-end">

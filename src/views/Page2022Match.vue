@@ -1,13 +1,11 @@
 <template>
     <div class="page-dual-2022">
         <md-toolbar class="md-dense arig-page-toolbar">
-            <div class="md-layout md-alignment-center" style="width: 100%;">
-                <div class="md-layout-item">
-                    Total : <md-chip class="md-accent">{{totalA}}</md-chip>
-                </div>
-                <div class="md-layout-item" style="text-align: right;">
-                    Total : <md-chip class="md-accent">{{totalB}}</md-chip>
-                </div>
+            <div class="md-toolbar-section-start">
+                <md-chip class="md-accent">Total: {{totalA}}</md-chip>
+            </div>
+            <div class="md-toolbar-section-end">
+                <md-chip class="md-accent">Total: {{totalB}}</md-chip>
             </div>
         </md-toolbar>
         <form class="md-layout md-gutter">
