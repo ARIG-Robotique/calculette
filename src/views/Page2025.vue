@@ -56,7 +56,7 @@
                     </template>
                 </InputCheckbox>
                 <InputCheckbox label="Tous les PAMI (P7)"
-                            v-model="form.superstar">
+                            v-model="form.allSima">
                     <template v-slot:help>
                         P7 points supplémentaires si tous les PAMI font la fête
                     </template>
