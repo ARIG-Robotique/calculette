@@ -4,7 +4,7 @@
             <md-icon>star</md-icon>
         </md-button>
 
-        <md-dialog :md-active.sync="showDrawer">
+        <md-dialog :md-active.sync="showDrawer" :md-fullscreen="false">
             <md-dialog-title>Configs. sauvegardées</md-dialog-title>
 
             <md-dialog-content>

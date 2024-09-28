@@ -1,5 +1,10 @@
 @import "~vue-material/dist/theme/engine"; // Import the theme engine
 
+@include md-register-theme("2025", (
+        primary: md-get-palette-color(grey, 900),
+        accent: md-get-palette-color(red, A700)
+));
+
 @include md-register-theme("2024", (
         primary: md-get-palette-color(red, 700),
         accent: md-get-palette-color(deeppurple, 800)

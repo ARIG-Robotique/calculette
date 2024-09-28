@@ -9,6 +9,7 @@ export abstract class AbstractPage<T> extends Vue {
     
     form: T = {} as T;
     subtotal = 0;
+    sima = 0;
     bonus = 0;
     total = 0;
 
@@ -43,7 +44,12 @@ export abstract class AbstractPage<T> extends Vue {
     }
 
     compute() {
-        ({ subtotal: this.subtotal, bonus: this.bonus, total: this.total } = this.data.compute(this.form));
+        ({
+            subtotal: this.subtotal,
+            bonus: this.bonus,
+            sima: this.sima,
+            total: this.total,
+        } = this.data.compute(this.form));
     }
 
 }

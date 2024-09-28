@@ -74,16 +74,16 @@ export const Data2024: PageData<Form2024> = {
 
         const bonus = Math.max(0, Math.min(Math.ceil(20 - Math.abs(form.estimation - subtotal) / 2), subtotal));
 
-        let total = subtotal;
-        total += bonus;
-        total += 5 * form.zonesCoccinelle;
-        total += 5 * form.zonesContact;
-        total += 1;
+        let sima = 0;
+        sima += 5 * form.zonesCoccinelle;
+        sima += 5 * form.zonesContact;
+
+        let total = subtotal + bonus + sima + 1;
 
         if (!form.nonForfait) {
             total = 0;
         }
 
-        return { subtotal, bonus, total };
+        return { subtotal, bonus, sima, total };
     },
 };

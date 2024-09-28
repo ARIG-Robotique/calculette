@@ -7,7 +7,7 @@
                     <md-chip>Bonus: {{bonus}}</md-chip>
                 </div>
                 <div class="md-layout-item md-xsmall-size-100">
-                    <md-chip>Coccinelles: {{coccinelles}}</md-chip>
+                    <md-chip>Coccinelles: {{sima}}</md-chip>
                     <md-chip class="md-accent">Total: {{total}}</md-chip>
                 </div>
             </div>
@@ -119,10 +119,6 @@
         readonly year = '2024';
         readonly data = Data2024;
         readonly pdfUrl = CONTESTS['2024'].pdfUrl;
-
-        get coccinelles() {
-            return 5 * this.form.zonesCoccinelle + 5 * this.form.zonesContact;
-        }
 
         setEstimation() {
             this.compute();

@@ -7,6 +7,12 @@ export interface Contest {
 }
 
 export const CONTESTS: Record<string, Contest> = {
+    2025: {
+        year: 2025,
+        name: 'The Show Must Go On (beta)',
+        themeColor: '#212121',
+        match: false,
+    },
     2024: {
         year: 2024,
         name: 'Farming Mars',
