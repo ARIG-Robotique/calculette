@@ -26,13 +26,13 @@
                     </template>
                 </InputNumber>
                 <InputNumber label="Gradins niveau 2 (P2)"
-                            v-model="form.tribune2" :max="form.tribune1">
+                            v-model="form.tribune2" :max="10">
                     <template v-slot:help>
                         P2 points par gradin de niveau 2
                     </template>
                 </InputNumber>
                 <InputNumber label="Gradins niveau 3 (P3)"
-                            v-model="form.tribune3" :max="form.tribune2">
+                            v-model="form.tribune3" :max="10">
                     <template v-slot:help>
                         P3 points par gradin de niveau 3
                     </template>
