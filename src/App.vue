@@ -18,7 +18,17 @@
 
         <md-app-drawer class="md-left" :md-active.sync="showMenu">
             <md-toolbar class="md-primary" md-elevation="0">
-                <h3 class="md-title">Règlements</h3>
+                <h3 class="md-title" style="flex:1">{{ $t('global.contests') }}</h3>
+                <md-menu md-direction="bottom-end">
+                    <md-button md-menu-trigger class="md-icon-button">
+                        <md-icon>translate</md-icon>
+                    </md-button>
+
+                    <md-menu-content>
+                        <md-menu-item @click="setLocale('fr')">🇫🇷 Français</md-menu-item>
+                        <md-menu-item @click="setLocale('en')">🇬🇧 English</md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </md-toolbar>
 
             <md-list>
@@ -35,9 +45,9 @@
             </div>
 
             <md-snackbar md-position="center" :md-duration="Infinity" :md-active.sync="updateExists" md-persistent>
-                <span>Une nouvelle version est disponible.</span>
+                <span>{{ $t('update.msg') }}</span>
                 <md-button class="md-accent" @click="updateApp">
-                    Mettre à jour
+                    {{ $t('update.btn') }}
                 </md-button>
                 <md-button class="md-icon-button md-primary" @click="updateExists = false">
                     <md-icon>cancel</md-icon>
@@ -99,6 +109,7 @@
 
         mounted() {
             this.updateYear();
+            document.title = this.$t('appName') as string;
         }
 
         updateAvailable(event: CustomEvent) {
@@ -125,6 +136,13 @@
             } else {
                 this.$router.push({path: `/${this.contest.year}/match`, query: { c: undefined }});
             }
+        }
+
+        setLocale(locale: string) {
+            this.$i18n.locale = locale;
+            this.showMenu = false;
+            localStorage['locale'] = locale;
+            document.title = this.$t('appName') as string;
         }
 
         updateYear() {

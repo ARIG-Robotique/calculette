@@ -39,6 +39,12 @@ export abstract class AbstractPage<T> extends Vue {
         this.form = this.data.defaultForm();
     }
 
+    setEstimation() {
+        this.compute();
+        // @ts-ignore
+        this.form.estimation = this.subtotal;
+    }
+
     applyFavorite(favorite: Favorite) {
         this.form = favorite.form as any;
     }

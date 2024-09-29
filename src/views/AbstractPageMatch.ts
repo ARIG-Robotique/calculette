@@ -43,4 +43,19 @@ export abstract class AbstractPageMatch<T> extends Vue {
         ({ subtotal: this.subtotalB, total: this.totalB } = this.data.compute(this.teamB));
     }
 
+    setEstimation(team: 'A' | 'B') {
+        switch (team) {
+            case 'A':
+                this.computeA();
+                // @ts-ignore
+                this.teamA.estimation = this.subtotalA;
+                break;
+            case 'B':
+                this.computeB();
+                // @ts-ignore
+                this.teamB.estimation = this.subtotalB;
+                break;
+        }
+    }
+
 }

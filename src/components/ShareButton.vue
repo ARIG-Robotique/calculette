@@ -3,13 +3,17 @@
         <md-icon>share</md-icon>
 
         <md-dialog :md-active.sync="showDialog" :md-fullscreen="false">
-            <md-dialog-title>Lien de partage</md-dialog-title>
+            <md-dialog-title>{{ $t('share.title') }}</md-dialog-title>
 
             <md-dialog-content>{{url}}</md-dialog-content>
 
             <md-dialog-actions>
-                <md-button class="md-primary" @click="showDialog = false">Annuler</md-button>
-                <md-button class="md-primary md-raised" @click="copy()">Copier</md-button>
+                <md-button class="md-primary" @click="showDialog = false">
+                    {{ $t('global.close') }}
+                </md-button>
+                <md-button class="md-primary md-raised" @click="copy()">
+                    {{ $t('share.copy') }}
+                </md-button>
             </md-dialog-actions>
         </md-dialog>
     </md-button>
@@ -32,7 +36,7 @@
 
             if (window.navigator.share) {
                 window.navigator.share({
-                    title: 'Calculette CDR',
+                    title: this.$t('appName') as string,
                     url  : this.url,
                 });
             }

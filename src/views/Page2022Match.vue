@@ -210,21 +210,6 @@
         readonly year = '2022';
         readonly data = Data2022;
 
-        setEstimation(team: 'A' | 'B') {
-            switch (team) {
-                case 'A':
-                    this.computeA();
-                    this.teamA.estimation = this.subtotalA;
-                    break;
-                case 'B':
-                    this.computeB();
-                    this.teamB.estimation = this.subtotalB;
-                    break;
-            }
-        }
-
-        // FIXME methods are not "seen" if not re-declared
-
         created() {
             super.created();
         }
@@ -235,6 +220,10 @@
 
         reset() {
             super.reset();
+        }
+
+        setEstimation(team: 'A' | 'B') {
+            super.setEstimation(team);
         }
     }
 </script>

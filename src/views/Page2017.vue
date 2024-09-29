@@ -90,8 +90,6 @@
         readonly year = '2017';
         readonly data = Data2017;
 
-        // FIXME methods are not "seen" if not re-declared
-
         created() {
             super.created();
         }

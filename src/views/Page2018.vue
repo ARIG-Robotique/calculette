@@ -162,13 +162,6 @@
         readonly year = '2018';
         readonly data = Data2018;
 
-        setEstimation() {
-            this.compute();
-            this.form.estimation = this.subtotal;
-        }
-
-        // FIXME methods are not "seen" if not re-declared
-
         created() {
             super.created();
         }
@@ -179,6 +172,10 @@
 
         reset() {
             super.reset();
+        }
+
+        setEstimation() {
+            super.setEstimation();
         }
 
         applyFavorite(favorite: Favorite) {

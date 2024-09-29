@@ -5,7 +5,7 @@
         </md-button>
 
         <md-dialog :md-active.sync="showDrawer" :md-fullscreen="false">
-            <md-dialog-title>Configs. sauvegardées</md-dialog-title>
+            <md-dialog-title>{{ $t('favorites.title') }}</md-dialog-title>
 
             <md-dialog-content>
                 <md-list class="md-double-line">
@@ -21,15 +21,17 @@
                 </md-list>
 
                 <md-empty-state v-if="favorites.length === 0"
-                                md-label="Aucune configuration">
+                                :md-label="$t('favorites.empty')">
                 </md-empty-state>
             </md-dialog-content>
 
             <md-dialog-actions>
-                <md-button class="md-primary" @click="showDrawer = false">Annuler</md-button>
+                <md-button class="md-primary" @click="showDrawer = false">
+                    {{ $t('global.close') }}
+                </md-button>
                 <md-button class="md-primary md-raised" @click="showDialog = true">
                     <md-icon>save</md-icon>
-                    Sauvegarder cette config
+                    {{ $t('favorites.new') }}
                 </md-button>
             </md-dialog-actions>
         </md-dialog>
@@ -37,14 +39,14 @@
         <md-dialog-prompt :md-active.sync="showDialog"
                             v-model="favoriteName"
                             @md-confirm="saveFavorite"
-                            md-title="Nom de la configuration"
+                            :md-title="$t('favorites.name')"
                             md-input-placeholder=""
-                            md-cancel-text="Annuler"
-                            md-confirm-text="Valider">
+                            :md-cancel-text="$t('global.cancel')"
+                            :md-confirm-text="$t('global.validate')">
         </md-dialog-prompt>
 
         <md-snackbar md-position="center" :md-duration="2000" :md-active.sync="showSnackbar" md-persistent>
-            <span>Configuration sauvegardée.</span>
+            <span>{{ $t('favorites.msg') }}</span>
             <md-button class="md-icon-button md-primary" @click="showSnackbar = false">
                 <md-icon>cancel</md-icon>
             </md-button>

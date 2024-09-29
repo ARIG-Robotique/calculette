@@ -1,9 +1,11 @@
 import Vue from 'vue';
+import VueI18n from 'vue-i18n';
 import VueMaterial from 'vue-material';
 import 'vue-material/dist/vue-material.min.css';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import { CONTESTS } from './data/contests';
+import messages from './data/i18n';
 import './registerServiceWorker';
 import './style.scss';
 import Page2017 from './views/Page2017.vue';
@@ -17,6 +19,10 @@ import Page2025 from './views/Page2025.vue';
 import Page2022Match from './views/Page2022Match.vue';
 import Page2023Match from './views/Page2023Match.vue';
 import Page2024Match from './views/Page2024Match.vue';
+
+// vue-i18n requires Vue to be global
+// @ts-ignore
+window.Vue = Vue;
 
 Vue.config.productionTip = false;
 
@@ -51,7 +57,16 @@ const router = new VueRouter({
     ],
 });
 
+const locale = localStorage['locale'] ?? (window.navigator.language.toLowerCase().includes('fr') ? 'fr' : 'en');
+
+const i18n = new VueI18n({
+    locale,
+    messages,
+    silentFallbackWarn: true,
+});
+
 new Vue({
     render: h => h(App),
     router,
+    i18n,
 }).$mount('#app');

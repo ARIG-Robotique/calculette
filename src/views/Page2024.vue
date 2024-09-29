@@ -120,13 +120,6 @@
         readonly data = Data2024;
         readonly pdfUrl = CONTESTS['2024'].pdfUrl;
 
-        setEstimation() {
-            this.compute();
-            this.form.estimation = this.subtotal;
-        }
-
-        // FIXME methods are not "seen" if not re-declared
-
         created() {
             super.created();
         }
@@ -137,6 +130,10 @@
 
         reset() {
             super.reset();
+        }
+
+        setEstimation() {
+            super.setEstimation();
         }
 
         applyFavorite(favorite: Favorite) {

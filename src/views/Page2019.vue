@@ -166,13 +166,6 @@ dans la balance.
         readonly year = '2019';
         readonly data = Data2019;
 
-        setEstimation() {
-            this.compute();
-            this.form.estimation = this.subtotal;
-        }
-
-        // FIXME methods are not "seen" if not re-declared
-
         created() {
             super.created();
         }
@@ -183,6 +176,10 @@ dans la balance.
 
         reset() {
             super.reset();
+        }
+
+        setEstimation() {
+            super.setEstimation();
         }
 
         applyFavorite(favorite: Favorite) {

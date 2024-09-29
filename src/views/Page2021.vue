@@ -144,13 +144,6 @@ composée d’une bouée verte et d’une bouée rouge.
         readonly year = '2021';
         readonly data = Data2021;
 
-        setEstimation() {
-            this.compute();
-            this.form.estimation = this.subtotal;
-        }
-
-        // FIXME methods are not "seen" if not re-declared
-
         created() {
             super.created();
         }
@@ -161,6 +154,10 @@ composée d’une bouée verte et d’une bouée rouge.
 
         reset() {
             super.reset();
+        }
+
+        setEstimation() {
+            super.setEstimation();
         }
 
         applyFavorite(favorite: Favorite) {
