@@ -100,8 +100,8 @@ import { Form2025, Data2025 } from '../data/Data2025';
         messages: {
             fr: {
                 action1: 'Gradins niveau 1 (P1)',
-                action2: 'Gradins niveau 2 (P1)',
-                action3: 'Gradins niveau 3 (P1)',
+                action2: 'Gradins niveau 2 (P2)',
+                action3: 'Gradins niveau 3 (P3)',
                 action4: 'Banderole déployée (P4)',
                 action5: 'Zones de fosse occupées (P5)',
                 action6: 'Superstar sur scène (P6)',
