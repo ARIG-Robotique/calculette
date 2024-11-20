@@ -9,9 +9,10 @@ export interface Contest {
 export const CONTESTS: Record<string, Contest> = {
     2025: {
         year: 2025,
-        name: 'The Show Must Go On (beta)',
+        name: 'The Show Must Go On',
         themeColor: '#212121',
         match: false,
+        pdfUrl: 'https://www.eurobot.org/wp-content/uploads/2024/10/Eurobot2025_Rules.pdf',
     },
     2024: {
         year: 2024,
