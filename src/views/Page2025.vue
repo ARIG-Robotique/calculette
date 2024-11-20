@@ -65,8 +65,12 @@
             </div>
 
             <div class="md-layout-item md-small-hide">
-                <embed :src="pdfUrl + '#view=Fit'" type="application/pdf"
+                <object :data="pdfUrl + '#view=Fit'" type="application/pdf"
                        style="width: 100%; aspect-ratio: 1.4; border: none;">
+                    <p>It appears you don't have a PDF plugin for this browser.
+                        No biggie... you can <a :href="pdfUrl">click here to
+                            download the PDF file.</a></p>
+                </object>
             </div>
         </form>
     </div>
