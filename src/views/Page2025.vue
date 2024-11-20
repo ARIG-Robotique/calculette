@@ -18,7 +18,7 @@
             </div>
         </md-toolbar>
         <form class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-65">
+            <div class="md-layout-item md-small-size-100">
                 <InputNumber :label="$t('action1')" v-model="form.tribune1" :max="18">
                     <template v-slot:help>{{ $t('help1') }}</template>
                 </InputNumber>
