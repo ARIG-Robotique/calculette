@@ -1,5 +1,5 @@
 <template>
-    <div class="page-dual-2023">
+    <div class="page-dual-2024">
         <md-toolbar class="md-dense arig-page-toolbar">
             <div class="md-toolbar-section-start">
                 <md-chip class="md-accent">Total: {{totalA}}</md-chip>
@@ -155,7 +155,7 @@
 </script>
 
 <style scoped lang="scss">
-    .page-dual-2023 {
+    .page-dual-2024 {
         border-style: solid;
         border-width: 0 20px;
         border-image-source: url('../assets/page2024dual.png');
