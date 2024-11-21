@@ -34,7 +34,7 @@ export const Data2025: PageData<Form2025> = {
 
     parseForm(c: string): Form2025 {
         const vals = c.split(',');
-        if (vals.length !== 18) {
+        if (vals.length !== 10) {
             return null;
         }
 
