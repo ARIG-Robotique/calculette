@@ -56,6 +56,13 @@
                     </template>
                 </InputNumber>
 
+              <InputCheckbox label="Non forfait (1 pt)"
+                             v-model="form.nonForfait">
+                <template v-slot:help>
+                  1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait".
+                </template>
+              </InputCheckbox>
+
                 <div style="display: flex; justify-content: flex-end;">
                     <md-button class="md-accent" @click="reset">
                         <md-icon>backspace</md-icon>

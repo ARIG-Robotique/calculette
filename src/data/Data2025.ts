@@ -13,6 +13,7 @@ export interface Form2025 {
     backstage: boolean,
 
     estimation: number,
+    nonForfait: boolean,
 }
 
 export const Data2025: PageData<Form2025> = {
@@ -29,6 +30,7 @@ export const Data2025: PageData<Form2025> = {
             backstage: false,
 
             estimation: 0,
+            nonForfait: true,
         };
     },
 
@@ -50,6 +52,7 @@ export const Data2025: PageData<Form2025> = {
             backstage: toBool(vals[8]),
 
             estimation: parseInt(vals[9]),
+            nonForfait: toBool(vals[10]),
         };
     },
 
@@ -65,6 +68,7 @@ export const Data2025: PageData<Form2025> = {
             form.freeStageArea,
             fromBool(form.backstage),
             form.estimation,
+            fromBool(form.nonForfait),
         ].join(',');
     },
 
@@ -84,7 +88,11 @@ export const Data2025: PageData<Form2025> = {
         sima += form.allSima ? 10 : 0;
         sima += [0, 1, 2, 3, 5, 9, 15][form.freeStageArea];
 
-        const total = subtotal + bonus + sima;
+        let total = subtotal + bonus + sima + 1;
+
+        if (!form.nonForfait) {
+            total = 0;
+        }
 
         return { subtotal, bonus, sima, total };
     },
