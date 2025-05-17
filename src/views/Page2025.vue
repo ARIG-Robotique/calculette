@@ -56,11 +56,9 @@
                     </template>
                 </InputNumber>
 
-              <InputCheckbox label="Non forfait (1 pt)"
+              <InputCheckbox label="$t('action10')"
                              v-model="form.nonForfait">
-                <template v-slot:help>
-                  1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait".
-                </template>
+                <template v-slot:help>{{ $t('help9') }}</template>
               </InputCheckbox>
 
                 <div style="display: flex; justify-content: flex-end;">
@@ -113,6 +111,7 @@ import { CONTESTS } from '../data/contests';
                 action7: 'Tous les PAMI (10 pts)',
                 action8: 'Zones de scène libres (0 à 15 pts)',
                 action9: 'Ranger les outils (10 pts)',
+                action10: 'Non forfait (1 pt)',
 
                 help1: '4 points par gradin de niveau 1',
                 help2: '8 points par gradin de niveau 2',
@@ -123,6 +122,7 @@ import { CONTESTS } from '../data/contests';
                 help7: '10 points supplémentaires si tous les PAMI font la fête',
                 help8: '0, 1, 2, 3, 5, 9 ou 15 points supplémentaires fonction de la zone de scène libre derrière la superstar avec la valeur la plus grande.',
                 help9: '10 points si le robot principal de l’équipe est dans l’aire d’arrivée',
+                help10: '1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait".'
             },
             en: {
                 action1: 'Level 1 tribunes (4 pts)',
@@ -134,6 +134,7 @@ import { CONTESTS } from '../data/contests';
                 action7: 'All SIMA (10 pts)',
                 action8: 'Free stage areas (0 to 15 pts)',
                 action9: 'Store the tools (10 pts)',
+                action10: 'Non forfeited (1 pt)',
 
                 help1: '4 points per level 1 tribune',
                 help2: '8 points per level 2 tribune',
@@ -144,6 +145,7 @@ import { CONTESTS } from '../data/contests';
                 help7: '10 additional points if all SIMA make the party',
                 help8: '0, 1, 2, 3, 5, 9 or 15 additional points based on the high value free stage area behind the superstar',
                 help9: '10 points if team’s robot is in its own backstage area',
+                help10: '1 bonus point is awarded to all teams that are not "forfeited".'
             }
         }
     },
