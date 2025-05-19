@@ -56,7 +56,7 @@
                     </template>
                 </InputNumber>
 
-              <InputCheckbox label="$t('action10')"
+              <InputCheckbox :label="$t('action10')"
                              v-model="form.nonForfait">
                 <template v-slot:help>{{ $t('help9') }}</template>
               </InputCheckbox>
