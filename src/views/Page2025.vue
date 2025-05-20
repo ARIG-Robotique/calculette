@@ -58,7 +58,7 @@
 
               <InputCheckbox :label="$t('action10')"
                              v-model="form.nonForfait">
-                <template v-slot:help>{{ $t('help9') }}</template>
+                <template v-slot:help>{{ $t('help10') }}</template>
               </InputCheckbox>
 
                 <div style="display: flex; justify-content: flex-end;">
