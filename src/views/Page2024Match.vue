@@ -158,7 +158,7 @@
     .page-dual-2024 {
         border-style: solid;
         border-width: 0 20px;
-        border-image-source: url('../assets/page2024dual.png');
+        border-image-source: url('../assets/page2024_2025dual.png');
         border-image-slice: 40;
         border-image-width: 0 20px;
         border-image-repeat: round;

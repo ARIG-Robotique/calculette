@@ -11,7 +11,7 @@ export const CONTESTS: Record<string, Contest> = {
         year: 2025,
         name: 'The Show Must Go On',
         themeColor: '#212121',
-        match: false,
+        match: true,
         pdfUrl: 'https://www.eurobot.org/wp-content/uploads/2024/10/Eurobot2025_Rules.pdf',
     },
     2024: {

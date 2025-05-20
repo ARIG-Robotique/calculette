@@ -9,8 +9,13 @@ export abstract class AbstractPageMatch<T> extends Vue {
     teamA: T = {} as T;
     teamB: T = {} as T;
     subtotalA = 0;
+    bonusA = 0;
+    simaA = 0;
     totalA = 0;
+
     subtotalB = 0;
+    bonusB = 0;
+    simaB = 0;
     totalB = 0;
 
     @Watch('teamA', { deep: true })
@@ -36,11 +41,11 @@ export abstract class AbstractPageMatch<T> extends Vue {
     }
 
     computeA() {
-        ({ subtotal: this.subtotalA, total: this.totalA } = this.data.compute(this.teamA));
+        ({ subtotal: this.subtotalA, bonus: this.bonusA, sima: this.simaA, total: this.totalA } = this.data.compute(this.teamA));
     }
 
     computeB() {
-        ({ subtotal: this.subtotalB, total: this.totalB } = this.data.compute(this.teamB));
+        ({ subtotal: this.subtotalB, bonus: this.bonusB, sima: this.simaB, total: this.totalB } = this.data.compute(this.teamB));
     }
 
     setEstimation(team: 'A' | 'B') {

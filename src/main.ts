@@ -19,6 +19,7 @@ import Page2025 from './views/Page2025.vue';
 import Page2022Match from './views/Page2022Match.vue';
 import Page2023Match from './views/Page2023Match.vue';
 import Page2024Match from './views/Page2024Match.vue';
+import Page2025Match from './views/Page2025Match.vue';
 
 // vue-i18n requires Vue to be global
 // @ts-ignore
@@ -44,6 +45,7 @@ const pages: { [K in keyof typeof CONTESTS]: any } = {
 };
 
 const pagesMatch: { [K in keyof typeof CONTESTS]: any } = {
+    2025: Page2025Match,
     2024: Page2024Match,
     2023: Page2023Match,
     2022: Page2022Match,
