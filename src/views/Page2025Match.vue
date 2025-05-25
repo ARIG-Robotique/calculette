@@ -60,6 +60,32 @@
                     </template>
                 </DualCheckbox>
 
+              <DualCheckbox :label="$t('action9')">
+                <template v-slot:left>
+                  <InputCheckbox v-model="teamA.backstage"></InputCheckbox>
+                </template>
+                <template v-slot:right>
+                  <InputCheckbox v-model="teamB.backstage"></InputCheckbox>
+                </template>
+              </DualCheckbox>
+
+              <DualInput :label="$t('form.estimation')">
+                <template v-slot:left>
+                  <InputNumber v-model="teamA.estimation" :buttons="false">
+                    <md-button class="md-icon-button md-raised md-accent md-dense" @click="setEstimation('A')" tabindex="-1">
+                      <md-icon>input</md-icon>
+                    </md-button>
+                  </InputNumber>
+                </template>
+                <template v-slot:right>
+                  <InputNumber v-model="teamB.estimation" :buttons="false">
+                    <md-button class="md-icon-button md-raised md-accent md-dense" @click="setEstimation('B')" tabindex="-1">
+                      <md-icon>input</md-icon>
+                    </md-button>
+                  </InputNumber>
+                </template>
+              </DualInput>
+
                 <DualInput :label="$t('action5')">
                     <template v-slot:left>
                         <InputNumber v-model="teamA.areasWGroupies" :max="3"></InputNumber>
@@ -78,15 +104,6 @@
                     </template>
                 </DualCheckbox>
 
-                <DualCheckbox :label="$t('action7')">
-                    <template v-slot:left>
-                        <InputCheckbox v-model="teamA.allSima"></InputCheckbox>
-                    </template>
-                    <template v-slot:right>
-                        <InputCheckbox v-model="teamB.allSima"></InputCheckbox>
-                    </template>
-                </DualCheckbox>
-
                 <DualInput :label="$t('action8')">
                     <template v-slot:left>
                         <InputNumber v-model="teamA.freeStageArea" :max="6"></InputNumber>
@@ -96,31 +113,14 @@
                     </template>
                 </DualInput>
 
-                <DualCheckbox :label="$t('action9')">
-                    <template v-slot:left>
-                        <InputCheckbox v-model="teamA.backstage"></InputCheckbox>
-                    </template>
-                    <template v-slot:right>
-                        <InputCheckbox v-model="teamB.backstage"></InputCheckbox>
-                    </template>
-                </DualCheckbox>
-
-                <DualInput :label="$t('form.estimation')">
-                    <template v-slot:left>
-                        <InputNumber v-model="teamA.estimation" :buttons="false">
-                            <md-button class="md-icon-button md-raised md-accent md-dense" @click="setEstimation('A')" tabindex="-1">
-                                <md-icon>input</md-icon>
-                            </md-button>
-                        </InputNumber>
-                    </template>
-                    <template v-slot:right>
-                        <InputNumber v-model="teamB.estimation" :buttons="false">
-                            <md-button class="md-icon-button md-raised md-accent md-dense" @click="setEstimation('B')" tabindex="-1">
-                                <md-icon>input</md-icon>
-                            </md-button>
-                        </InputNumber>
-                    </template>
-                </DualInput>
+              <DualCheckbox :label="$t('action7')">
+                <template v-slot:left>
+                  <InputCheckbox v-model="teamA.allSima"></InputCheckbox>
+                </template>
+                <template v-slot:right>
+                  <InputCheckbox v-model="teamB.allSima"></InputCheckbox>
+                </template>
+              </DualCheckbox>
 
                 <DualCheckbox :label="$t('action10')">
                     <template v-slot:left>

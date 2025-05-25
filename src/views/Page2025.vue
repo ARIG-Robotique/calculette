@@ -31,30 +31,30 @@
                 <InputCheckbox :label="$t('action4')" v-model="form.banner">
                     <template v-slot:help>{{ $t('help4') }}</template>
                 </InputCheckbox>
+                <InputCheckbox :label="$t('action9')" v-model="form.backstage">
+                  <template v-slot:help>{{ $t('help9') }}</template>
+                </InputCheckbox>
+
+                <InputNumber :label="$t('form.estimation')" v-model="form.estimation" :buttons="false">
+                  <md-button class="md-icon-button md-raised md-accent md-dense" @click="setEstimation" tabindex="-1">
+                    <md-icon>input</md-icon>
+                  </md-button>
+                  <template v-slot:help>
+                    Bonus = Min(20 - (|Score - Estimation| / 2), Score)
+                  </template>
+                </InputNumber>
                 <InputNumber :label="$t('action5')" v-model="form.areasWGroupies" :max="3">
                     <template v-slot:help>{{ $t('help5') }}</template>
                 </InputNumber>
                 <InputCheckbox :label="$t('action6')" v-model="form.superstar">
                     <template v-slot:help>{{ $t('help6') }}</template>
                 </InputCheckbox>
-                <InputCheckbox :label="$t('action7')" v-model="form.allSima">
-                    <template v-slot:help>{{ $t('help7') }}</template>
-                </InputCheckbox>
                 <InputNumber :label="$t('action8')" v-model="form.freeStageArea" :max="6">
                     <template v-slot:help>{{ $t('help8') }}</template>
                 </InputNumber>
-                <InputCheckbox :label="$t('action9')" v-model="form.backstage">
-                    <template v-slot:help>{{ $t('help9') }}</template>
+                <InputCheckbox :label="$t('action7')" v-model="form.allSima">
+                    <template v-slot:help>{{ $t('help7') }}</template>
                 </InputCheckbox>
-
-                <InputNumber :label="$t('form.estimation')" v-model="form.estimation" :buttons="false">
-                    <md-button class="md-icon-button md-raised md-accent md-dense" @click="setEstimation" tabindex="-1">
-                        <md-icon>input</md-icon>
-                    </md-button>
-                    <template v-slot:help>
-                        Bonus = Min(20 - (|Score - Estimation| / 2), Score)
-                    </template>
-                </InputNumber>
 
               <InputCheckbox :label="$t('action10')"
                              v-model="form.nonForfait">
