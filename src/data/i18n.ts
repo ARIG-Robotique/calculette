@@ -1,4 +1,6 @@
-export default {
+import VueI18n from 'vue-i18n';
+
+export const MessagesGlobal: VueI18n.LocaleMessages = {
     fr: {
         appName: 'Calculette CDR',
         global: {

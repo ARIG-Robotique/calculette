@@ -5,7 +5,7 @@ import 'vue-material/dist/vue-material.min.css';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import { CONTESTS } from './data/contests';
-import messages from './data/i18n';
+import { MessagesGlobal } from './data/i18n';
 import './registerServiceWorker';
 import './style.scss';
 import Page2017 from './views/Page2017.vue';
@@ -63,7 +63,7 @@ const locale = localStorage['locale'] ?? (window.navigator.language.toLowerCase(
 
 const i18n = new VueI18n({
     locale,
-    messages,
+    messages: MessagesGlobal,
     silentFallbackWarn: true,
 });
 
