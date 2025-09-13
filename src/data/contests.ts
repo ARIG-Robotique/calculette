@@ -10,7 +10,7 @@ export const CONTESTS: Record<string, Contest> = {
     2026: {
         year: 2026,
         name: 'Winter is coming',
-        themeColor: '#0f4569',
+        themeColor: '#0288d1',
         match: false,
         pdfUrl: 'https://www.eurobot.org/wp-content/uploads/2025/09/Eurobot2026_Rules_BETA_0.9_FR.pdf',
     },
