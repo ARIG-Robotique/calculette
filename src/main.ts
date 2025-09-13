@@ -1,76 +1,127 @@
-import Vue from 'vue';
-import VueI18n from 'vue-i18n';
-import VueMaterial from 'vue-material';
-import 'vue-material/dist/vue-material.min.css';
-import VueRouter from 'vue-router';
-import App from './App.vue';
-import { CONTESTS } from './data/contests';
+import App from '@/App.vue';
+import { THEME_PREFIX } from '@/data/constants';
+import { CONTESTS, LAST_YEAR } from '@/data/contests';
+import router from '@/router.ts';
+import { createApp } from 'vue';
+import { createI18n } from 'vue-i18n';
+import { createVuetify } from 'vuetify';
+import {
+    VApp,
+    VAppBar,
+    VAppBarNavIcon,
+    VAppBarTitle,
+    VBtn,
+    VBtnToggle,
+    VCard,
+    VChip,
+    VCol,
+    VContainer,
+    VDialog,
+    VEmptyState,
+    VFooter,
+    VIcon,
+    VList,
+    VListItem,
+    VMain,
+    VMenu,
+    VNavigationDrawer,
+    VNumberInput,
+    VRow,
+    VSnackbar,
+    VSwitch,
+    VTextField,
+    VThemeProvider,
+    VToolbar,
+    VToolbarTitle
+} from 'vuetify/components';
+import { aliases, mdi } from 'vuetify/iconsets/mdi';
+import 'vuetify/styles';
 import { MessagesGlobal } from './data/i18n';
-import './registerServiceWorker';
-import './style.scss';
-import Page2017 from './views/Page2017.vue';
-import Page2018 from './views/Page2018.vue';
-import Page2019 from './views/Page2019.vue';
-import Page2021 from './views/Page2021.vue';
-import Page2022 from './views/Page2022.vue';
-import Page2023 from './views/Page2023.vue';
-import Page2024 from './views/Page2024.vue';
-import Page2025 from './views/Page2025.vue';
-import Page2026 from './views/Page2026.vue';
-import Page2022Match from './views/Page2022Match.vue';
-import Page2023Match from './views/Page2023Match.vue';
-import Page2024Match from './views/Page2024Match.vue';
-import Page2025Match from './views/Page2025Match.vue';
+import './style.css';
 
-// vue-i18n requires Vue to be global
-// @ts-ignore
-window.Vue = Vue;
-
-Vue.config.productionTip = false;
-
-Vue.use(VueRouter);
-Vue.use(VueMaterial);
-
-// @ts-ignore
-Vue.material.ripple = false;
-
-const pages: { [K in keyof typeof CONTESTS]: any } = {
-    2026: Page2026,
-    2025: Page2025,
-    2024: Page2024,
-    2023: Page2023,
-    2022: Page2022,
-    2021: Page2021,
-    2019: Page2019,
-    2018: Page2018,
-    2017: Page2017,
-};
-
-const pagesMatch: { [K in keyof typeof CONTESTS]: any } = {
-    2025: Page2025Match,
-    2024: Page2024Match,
-    2023: Page2023Match,
-    2022: Page2022Match,
-};
-
-const router = new VueRouter({
-    routes: [
-        ...Object.entries(pages).map(([year, component]) => ({ path: `/${year}`, component })),
-        ...Object.entries(pagesMatch).map(([year, component]) => ({ path: `/${year}/match`, component })),
-        { path: '*', redirect: `/${Math.max(...Object.keys(pages).map(y => +y))}` },
-    ],
+const vuetify = createVuetify({
+    components: {
+        VApp,
+        VAppBar,
+        VAppBarNavIcon,
+        VAppBarTitle,
+        VBtn,
+        VBtnToggle,
+        VCard,
+        VChip,
+        VCol,
+        VContainer,
+        VDialog,
+        VEmptyState,
+        VFooter,
+        VIcon,
+        VList,
+        VListItem,
+        VMain,
+        VMenu,
+        VNavigationDrawer,
+        VNumberInput,
+        VRow,
+        VSnackbar,
+        VSwitch,
+        VTextField,
+        VThemeProvider,
+        VToolbar,
+        VToolbarTitle,
+    },
+    icons: {
+        defaultSet: 'mdi',
+        aliases,
+        sets: { mdi },
+    },
+    defaults: {
+        VAppBar: {
+            color: 'primary',
+        },
+        VBtnToggle: {
+            density: 'compact',
+            border: true,
+            rounded: 'xl',
+        },
+        VFooter: {
+            color: 'primary',
+        },
+        VToolbar: {
+            color: 'primary',
+        },
+        VNumberInput: {
+            variant: 'underlined',
+            controlVariant: 'split',
+        },
+        VSwitch: {
+            color: 'accent',
+            density: 'compact',
+        },
+    },
+    theme: {
+        defaultTheme: THEME_PREFIX + LAST_YEAR,
+        themes: Object.values(CONTESTS).reduce((themes, contest) => ({
+            ...themes,
+            [THEME_PREFIX + contest.year]: { colors: contest.colors },
+        }), {}),
+    },
 });
 
 const locale = localStorage['locale'] ?? (window.navigator.language.toLowerCase().includes('fr') ? 'fr' : 'en');
-
-const i18n = new VueI18n({
+const i18n = createI18n({
     locale,
+    fallbackLocale: 'en',
     messages: MessagesGlobal,
+    allowComposition: true,
+    legacy: false,
+    fallbackRoot: true,
     silentFallbackWarn: true,
+    fallbackWarn: false,
+    missingWarn: false,
 });
 
-new Vue({
-    render: h => h(App),
-    router,
-    i18n,
-}).$mount('#app');
+createApp(App)
+    .use(i18n)
+    .use(router)
+    .use(vuetify)
+    .mount('#app');

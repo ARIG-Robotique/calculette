@@ -1,17 +1,20 @@
 # calculette
 
-## Project setup
-```
-yarn install
+## Project Setup
+
+```sh
+yarn
 ```
 
-### Compiles and hot-reloads for development
-```
+### Compile and Hot-Reload for Development
+
+```sh
 yarn serve
 ```
 
-### Compiles and minifies for production
-```
+### Compile and Minify for Production
+
+```sh
 yarn build
 ```
 
@@ -19,6 +22,3 @@ yarn build
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

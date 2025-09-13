@@ -1,15 +1,19 @@
-import VueI18n from 'vue-i18n';
+import { type I18nOptions } from 'vue-i18n';
 
-export const MessagesGlobal: VueI18n.LocaleMessages = {
+export const MessagesGlobal: I18nOptions['messages'] = {
     fr: {
         appName: 'Calculette CDR',
         global: {
             contests: 'Règlements',
+            rules: 'Règlement',
             close: 'Fermer',
             cancel: 'Annuler',
             validate: 'Valider',
         },
         form: {
+            actions: 'Actions',
+            bonus: 'Bonus',
+            total: 'Total',
             sima: 'PAMI',
             reset: 'Réinitialiser',
             estimation: 'Estimation de score',
@@ -34,12 +38,16 @@ export const MessagesGlobal: VueI18n.LocaleMessages = {
         appName: 'Eurobot calculator',
         global: {
             contests: 'Contests',
+            rules: 'Rules',
             close: 'Close',
             cancel: 'Cancel',
             validate: 'OK',
             sima: 'SIMA',
         },
         form: {
+            actions: 'Actions',
+            bonus: 'Bonus',
+            total: 'Total',
             sima: 'SIMA',
             reset: 'Reset',
             estimation: 'Score estimation',

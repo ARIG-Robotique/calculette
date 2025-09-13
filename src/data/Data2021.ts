@@ -1,61 +1,61 @@
-import { PageData } from "../models/PageData";
+import { type PageData } from "../models/PageData";
 import { fromBool, toBool } from "../utils/form.utils";
 
 export interface Form2021 {
-    boueesPort   : number,
+    boueesPort: number,
     boueesChenaux: number,
-    boueesPaires : number,
-    manchesAir   : number,
-    nbRobots     : number,
-    bonPort      : number,
-    mauvaisPort  : number,
-    pharePresent : boolean,
-    phareActive  : boolean,
-    phareDeploye : boolean,
+    boueesPaires: number,
+    manchesAir: number,
+    nbRobots: number,
+    bonPort: number,
+    mauvaisPort: number,
+    pharePresent: boolean,
+    phareActive: boolean,
+    phareDeploye: boolean,
     pavillonHisse: boolean,
-    estimation   : number,
-    nonForfait   : boolean,
+    estimation: number,
+    nonForfait: boolean,
 }
 
 export const Data2021: PageData<Form2021> = {
     defaultForm(): Form2021 {
         return {
-            boueesPort   : 0,
+            boueesPort: 0,
             boueesChenaux: 0,
-            boueesPaires : 0,
-            manchesAir   : 0,
-            nbRobots     : 2,
-            bonPort      : 0,
-            mauvaisPort  : 0,
-            pharePresent : false,
-            phareActive  : false,
-            phareDeploye : false,
+            boueesPaires: 0,
+            manchesAir: 0,
+            nbRobots: 2,
+            bonPort: 0,
+            mauvaisPort: 0,
+            pharePresent: false,
+            phareActive: false,
+            phareDeploye: false,
             pavillonHisse: false,
-            estimation   : 0,
-            nonForfait   : true,
+            estimation: 0,
+            nonForfait: true,
         };
     },
 
-    parseForm(c: string): Form2021 {
+    parseForm(c: string): Form2021 | null {
         const vals = c.split(',');
         if (vals.length !== 13) {
             return null;
         }
 
         return {
-            boueesPort   : parseInt(vals[0]),
+            boueesPort: parseInt(vals[0]),
             boueesChenaux: parseInt(vals[1]),
-            boueesPaires : parseInt(vals[2]),
-            manchesAir   : parseInt(vals[3]),
-            nbRobots     : parseInt(vals[4]),
-            bonPort      : parseInt(vals[5]),
-            mauvaisPort  : parseInt(vals[6]),
-            pharePresent : toBool(vals[7]),
-            phareActive  : toBool(vals[8]),
-            phareDeploye : toBool(vals[9]),
+            boueesPaires: parseInt(vals[2]),
+            manchesAir: parseInt(vals[3]),
+            nbRobots: parseInt(vals[4]),
+            bonPort: parseInt(vals[5]),
+            mauvaisPort: parseInt(vals[6]),
+            pharePresent: toBool(vals[7]),
+            phareActive: toBool(vals[8]),
+            phareDeploye: toBool(vals[9]),
             pavillonHisse: toBool(vals[10]),
-            estimation   : parseInt(vals[11]),
-            nonForfait   : toBool(vals[12]),
+            estimation: parseInt(vals[11]),
+            nonForfait: toBool(vals[12]),
         };
     },
 

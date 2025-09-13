@@ -1,0 +1,23 @@
+html, body, #app, .v-application, .v-application__wrap {
+    height: 100vh;
+}
+
+.v-main {
+    display: flex;
+    flex-direction: column;
+
+    header {
+        flex: none;
+        position: sticky;
+        top: 64px;
+        z-index: 100;
+    }
+
+    footer {
+        flex: none;
+    }
+
+    form {
+        flex: 1;
+    }
+}

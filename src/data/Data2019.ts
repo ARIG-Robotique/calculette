@@ -1,70 +1,70 @@
-import { PageData } from "../models/PageData";
+import { type PageData } from "../models/PageData";
 import { fromBool, toBool } from "../utils/form.utils";
 
 export interface Form2019 {
-    atomesTableau       : number,
+    atomesTableau: number,
     atomesTableauClasses: number,
-    goldeniumTableau    : boolean,
-    rediumBalance       : number,
-    greeniumBalance     : number,
-    blueiumBalance      : number,
-    goldeniumBalance    : boolean,
-    atomesAccel         : number,
-    detecteurOuvert     : boolean,
-    goldeniumPris       : boolean,
-    experiencePresente  : boolean,
-    experienceActivee   : boolean,
-    electron            : boolean,
-    estimation          : number,
-    meilleureBalance    : boolean,
-    nonForfait          : boolean,
+    goldeniumTableau: boolean,
+    rediumBalance: number,
+    greeniumBalance: number,
+    blueiumBalance: number,
+    goldeniumBalance: boolean,
+    atomesAccel: number,
+    detecteurOuvert: boolean,
+    goldeniumPris: boolean,
+    experiencePresente: boolean,
+    experienceActivee: boolean,
+    electron: boolean,
+    estimation: number,
+    meilleureBalance: boolean,
+    nonForfait: boolean,
 }
 
 export const Data2019: PageData<Form2019> = {
     defaultForm(): Form2019 {
         return {
-            atomesTableau       : 0,
+            atomesTableau: 0,
             atomesTableauClasses: 0,
-            goldeniumTableau    : false,
-            rediumBalance       : 0,
-            greeniumBalance     : 0,
-            blueiumBalance      : 0,
-            goldeniumBalance    : false,
-            atomesAccel         : 0,
-            detecteurOuvert     : false,
-            goldeniumPris       : false,
-            experiencePresente  : false,
-            experienceActivee   : false,
-            electron            : false,
-            estimation          : 0,
-            meilleureBalance    : false,
-            nonForfait          : true,
+            goldeniumTableau: false,
+            rediumBalance: 0,
+            greeniumBalance: 0,
+            blueiumBalance: 0,
+            goldeniumBalance: false,
+            atomesAccel: 0,
+            detecteurOuvert: false,
+            goldeniumPris: false,
+            experiencePresente: false,
+            experienceActivee: false,
+            electron: false,
+            estimation: 0,
+            meilleureBalance: false,
+            nonForfait: true,
         };
     },
 
-    parseForm(c: string): Form2019 {
+    parseForm(c: string): Form2019 | null {
         const vals = c.split(',');
         if (vals.length !== 16) {
             return null;
         }
 
         return {
-            atomesTableau       : parseInt(vals[0]),
+            atomesTableau: parseInt(vals[0]),
             atomesTableauClasses: parseInt(vals[1]),
-            goldeniumTableau    : toBool(vals[2]),
-            rediumBalance       : parseInt(vals[3]),
-            greeniumBalance     : parseInt(vals[4]),
-            blueiumBalance      : parseInt(vals[5]),
-            goldeniumBalance    : toBool(vals[6]),
-            atomesAccel         : parseInt(vals[7]),
-            detecteurOuvert     : toBool(vals[8]),
-            goldeniumPris       : toBool(vals[9]),
-            experiencePresente  : toBool(vals[10]),
-            experienceActivee   : toBool(vals[11]),
-            electron            : toBool(vals[12]),
-            estimation          : parseInt(vals[13]),
-            meilleureBalance    : toBool(vals[14]),
-            nonForfait          : toBool(vals[15]),
+            goldeniumTableau: toBool(vals[2]),
+            rediumBalance: parseInt(vals[3]),
+            greeniumBalance: parseInt(vals[4]),
+            blueiumBalance: parseInt(vals[5]),
+            goldeniumBalance: toBool(vals[6]),
+            atomesAccel: parseInt(vals[7]),
+            detecteurOuvert: toBool(vals[8]),
+            goldeniumPris: toBool(vals[9]),
+            experiencePresente: toBool(vals[10]),
+            experienceActivee: toBool(vals[11]),
+            electron: toBool(vals[12]),
+            estimation: parseInt(vals[13]),
+            meilleureBalance: toBool(vals[14]),
+            nonForfait: toBool(vals[15]),
         };
     },
 

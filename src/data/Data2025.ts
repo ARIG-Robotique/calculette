@@ -1,5 +1,5 @@
-import VueI18n from 'vue-i18n';
-import { PageData } from "../models/PageData";
+import { type I18nOptions } from 'vue-i18n';
+import { type PageData } from "../models/PageData";
 import { fromBool, toBool } from "../utils/form.utils";
 
 export interface Form2025 {
@@ -35,7 +35,7 @@ export const Data2025: PageData<Form2025> = {
         };
     },
 
-    parseForm(c: string): Form2025 {
+    parseForm(c: string): Form2025 | null {
         const vals = c.split(',');
         if (vals.length !== 10) {
             return null;
@@ -99,7 +99,7 @@ export const Data2025: PageData<Form2025> = {
     },
 };
 
-export const Messages2025: VueI18n.LocaleMessages = {
+export const Messages2025: I18nOptions['messages'] = {
     fr: {
         action1: 'Gradins niveau 1 (4 pts)',
         action2: 'Gradins niveau 2 (8 pts)',
@@ -119,9 +119,9 @@ export const Messages2025: VueI18n.LocaleMessages = {
         help5: '5 points par zone de la fosses occupé par au moins une groupie de l’équipe',
         help6: '5 points si la superstar de l’équipe est valide sur scène',
         help7: '10 points supplémentaires si tous les PAMI font la fête',
-        help8: '0, 1, 2, 3, 5, 9 ou 15 points supplémentaires fonction de la zone de scène libre derrière la superstar avec la valeur la plus grande.',
+        help8: '0, 1, 2, 3, 5, 9 ou 15 points supplémentaires fonction de la zone de scène libre derrière la superstar avec la valeur la plus grande',
         help9: '10 points si le robot principal de l’équipe est dans l’aire d’arrivée',
-        help10: '1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait".'
+        help10: '1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait"',
     },
     en: {
         action1: 'Level 1 tribunes (4 pts)',
@@ -144,6 +144,6 @@ export const Messages2025: VueI18n.LocaleMessages = {
         help7: '10 additional points if all SIMA make the party',
         help8: '0, 1, 2, 3, 5, 9 or 15 additional points based on the high value free stage area behind the superstar',
         help9: '10 points if team’s robot is in its own backstage area',
-        help10: '1 bonus point is awarded to all teams that are not "forfeited".'
-    }
+        help10: '1 bonus point is awarded to all teams that are not "forfeited"',
+    },
 };

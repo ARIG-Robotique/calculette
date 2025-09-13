@@ -1,52 +1,52 @@
-import { PageData } from "../models/PageData";
+import { type PageData } from "../models/PageData";
 import { fromBool, toBool } from "../utils/form.utils";
 
 export interface Form2023 {
-    etagesGateaux  : number,
+    etagesGateaux: number,
     gateauxComplets: number,
-    cerisesGateaux : number,
-    panierPresent  : boolean,
-    cerisesPanier  : number,
-    panierOk       : boolean,
-    retourOk       : boolean,
-    funnyAction    : boolean,
-    estimation     : number,
-    nonForfait     : boolean,
+    cerisesGateaux: number,
+    panierPresent: boolean,
+    cerisesPanier: number,
+    panierOk: boolean,
+    retourOk: boolean,
+    funnyAction: boolean,
+    estimation: number,
+    nonForfait: boolean,
 }
 
 export const Data2023: PageData<Form2023> = {
     defaultForm(): Form2023 {
         return {
-            etagesGateaux  : 0,
+            etagesGateaux: 0,
             gateauxComplets: 0,
-            cerisesGateaux : 0,
-            panierPresent  : false,
-            cerisesPanier  : 0,
-            panierOk       : false,
-            retourOk       : false,
-            funnyAction    : false,
-            estimation     : 0,
-            nonForfait     : true,
+            cerisesGateaux: 0,
+            panierPresent: false,
+            cerisesPanier: 0,
+            panierOk: false,
+            retourOk: false,
+            funnyAction: false,
+            estimation: 0,
+            nonForfait: true,
         };
     },
 
-    parseForm(c: string): Form2023 {
+    parseForm(c: string): Form2023 | null {
         const vals = c.split(',');
         if (vals.length !== 10) {
             return null;
         }
 
         return {
-            etagesGateaux  : parseInt(vals[0]),
+            etagesGateaux: parseInt(vals[0]),
             gateauxComplets: parseInt(vals[1]),
-            cerisesGateaux : parseInt(vals[2]),
-            panierPresent  : toBool(vals[3]),
-            cerisesPanier  : parseInt(vals[4]),
-            panierOk       : toBool(vals[5]),
-            retourOk       : toBool(vals[6]),
-            funnyAction    : toBool(vals[7]),
-            estimation     : parseInt(vals[8]),
-            nonForfait     : toBool(vals[9]),
+            cerisesGateaux: parseInt(vals[2]),
+            panierPresent: toBool(vals[3]),
+            cerisesPanier: parseInt(vals[4]),
+            panierOk: toBool(vals[5]),
+            retourOk: toBool(vals[6]),
+            funnyAction: toBool(vals[7]),
+            estimation: parseInt(vals[8]),
+            nonForfait: toBool(vals[9]),
         };
     },
 

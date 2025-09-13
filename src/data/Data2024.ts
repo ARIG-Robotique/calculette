@@ -1,4 +1,4 @@
-import { PageData } from "../models/PageData";
+import { type PageData } from "../models/PageData";
 import { fromBool, toBool } from "../utils/form.utils";
 
 export interface Form2024 {
@@ -10,8 +10,8 @@ export interface Form2024 {
     zonesContact: number,
     retour: boolean,
 
-    estimation     : number,
-    nonForfait     : boolean,
+    estimation: number,
+    nonForfait: boolean,
 }
 
 export const Data2024: PageData<Form2024> = {
@@ -30,7 +30,7 @@ export const Data2024: PageData<Form2024> = {
         };
     },
 
-    parseForm(c: string): Form2024 {
+    parseForm(c: string): Form2024 | null {
         const vals = c.split(',');
         if (vals.length !== 9) {
             return null;

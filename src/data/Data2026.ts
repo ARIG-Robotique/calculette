@@ -1,5 +1,5 @@
-import VueI18n from 'vue-i18n';
-import { PageData } from "../models/PageData";
+import { type I18nOptions } from 'vue-i18n';
+import { type PageData } from "../models/PageData";
 import { fromBool, toBool } from "../utils/form.utils";
 
 export interface Form2026 {
@@ -63,7 +63,7 @@ export const Data2026: PageData<Form2026> = {
         };
     },
 
-    parseForm(c: string): Form2026 {
+    parseForm(c: string): Form2026 | null {
         const vals = c.split(',');
         if (vals.length !== 20) {
             return null;
@@ -131,113 +131,96 @@ export const Data2026: PageData<Form2026> = {
     },
 
     compute(form: Form2026) {
-        let robot = 0;
-        robot += form.p1 * form.nid;
-        robot += form.p2 * form.gardeManger;
-        robot += form.p3 * form.interressement;
-
-        robot += form.thermometre;
-
-        robot += form.nidPartiel ? form.p6 : 0;
-        robot += form.nidComplet ? form.p7 : 0;
-
-        let frigo = 0;
-        frigo += form.p4 * form.frigoVide;
-        frigo += form.p5 * form.frigoPourrie;
-
-        let sima = 0;
-        sima += form.p8 * form.gardeMangerOccupe;
-        sima += form.tousLesEcureuilMange ? form.p9 : 0;
-
-        let total = robot + frigo + sima + 1;
+        let total = 0;
+        total += form.p1 * form.nid;
+        total += form.p2 * form.gardeManger;
+        total += form.p3 * form.interressement;
+        total += form.p4 * form.frigoVide;
+        total += form.p5 * form.frigoPourrie;
+        total += form.thermometre;
+        total += form.nidPartiel ? form.p6 : 0;
+        total += form.nidComplet ? form.p7 : 0;
+        total += form.p8 * form.gardeMangerOccupe;
+        total += form.tousLesEcureuilMange ? form.p9 : 0;
+        total += 1;
 
         if (!form.nonForfait) {
             total = 0;
         }
 
-        return { subtotal: robot, bonus: frigo, sima, total };
+        return { subtotal: 0, bonus: 0, total };
     },
 };
 
-export const Messages2026: VueI18n.LocaleMessages = {
+export const Messages2026: I18nOptions['messages'] = {
     fr: {
-        form: {
-            fridge: 'Frigos',
-        },
+        action1: 'Caisses dans le nid (p1 pts)',
+        action2: 'Caisses dans les garde-manger (p2 pts)',
+        action3: 'Intéressement par garde-manger (p3 pts)',
 
-        action1: 'Caisse dans le nid (p1 pts)',
-        action2: 'Caisse dans les garde-manger (p2 pts)',
-        action3: 'Intéressement par garde manger (p3 pts)',
-
-        action4: 'Frigo vide (p4 pts)',
-        action5: 'Frigo pourrie (p5 pts)',
+        action4: 'Frigos vide (p4 pts)',
+        action5: 'Frigos pourri (p5 pts)',
 
         action6: 'Thermomètre (X pts)',
 
         action7: 'Partiellement dans le nid (p6 pts)',
         action8: 'Completement dans le nid (p7 pts)',
 
-        action9: 'Garde manger occupé (p8 pts)',
+        action9: 'Gardes-manger occupés (p8 pts)',
         action10: 'Tous les ecureuils mangent (p9 pts)',
 
         action11: 'Non forfait (1 pt)',
 
-        help1: 'p1 points par caisse de noisettes dans le nid.',
-        help2: 'p2 points par caisse de noisettes valide dans un garde-manger.',
-        help3: 'p3 points d’intéressement par zone valide pour l’équipe.',
+        help1: 'p1 points par caisse de noisettes dans le nid',
+        help2: 'p2 points par caisse de noisettes valide dans un garde-manger',
+        help3: 'p3 points d’intéressement par zone valide pour l’équipe',
 
-        help4: 'p4 points par frigo vide de caisses de noisettes à la fin du match.',
-        help5: 'p5 points par frigo plein de caisses de noisettes pourries à la fin du match.',
+        help4: 'p4 points par frigo vide de caisses de noisettes à la fin du match',
+        help5: 'p5 points par frigo plein de caisses de noisettes pourries à la fin du match',
 
-        help6: 'X points pour la zone atteinte par le curseur, le nombre de points dépend du numéro indiqué dans la\n' +
-            'zone dans laquelle pointe le curseur.',
+        help6: 'X points pour la zone atteinte par le curseur, le nombre de points dépend du numéro indiqué dans la zone dans laquelle pointe le curseur',
 
-        help7: 'p6 points si le robot principal de l’équipe est partiellement dans une aire d’arrivée.',
-        help8: 'p7 points supplémentaires si le robot principal de l’équipe est complètement dans une aire d’arrivée.',
+        help7: 'p6 points si le robot principal de l’équipe est partiellement dans une aire d’arrivée',
+        help8: 'p7 points supplémentaires si le robot principal de l’équipe est complètement dans une aire d’arrivée',
 
-        help9: 'p8 points par garde-manger occupé par l’équipe.',
-        help10: 'p9 points si tous les PAMI mangent des noisettes.',
+        help9: 'p8 points par garde-manger occupé par l’équipe',
+        help10: 'p9 points si tous les PAMI mangent des noisettes',
 
-        help11: '1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait".'
+        help11: '1 point bonus est attribué à toutes les équipes qui ne sont pas "forfait"',
     },
     en: {
-        form: {
-            fridge: 'Fridges',
-        },
+        action1: 'Hazelnuts crates in the nest (p1 pts)',
+        action2: 'Hazelnuts crates in a pantry (p2 pts)',
+        action3: 'Interests in pantries (p3 pts)',
 
-        action1: 'Hazelnuts crate in the nest. (p1 pts)',
-        action2: 'Hazelnuts crate in a pantry (p2 pts)',
-        action3: 'Interest in pantry (p3 pts)',
-
-        action4: 'Empty fridge (p4 pts)',
-        action5: 'Rotten fridge (p5 pts)',
+        action4: 'Empty fridges (p4 pts)',
+        action5: 'Rotten fridges (p5 pts)',
 
         action6: 'Thermometer (X pts)',
 
         action7: 'Partially in the nest (p6 pts)',
         action8: 'Completely in the nest (p7 pts)',
 
-        action9: 'Busy pantry (p8 pts)',
-        action10: 'All squirrels eat (p9 pts)',
+        action9: 'Busy pantries (p8 pts)',
+        action10: 'All squirrels eating (p9 pts)',
 
         action11: 'Non forfeited (1 pt)',
 
-        help1: 'p1 points per hazelnuts crate in nest.',
-        help2: 'p2 points per hazelnuts crate valid in a pantry.',
-        help3: 'p3 points of interest by valid zone for the teams.',
+        help1: 'p1 points per hazelnuts crate in nest',
+        help2: 'p2 points per hazelnuts crate valid in a pantry',
+        help3: 'p3 points of interest by valid zone for the teams',
 
         help4: 'p4 points by fridge empty of hazelnut crates at the end of the match',
-        help5: 'p5 points by fridge full of crates of rotten hazelnuts at the end of the match.',
+        help5: 'p5 points by fridge full of crates of rotten hazelnuts at the end of the match',
 
-        help6: 'X points for the area reached by the cursor, the number of points depends on the number indicated ' +
-            'in the area in which the cursor points.',
+        help6: 'X points for the area reached by the cursor, the number of points depends on the number indicated in the area in which the cursor points',
 
-        help7: 'p6 points if the team’s main robot is partially in its own valid area.',
-        help8: 'p7 additional points if the team’s main robot is completely in its own valid area.',
+        help7: 'p6 points if the team’s main robot is partially in its own valid area',
+        help8: 'p7 additional points if the team’s main robot is completely in its own valid area',
 
         help9: 'p8 points by pantry occupied by the team',
-        help10: 'p9 points if all SIMA eat the hazelnuts.',
+        help10: 'p9 points if all SIMA eat the hazelnuts',
 
-        help11: '1 bonus point is awarded to all teams that are not "forfeited".'
-    }
+        help11: '1 bonus point is awarded to all teams that are not "forfeited"',
+    },
 };

@@ -1,13 +1,13 @@
-import { PageData } from "../models/PageData";
+import { type PageData } from "../models/PageData";
 import { fromBool, toBool } from "../utils/form.utils";
 
 export interface Form2017 {
     modulesDepart: number,
     mineraiDepart: number,
-    mineraiSoute : number,
-    modulesBase  : number,
-    funnyAction  : boolean,
-    nonForfait   : boolean,
+    mineraiSoute: number,
+    modulesBase: number,
+    funnyAction: boolean,
+    nonForfait: boolean,
 }
 
 export const Data2017: PageData<Form2017> = {
@@ -15,14 +15,14 @@ export const Data2017: PageData<Form2017> = {
         return {
             modulesDepart: 0,
             mineraiDepart: 0,
-            mineraiSoute : 0,
-            modulesBase  : 0,
-            funnyAction  : false,
-            nonForfait   : true,
+            mineraiSoute: 0,
+            modulesBase: 0,
+            funnyAction: false,
+            nonForfait: true,
         };
     },
 
-    parseForm(c: string): Form2017 {
+    parseForm(c: string): Form2017 | null {
         const vals = c.split(',');
         if (vals.length !== 6) {
             return null;
@@ -31,10 +31,10 @@ export const Data2017: PageData<Form2017> = {
         return {
             modulesDepart: parseInt(vals[0]),
             mineraiDepart: parseInt(vals[1]),
-            mineraiSoute : parseInt(vals[2]),
-            modulesBase  : parseInt(vals[3]),
-            funnyAction  : toBool(vals[4]),
-            nonForfait   : toBool(vals[5]),
+            mineraiSoute: parseInt(vals[2]),
+            modulesBase: parseInt(vals[3]),
+            funnyAction: toBool(vals[4]),
+            nonForfait: toBool(vals[5]),
         };
     },
 
