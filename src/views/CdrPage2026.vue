@@ -1,27 +1,15 @@
 <template>
-  <v-toolbar density="compact">
-    <div class="d-flex ga-2 ml-2">
-      <v-chip
-        color="accent"
-        variant="elevated"
-      >
-        {{ t('form.total') }}: {{ data.total }}
-      </v-chip>
-    </div>
-
-    <template #append>
-      <BtnShare
-        :year="YEAR"
-        :value="data.serializedForm"
-      />
-      <BtnFavorites
-        :year="YEAR"
-        :total="data.total"
-        :form="form"
-        @apply="data.applyFavorite($event)"
-      />
-    </template>
-  </v-toolbar>
+  <ContestToolbar
+    :year="YEAR"
+    :data="data"
+  >
+    <v-chip
+      color="accent"
+      variant="elevated"
+    >
+      {{ t('form.total') }}: {{ data.total }}
+    </v-chip>
+  </ContestToolbar>
 
   <form>
     <v-container fluid>
@@ -147,9 +135,8 @@
 </template>
 
 <script setup lang="ts">
-import BtnFavorites from '@/components/BtnFavorites.vue';
 import BtnReset from '@/components/BtnReset.vue';
-import BtnShare from '@/components/BtnShare.vue';
+import ContestToolbar from '@/components/ContestToolbar.vue';
 import EmbedPdf from '@/components/EmbedPdf.vue';
 import InputCheckbox from '@/components/InputCheckbox.vue';
 import InputNumber from '@/components/InputNumber.vue';

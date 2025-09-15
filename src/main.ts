@@ -28,13 +28,14 @@ import {
     VNumberInput,
     VRow,
     VSnackbar,
+    VSpeedDial,
     VSwitch,
     VTextField,
     VThemeProvider,
     VToolbar,
-    VToolbarTitle
+    VToolbarTitle,
+    VTooltip,
 } from 'vuetify/components';
-import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import 'vuetify/styles';
 import { MessagesGlobal } from './data/i18n';
 import './style.css';
@@ -63,16 +64,13 @@ const vuetify = createVuetify({
         VNumberInput,
         VRow,
         VSnackbar,
+        VSpeedDial,
         VSwitch,
         VTextField,
         VThemeProvider,
         VToolbar,
         VToolbarTitle,
-    },
-    icons: {
-        defaultSet: 'mdi',
-        aliases,
-        sets: { mdi },
+        VTooltip,
     },
     defaults: {
         VAppBar: {
@@ -104,6 +102,9 @@ const vuetify = createVuetify({
             ...themes,
             [THEME_PREFIX + contest.year]: { colors: contest.colors },
         }), {}),
+    },
+    display: {
+        mobileBreakpoint: 'sm',
     },
 });
 

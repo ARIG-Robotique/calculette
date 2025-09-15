@@ -3,21 +3,21 @@
     v-model="value"
     :label="label"
     :prepend-icon="help ? 'mdi-information' : void 0"
-    @click:prepend="snackbar.open(help!)"
+    @click:prepend="snackbar.show(help!)"
   />
 </template>
 
 <script setup lang="ts">
-import { useSnackbar } from '@/providers/useSnackbar';
+import { useAppCdrCtrl } from '@/providers/useAppCdr';
 
 const value = defineModel<boolean>({ required: true });
 
 defineProps<{
-    label: string;
-    help?: string;
+  label: string;
+  help?: string;
 }>();
 
-const snackbar = useSnackbar();
+const { snackbar } = useAppCdrCtrl();
 </script>
 
 <style scoped>

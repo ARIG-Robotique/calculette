@@ -12,27 +12,12 @@
             {{ contest.year }} : {{ contest.name }}
           </div>
         </v-app-bar-title>
-        <v-btn
-          v-if="contest.pdfUrl"
-          icon="mdi-file-document"
-          @click="showPdfDialog = true"
-        />
-        <v-btn
-          v-if="contest.match"
-          icon="mdi-flag-checkered"
-          @click="switchMatch()"
-        />
-      </v-app-bar>
-
-      <v-navigation-drawer
-        v-model="showMenu"
-        temporary
-        absolute
-        width="400"
-      >
-        <v-toolbar>
-          <v-app-bar-nav-icon @click.stop="showMenu = !showMenu" />
-          <v-toolbar-title>{{ t('global.contests') }}</v-toolbar-title>
+        <template #append>
+          <v-btn
+            v-if="contest.match"
+            icon="mdi-flag-checkered"
+            @click="switchMatch()"
+          />
           <v-btn
             color="primary-text"
             icon
@@ -52,6 +37,18 @@
               </v-list>
             </v-menu>
           </v-btn>
+        </template>
+      </v-app-bar>
+
+      <v-navigation-drawer
+        v-model="showMenu"
+        temporary
+        absolute
+        width="400"
+      >
+        <v-toolbar>
+          <v-app-bar-nav-icon @click.stop="showMenu = !showMenu" />
+          <v-toolbar-title>{{ t('global.contests') }}</v-toolbar-title>
         </v-toolbar>
         <v-list>
           <v-list-item
@@ -68,26 +65,9 @@
         <router-view />
 
         <AppSnackbar />
-
-        <v-dialog
-          v-model="showPdfDialog"
-          :fullscreen="true"
-        >
-          <v-card>
-            <v-toolbar>
-              <v-toolbar-title>{{ t('global.rules') }} {{ contest.year }}</v-toolbar-title>
-              <v-btn
-                icon="mdi-close"
-                @click="showPdfDialog = false"
-              />
-            </v-toolbar>
-            <embed
-              :src="contest.pdfUrl + '#pagemode=bookmarks'"
-              type="application/pdf"
-              style="width: 100%; height: 100%; border: none;"
-            >
-          </v-card>
-        </v-dialog>
+        <DialogFavorites />
+        <DialogPdf />
+        <DialogShare />
 
         <v-footer class="text-center d-block">
           Fait avec amour par
@@ -111,27 +91,29 @@
 </template>
 
 <script setup lang="ts">
+import AppSnackbar from '@/components/AppSnackbar.vue';
+import DialogFavorites from '@/components/DialogFavorites.vue';
+import DialogPdf from '@/components/DialogPdf.vue';
+import DialogShare from '@/components/DialogShare.vue';
 import { C_QUERY_PARAM, THEME_PREFIX } from '@/data/constants';
 import { CONTESTS } from '@/data/contests';
+import { provideAppCdr } from '@/providers/useAppCdr';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
-import AppSnackbar from '@/components/AppSnackbar.vue';
-import { provideSnackbar } from './providers/useSnackbar';
 
 const router = useRouter();
 const route = useRoute();
 const theme = useTheme();
 const { locale, t } = useI18n();
 
-provideSnackbar();
+provideAppCdr();
 
 const SORTED_CONTESTS = Object.values(CONTESTS).sort((a, b) => b.year - a.year);
 
 const contest = ref(SORTED_CONTESTS[0]);
 const showMenu = ref(false);
-const showPdfDialog = ref(false);
 
 watch(contest, (currentContest) => {
     theme.change(THEME_PREFIX + currentContest.year);
@@ -178,5 +160,9 @@ function setLocale(newLocale: string) {
     z-index: 1100 !important;
     top: 0 !important;
     height: 100% !important;
+}
+
+.v-toolbar-title {
+  margin-inline-start: 0 !important;
 }
 </style>

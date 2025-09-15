@@ -4,12 +4,12 @@
     :color="color"
     @click="show()"
   >
-    <v-icon icon="mdi-share" />
+    <v-icon icon="mdi-file-document" />
     <v-tooltip
       activator="parent"
       location="top"
     >
-      {{ t('share.title') }}
+      {{ t('global.rules') }}
     </v-tooltip>
   </v-btn>
 </template>
@@ -19,15 +19,14 @@ import { useAppCdrCtrl } from '@/providers/useAppCdr';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-const { shareLink } = useAppCdrCtrl();
+const { rulesPdf } = useAppCdrCtrl();
 
-const props = defineProps<{
+const props = defineProps<{ 
   color?: string;
   year: string;
-  value: string;
 }>();
 
 function show() {
-  shareLink.show(props.year, props.value);
+    rulesPdf.show(props.year);
 }
 </script>

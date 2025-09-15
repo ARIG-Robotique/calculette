@@ -1,6 +1,10 @@
 <template>
-  <v-toolbar density="compact">
-    <div class="d-flex ga-2 ml-2">
+  <ContestToolbar
+    :year="YEAR"
+    :data="data"
+    mobile-mode
+  >
+    <div class="flex-1-0-100 flex-sm-1-1-0 d-flex ga-2">
       <v-chip variant="outlined">
         Actions: {{ data.subtotal }}
       </v-chip>
@@ -10,27 +14,14 @@
       <v-chip variant="outlined">
         Coccinelles: {{ data.sima }}
       </v-chip>
-      <v-chip
-        color="accent"
-        variant="elevated"
-      >
-        Total: {{ data.total }}
-      </v-chip>
     </div>
-
-    <template #append>
-      <BtnShare
-        :year="YEAR"
-        :value="data.serializedForm"
-      />
-      <BtnFavorites
-        :year="YEAR"
-        :total="data.total"
-        :form="form"
-        @apply="data.applyFavorite($event)"
-      />
-    </template>
-  </v-toolbar>
+    <v-chip
+      color="accent"
+      variant="elevated"
+    >
+      Total: {{ data.total }}
+    </v-chip>
+  </ContestToolbar>
 
   <form>
     <v-container fluid>
@@ -102,9 +93,8 @@
 </template>
 
 <script setup lang="ts">
-import BtnFavorites from '@/components/BtnFavorites.vue';
 import BtnReset from '@/components/BtnReset.vue';
-import BtnShare from '@/components/BtnShare.vue';
+import ContestToolbar from '@/components/ContestToolbar.vue';
 import EmbedPdf from '@/components/EmbedPdf.vue';
 import InputCheckbox from '@/components/InputCheckbox.vue';
 import InputEstimation from '@/components/InputEstimation.vue';

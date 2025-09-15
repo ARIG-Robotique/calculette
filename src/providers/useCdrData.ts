@@ -1,17 +1,33 @@
 import { C_QUERY_PARAM } from '@/data/constants';
-import { type Favorite } from '@/models/Favorite';
 import { type PageData } from '@/models/PageData';
-import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+import { onMounted, onUnmounted, reactive, ref, watch, type Reactive } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAppCdrCtrl } from './useAppCdr';
 
-export function useCdrData<T extends object>(data: PageData<T>) {
+export type CdrController<T extends object> = {
+    form: Reactive<T>;
+    subtotal: number;
+    bonus: number;
+    sima?: number;
+    total: number;
+    serializedForm: string;
+    reset(): void;
+    setEstimation(): void;
+};
+
+export function useCdrData<T extends object>(data: PageData<T>): CdrController<T> {
     const router = useRouter();
+    const { favorites } = useAppCdrCtrl();
 
     const form = reactive(data.defaultForm());
     const subtotal = ref(0);
     const sima = ref<number | undefined>(0);
     const bonus = ref(0);
     const total = ref(0);
+
+    favorites.onApply(favorite => {
+        Object.assign(form, favorite.form);
+    });
 
     watch(form, () => {
         ({
@@ -24,7 +40,7 @@ export function useCdrData<T extends object>(data: PageData<T>) {
 
     function setFromHash() {
         const [, params] = /\?(.+)/.exec(window.location.hash) ?? [null, ''];
-        const c =  new URLSearchParams(params).get(C_QUERY_PARAM);
+        const c = new URLSearchParams(params).get(C_QUERY_PARAM);
 
         if (c) {
             Object.assign(form, data.parseForm(c) ?? data.defaultForm());
@@ -61,16 +77,12 @@ export function useCdrData<T extends object>(data: PageData<T>) {
 
         reset() {
             Object.assign(form, data.defaultForm());
-            router.replace({ query: { [C_QUERY_PARAM]: undefined }});
+            router.replace({ query: { [C_QUERY_PARAM]: undefined } });
         },
 
         setEstimation() {
             // @ts-expect-error "chut!"
             form.estimation = subtotal.value;
-        },
-
-        applyFavorite(favorite: Favorite) {
-            Object.assign(form, favorite.form);
         },
     };
 }

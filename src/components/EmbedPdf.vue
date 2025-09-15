@@ -9,8 +9,11 @@
 <script setup lang="ts">
 import { CONTESTS } from '@/data/contests';
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n();
 
 const props = defineProps<{ year: string }>();
 
-const pdfUrl = computed(() => CONTESTS[props.year].pdfUrl);
+const pdfUrl = computed(() => CONTESTS[props.year].rulesPdf[locale.value]);
 </script>

@@ -1,21 +1,25 @@
 <template>
   <v-snackbar
-    v-model="snackbar.show.value"
-    :timeout="snackbar.timeout"
+    v-model="snackbar.isVisible.value"
+    :timeout="timeout"
   >
-    {{ snackbar.content }}
+    {{ content }}
     <template #actions>
       <v-btn
         color="accent"
         icon="mdi-close-circle"
-        @click="snackbar.close()"
+        @click="snackbar.hide()"
       />
     </template>
   </v-snackbar>
 </template>
 
 <script setup lang="ts">
-import { useSnackbar } from '@/providers/useSnackbar';
+import { useAppCdrCtrl } from '@/providers/useAppCdr';
+import { computed } from 'vue';
 
-const snackbar = useSnackbar();
+const { snackbar } = useAppCdrCtrl();
+
+const timeout = computed(() => snackbar.data.value.timeout);
+const content = computed(() => snackbar.data.value.content);
 </script>
