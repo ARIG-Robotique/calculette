@@ -18,11 +18,11 @@ export interface Contest {
 export const CONTESTS: Record<string, Contest> = {
     2026: {
         year: 2026,
-        name: 'Winter is coming (beta)',
+        name: 'Winter is coming',
         match: false,
         rulesPdf: {
-            fr: 'https://www.eurobot.org/wp-content/uploads/2025/09/Eurobot2026_Rules_BETA_0.9_FR.pdf',
-            en: 'https://www.eurobot.org/wp-content/uploads/2025/09/Eurobot2026_Rules_BETA_0.9_EN.pdf',
+            fr: 'https://www.eurobot.org/wp-content/uploads/2025/10/Eurobot2026_Rules_1.0_FR.pdf',
+            en: 'https://www.eurobot.org/wp-content/uploads/2025/10/Eurobot2026_Rules_1.0_EN.pdf',
         },
         colors: {
             primary: colors.lightBlue.darken3,

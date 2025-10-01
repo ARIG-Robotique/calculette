@@ -15,9 +15,9 @@
     <v-container fluid>
       <v-row justify="center">
         <v-col
-          cols="7"
-          md="4"
-          lg="3"
+          cols="12"
+          md="6"
+          lg="4"
         >
           <InputNumber
             v-model="form.nid"
@@ -44,7 +44,7 @@
             :help="t('help4')"
           />
           <InputNumber
-            v-model="form.frigoPourrie"
+            v-model="form.frigoPlein"
             :max="4"
             :label="t('action5')"
             :help="t('help5')"
@@ -75,54 +75,6 @@
             v-model="form.tousLesEcureuilMange"
             :label="t('action10')"
             :help="t('help10')"
-          />
-          <InputCheckbox
-            v-model="form.nonForfait"
-            :label="t('action11')"
-            :help="t('help11')"
-          />
-        </v-col>
-        <v-col
-          cols="5"
-          md="3"
-          lg="2"
-        >
-          <InputNumber
-            v-model="form.p1"
-            label="P1"
-          />
-          <InputNumber
-            v-model="form.p2"
-            label="P2"
-          />
-          <InputNumber
-            v-model="form.p3"
-            label="P3"
-          />
-          <InputNumber
-            v-model="form.p4"
-            label="P4"
-          />
-          <InputNumber
-            v-model="form.p5"
-            label="P5"
-          />
-          <div style="height: 70px;" />
-          <InputNumber
-            v-model="form.p6"
-            label="P6"
-          />
-          <InputNumber
-            v-model="form.p7"
-            label="P7"
-          />
-          <InputNumber
-            v-model="form.p8"
-            label="P8"
-          />
-          <InputNumber
-            v-model="form.p9"
-            label="P9"
           />
           <BtnReset @reset="data.reset()" />
         </v-col>
