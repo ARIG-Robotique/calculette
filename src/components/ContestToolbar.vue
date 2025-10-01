@@ -6,19 +6,42 @@
 
     <template #append>
       <div class="d-none d-sm-block">
-        <BtnPdf
-          class="d-lg-none"
-          :year="year"
-        />
-        <BtnShare
-          :year="year"
-          :value="data.serializedForm"
-        />
-        <BtnFavorites
-          :year="year"
-          :total="data.total"
-          :form="data.form"
-        />
+        <v-btn
+          icon
+          @click="showRulesPdf()"
+        >
+          <v-icon icon="mdi-file-document" />
+          <v-tooltip
+            activator="parent"
+            location="top"
+          >
+            {{ t('global.rules') }}
+          </v-tooltip>
+        </v-btn>
+        <v-btn
+          icon
+          @click="showShareLink()"
+        >
+          <v-icon icon="mdi-share" />
+          <v-tooltip
+            activator="parent"
+            location="top"
+          >
+            {{ t('share.title') }}
+          </v-tooltip>
+        </v-btn>
+        <v-btn
+          icon
+          @click="showFavorites()"
+        >
+          <v-icon icon="mdi-star" />
+          <v-tooltip
+            activator="parent"
+            location="top"
+          >
+            {{ t('favorites.title') }}
+          </v-tooltip>
+        </v-btn>
       </div>
 
       <v-btn
@@ -26,43 +49,40 @@
         class="d-sm-none"
       >
         <v-icon icon="mdi-dots-vertical" />
-        <v-speed-dial
-          location="bottom"
+        <v-menu
           activator="parent"
+          location="bottom right"
         >
-          <BtnPdf
-            key="1" 
-            color="accent"
-            :year="year"
-          />
-          <BtnShare
-            key="2"
-            color="accent"
-            :year="year"
-            :value="data.serializedForm"
-          />
-          <BtnFavorites
-            key="3"
-            color="accent"
-            :year="year"
-            :total="data.total"
-            :form="data.form"
-          />
-        </v-speed-dial>
+          <v-list>
+            <v-list-item @click="showRulesPdf()">
+              <v-icon icon="mdi-file-document" />
+              {{ t('global.rules') }}
+            </v-list-item>
+            <v-list-item @click="showShareLink()">
+              <v-icon icon="mdi-share" />
+              {{ t('share.title') }}
+            </v-list-item>
+            <v-list-item @click="showFavorites()">
+              <v-icon icon="mdi-star" />
+              {{ t('favorites.title') }}
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-btn>
     </template>
   </v-toolbar>
 </template>
 
 <script setup lang="ts">
-import BtnFavorites from '@/components/BtnFavorites.vue';
-import BtnPdf from '@/components/BtnPdf.vue';
-import BtnShare from '@/components/BtnShare.vue';
 import type { CdrController } from '@/providers/useCdrData';
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
+import { useAppCdrCtrl } from '../providers/useAppCdr';
 
+const { t } = useI18n();
 const { xs } = useDisplay();
+const { rulesPdf, shareLink, favorites } = useAppCdrCtrl();
 
 const props = defineProps<{
   year: string,
@@ -71,4 +91,16 @@ const props = defineProps<{
 }>();
 
 const height = computed(() => props.mobileMode && xs.value ? 92 : 48);
+
+function showRulesPdf() {
+  rulesPdf.show(props.year);
+}
+
+function showShareLink() {
+  shareLink.show(props.year, props.data.serializedForm);
+}
+
+function showFavorites() {
+  favorites.show(props.year, props.data.total, props.data.form);
+}
 </script>
