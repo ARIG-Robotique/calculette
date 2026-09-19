@@ -19,6 +19,7 @@ yarn build
 ```
 
 ### Lints and fixes files
-```
+
+```sh
 yarn lint
 ```
