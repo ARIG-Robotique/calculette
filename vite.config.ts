@@ -11,7 +11,7 @@ export default defineConfig({
             manifest: {
                 name: "Calculette CDR",
                 short_name: "Calculette CDR",
-                theme_color: "#0277bd",
+                theme_color: "#ffb300",
                 background_color: "#ffffff",
                 start_url: ".",
                 display: "standalone",

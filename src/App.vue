@@ -14,11 +14,6 @@
         </v-app-bar-title>
         <template #append>
           <v-btn
-            v-if="contest.match"
-            icon="mdi-flag-checkered"
-            @click="switchMatch()"
-          />
-          <v-btn
             color="primary-text"
             icon
           >
@@ -137,15 +132,6 @@ watch(route, () => {
 function setYear(year: number) {
     router.push({ path: `/${year}`, query: { [C_QUERY_PARAM]: undefined } });
     showMenu.value = false;
-}
-
-function switchMatch() {
-    const isMatch = route.path.substring(1).split('/')[1] === 'match';
-    if (isMatch) {
-        router.push({ path: `/${contest.value.year}`, query: { [C_QUERY_PARAM]: undefined } });
-    } else {
-        router.push({ path: `/${contest.value.year}/match`, query: { [C_QUERY_PARAM]: undefined } });
-    }
 }
 
 function setLocale(newLocale: string) {

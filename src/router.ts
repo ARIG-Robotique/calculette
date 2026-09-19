@@ -8,32 +8,26 @@ import CdrPage2023 from '@/views/CdrPage2023.vue';
 import CdrPage2024 from '@/views/CdrPage2024.vue';
 import CdrPage2025 from '@/views/CdrPage2025.vue';
 import CdrPage2026 from '@/views/CdrPage2026.vue';
+import CdrPage2027 from '@/views/CdrPage2027.vue';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 const pages: { [K in keyof typeof CONTESTS]: any } = {
-    2026: CdrPage2026,
-    2025: CdrPage2025,
-    2024: CdrPage2024,
-    2023: CdrPage2023,
-    2022: CdrPage2022,
-    2021: CdrPage2021,
-    2019: CdrPage2019,
-    2018: CdrPage2018,
     2017: CdrPage2017,
+    2018: CdrPage2018,
+    2019: CdrPage2019,
+    2021: CdrPage2021,
+    2022: CdrPage2022,
+    2023: CdrPage2023,
+    2024: CdrPage2024,
+    2025: CdrPage2025,
+    2026: CdrPage2026,
+    2027: CdrPage2027,
 };
-
-// const pagesMatch: { [K in keyof typeof CONTESTS]: any } = {
-//     2025: Page2025Match,
-//     2024: Page2024Match,
-//     2023: Page2023Match,
-//     2022: Page2022Match,
-// };
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         ...Object.entries(pages).map(([year, component]) => ({ path: `/${year}`, component })),
-        // ...Object.entries(pagesMatch).map(([year, component]) => ({ path: `/${year}/match`, component })),
         { path: '/:pathMatch(.*)*', redirect: `/${LAST_YEAR}` },
     ],
 });
