@@ -21,16 +21,19 @@
         >
           <InputNumber
             v-model="form.stoneInZone"
+            :max="30"
             :label="t('action1')"
             :help="t('help1')"
           />
           <InputNumber
             v-model="form.wall"
+            :max="5"
             :label="t('action2')"
             :help="t('help2')"
           />
           <InputNumber
             v-model="form.tower"
+            :max="4"
             :label="t('action3')"
             :help="t('help3')"
           />
@@ -62,6 +65,7 @@
           />
           <InputNumber
             v-model="form.moat"
+            :max="3"
             :label="t('action9')"
             :help="t('help9')"
           />
@@ -72,6 +76,7 @@
           />
           <InputNumber
             v-model="form.cannonball"
+            :max="10"
             :label="t('action11')"
             :help="t('help11')"
           />
