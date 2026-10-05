@@ -144,6 +144,7 @@ import InputCheckbox from '@/components/InputCheckbox.vue';
 import InputNumber from '@/components/InputNumber.vue';
 import { Data2027, Messages2027 } from '@/data/Data2027';
 import { useCdrData } from '@/providers/useCdrData';
+import { watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const YEAR = '2027';
@@ -151,4 +152,16 @@ const YEAR = '2027';
 const { t } = useI18n({ messages: Messages2027 });
 const data = useCdrData(Data2027);
 const { form } = data;
+
+watch(() => form.fullArrival, (fullArrival) => {
+  if (fullArrival) {
+    form.arrival = true;
+  }
+});
+
+watch(() => form.arrival, (arrival) => {
+  if (!arrival) {
+    form.fullArrival = false;
+  }
+});
 </script>
