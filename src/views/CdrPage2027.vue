@@ -132,9 +132,6 @@
           />
           <BtnReset @reset="data.reset()" />
         </v-col>
-        <!-- <v-col class="d-none d-lg-block">
-          <EmbedPdf :year="YEAR" />
-        </v-col> -->
       </v-row>
     </v-container>
   </form>
@@ -143,7 +140,6 @@
 <script setup lang="ts">
 import BtnReset from '@/components/BtnReset.vue';
 import ContestToolbar from '@/components/ContestToolbar.vue';
-import EmbedPdf from '@/components/EmbedPdf.vue';
 import InputCheckbox from '@/components/InputCheckbox.vue';
 import InputNumber from '@/components/InputNumber.vue';
 import { Data2027, Messages2027 } from '@/data/Data2027';
