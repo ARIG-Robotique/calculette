@@ -15,9 +15,9 @@
     <v-container fluid>
       <v-row justify="center">
         <v-col
-          cols="7"
-          md="4"
-          lg="3"
+          cols="12"
+          md="6"
+          lg="4"
         >
           <InputNumber
             v-model="form.stoneInZone"
@@ -74,63 +74,20 @@
             :label="t('action10')"
             :help="t('help10')"
           />
-          <InputNumber
+          <InputCheckbox
             v-model="form.cannonball"
-            :max="10"
             :label="t('action11')"
             :help="t('help11')"
           />
-        </v-col>
-        <v-col
-          cols="5"
-          md="3"
-          lg="2"
-        >
-          <InputNumber
-            v-model="form.p1"
-            label="P1"
-          />
-          <InputNumber
-            v-model="form.p2"
-            label="P2"
-          />
-          <InputNumber
-            v-model="form.p3"
-            label="P3"
-          />
-          <InputNumber
-            v-model="form.p4"
-            label="P4"
-          />
-          <InputNumber
-            v-model="form.p5"
-            label="P5"
-          />
-          <InputNumber
-            v-model="form.p6"
-            label="P6"
-          />
-          <InputNumber
-            v-model="form.p7"
-            label="P7"
-          />
-          <InputNumber
-            v-model="form.p8"
-            label="P8"
-          />
-          <InputNumber
-            v-model="form.p9"
-            label="P9"
-          />
-          <InputNumber
-            v-model="form.p10"
-            label="P10"
-          />
-          <InputNumber
-            v-model="form.p11"
-            label="P11"
+          <InputCheckbox
+            v-model="form.cannonballx3"
+            :label="t('action12')"
+            :help="t('help12')"
           />
           <BtnReset @reset="data.reset()" />
+        </v-col>
+        <v-col class="d-none d-lg-block">
+          <EmbedPdf :year="YEAR" />
         </v-col>
       </v-row>
     </v-container>
@@ -140,6 +97,7 @@
 <script setup lang="ts">
 import BtnReset from '@/components/BtnReset.vue';
 import ContestToolbar from '@/components/ContestToolbar.vue';
+import EmbedPdf from '@/components/EmbedPdf.vue';
 import InputCheckbox from '@/components/InputCheckbox.vue';
 import InputNumber from '@/components/InputNumber.vue';
 import { Data2027, Messages2027 } from '@/data/Data2027';

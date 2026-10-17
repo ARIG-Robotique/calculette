@@ -17,10 +17,10 @@ export interface Contest {
 export const CONTESTS: Record<string, Contest> = {
     2027: {
         year: 2027,
-        name: 'The legend of Camelot (beta)',
+        name: 'The legend of Camelot',
         rulesPdf: {
-            fr: 'https://www.eurobot.org/wp-content/uploads/2026/09/Eurobot2027_Rules_FR.pdf',
-            en: 'https://www.eurobot.org/wp-content/uploads/2026/09/Eurobot2027_Rules_EN.pdf',
+            fr: 'https://www.eurobot.org/wp-content/uploads/2026/10/Eurobot2027_Rules_FR.pdf',
+            en: 'https://www.eurobot.org/wp-content/uploads/2026/10/Eurobot2027_Rules_EN.pdf',
         },
         colors: {
             primary: colors.amber.darken1,
