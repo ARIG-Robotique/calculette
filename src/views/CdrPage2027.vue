@@ -122,4 +122,16 @@ watch(() => form.arrival, (arrival) => {
     form.fullArrival = false;
   }
 });
+
+watch(() => form.cannonballx3, (cannonballx3) => {
+  if (cannonballx3) {
+    form.cannonball = true;
+  }
+});
+
+watch(() => form.cannonball, (cannonball) => {
+  if (!cannonball) {
+    form.cannonballx3 = false;
+  }
+});
 </script>
