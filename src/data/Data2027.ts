@@ -123,7 +123,7 @@ export const Messages2027: I18nOptions['messages'] = {
         help6: `5 points par niveau d'élévation du Graal`,
 
         help7: `5 points si le robot principal de  l'équipe est partiellement dans une aire d'arrivée`,
-        help8: `10 points si le robot principal de l'équipe est complètement dans une aire d'arrivée`,
+        help8: `5 points supplémentaire si le robot principal de l'équipe est complètement dans une aire d'arrivée`,
 
         help9: `5 points par douve occupée par l'équipe`,
         help10: `5 points si au moins PAMI attaque un PAMI adverse`,
@@ -156,7 +156,7 @@ export const Messages2027: I18nOptions['messages'] = {
         help6: `5 points per Grail elevation level`,
 
         help7: `5 points if the team's main robot is partially in its own valid area`,
-        help8: `10 points if the team's main robot is completely in its own valid area`,
+        help8: `5 additionnal points if the team's main robot is completely in its own valid area`,
 
         help9: `5 points by moat occupied by the team`,
         help10: `5 points if at least one SIMA attacks an opposing SIMA`,
