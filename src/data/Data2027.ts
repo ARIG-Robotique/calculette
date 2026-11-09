@@ -86,7 +86,7 @@ export const Data2027: PageData<Form2027> = {
         total += form.grailPresent ? 5 : 0;
         total += form.grailLevel * 5;
         total += form.arrival ? 5 : 0;
-        total += form.fullArrival ? 10 : 0;
+        total += form.fullArrival ? 5 : 0;
         total += form.moat * 5;
         total += form.attack ? 5 : 0;
         total += form.cannonball ? 5 : 0;
@@ -107,12 +107,12 @@ export const Messages2027: I18nOptions['messages'] = {
         action6: 'Niveau du Graal (5pts)',
 
         action7: 'Roi arrivé (5pts)',
-        action8: 'Entièrement arrivé (10pts)',
+        action8: 'Entièrement arrivé (+5pts)',
 
         action9: 'Douves occupées (5pts)',
         action10: 'Un chevalier attaque (5pts)',
         action11: '1 boulet dans le château (5pts)',
-        action12: '3 boulets dans le château (15pts)',
+        action12: '3 boulets dans le château (+15pts)',
 
         help1: '1 point par pierre disposée dans une zone de construction',
         help2: '5 points par mur construit',
@@ -140,12 +140,12 @@ export const Messages2027: I18nOptions['messages'] = {
         action6: 'Grail level (5pts)',
 
         action7: 'King arrived (5pts)',
-        action8: 'Fully arrived (10pts)',
+        action8: 'Fully arrived (+5pts)',
 
         action9: 'Moats occupied (5pts)',
         action10: 'Knight attacks (5pts)',
         action11: '1 cannonball in the castle (5pts)',
-        action12: '3 cannonballs in the castle (15pts)',
+        action12: '3 cannonballs in the castle (+15pts)',
 
         help1: '1 point per stone placed in a construction zone',
         help2: '5 points per wall built.',
