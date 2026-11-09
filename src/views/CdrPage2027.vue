@@ -134,4 +134,16 @@ watch(() => form.cannonball, (cannonball) => {
     form.cannonballx3 = false;
   }
 });
+
+watch(() => form.grailLevel, (grailLevel) => {
+  if (grailLevel > 0) {
+    form.grailPresent = true;
+  }
+})
+
+watch(() => form.grailPresent, (grailPresent) => {
+  if (!grailPresent) {
+    form.grailLevel = 0;
+  }
+})
 </script>
