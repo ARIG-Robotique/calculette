@@ -1,16 +1,21 @@
 <template>
   <v-input
-    class="mb-6"
+    class="mb-2"
     hide-details
     role="group"
     :aria-label="label"
     :prepend-icon="help ? 'mdi-information' : void 0"
     @click:prepend="snackbar.show(help!)"
   >
-    <div class="d-flex flex-column align-start ga-2">
-      <v-label :text="label" />
+    <div class="input-radio__content d-flex flex-column align-start ga-2">
+      <v-label
+        class="opacity-100"
+        :text="label"
+      />
       <v-btn-toggle
         v-model="value"
+        class="input-radio__options"
+        height="54"
         mandatory
         divided
         color="accent"
@@ -21,6 +26,8 @@
           v-for="option in max + 1"
           :key="option - 1"
           :value="option - 1"
+          :disabled="option - 1 > (maxSelectable ?? max)"
+          class="flex-grow-1"
           min-width="36"
           size="small"
         >
@@ -38,9 +45,21 @@ const value = defineModel<number>({ required: true });
 
 defineProps<{
   max: number;
+  maxSelectable?: number;
   label: string;
   help?: string;
 }>();
 
 const { snackbar } = useAppCdrCtrl();
 </script>
+
+<style scoped>
+.input-radio__content {
+  min-width: 0;
+  width: 100%;
+}
+
+.input-radio__options {
+  width: 100%;
+}
+</style>

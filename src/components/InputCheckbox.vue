@@ -2,6 +2,7 @@
   <v-switch
     v-model="value"
     :label="label"
+    :disabled="disabled"
     :prepend-icon="help ? 'mdi-information' : void 0"
     @click:prepend="snackbar.show(help!)"
   />
@@ -15,6 +16,7 @@ const value = defineModel<boolean>({ required: true });
 defineProps<{
   label: string;
   help?: string;
+  disabled?: boolean;
 }>();
 
 const { snackbar } = useAppCdrCtrl();
