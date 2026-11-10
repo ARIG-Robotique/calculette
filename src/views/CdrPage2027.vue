@@ -47,7 +47,7 @@
             :label="t('action5')"
             :help="t('help5')"
           />
-          <InputNumber
+          <InputRadio
             v-model="form.grailLevel"
             :max="4"
             :label="t('action6')"
@@ -63,7 +63,7 @@
             :label="t('action8')"
             :help="t('help8')"
           />
-          <InputNumber
+          <InputRadio
             v-model="form.moat"
             :max="3"
             :label="t('action9')"
@@ -100,6 +100,7 @@ import ContestToolbar from '@/components/ContestToolbar.vue';
 import EmbedPdf from '@/components/EmbedPdf.vue';
 import InputCheckbox from '@/components/InputCheckbox.vue';
 import InputNumber from '@/components/InputNumber.vue';
+import InputRadio from '@/components/InputRadio.vue';
 import { Data2027, Messages2027 } from '@/data/Data2027';
 import { useCdrData } from '@/providers/useCdrData';
 import { watch } from 'vue';
