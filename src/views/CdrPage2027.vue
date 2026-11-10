@@ -43,7 +43,7 @@
           />
           <InputCheckbox
             v-model="form.door"
-            :disabled="!form.door && stonesAvailable < 3"
+            :disabled="!form.door && (stonesAvailable < 3 || form.wall >= 5)"
             :label="t('action4')"
             :help="t('help4')"
           />
@@ -119,7 +119,10 @@ const { form } = data;
 
 const stonesUsed = computed(() => form.wall * 3 + form.tower + (form.door ? 3 : 0));
 const stonesAvailable = computed(() => form.stoneInZone - stonesUsed.value);
-const maxWalls = computed(() => Math.floor((stonesAvailable.value + form.wall * 3) / 3));
+const maxWalls = computed(() => Math.min(
+  form.door ? 4 : 5,
+  Math.floor((stonesAvailable.value + form.wall * 3) / 3),
+));
 const maxTowers = computed(() => stonesAvailable.value + form.tower);
 
 watch(() => form.fullArrival, (fullArrival) => {
